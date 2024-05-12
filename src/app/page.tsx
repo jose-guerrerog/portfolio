@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Box>
+      <Box sx={{ margin: 4 }}>
         <HeroSection />
         <AboutSection />
         <EmailSection />

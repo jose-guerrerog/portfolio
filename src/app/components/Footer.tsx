@@ -3,12 +3,17 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <Box component="footer">
+    <Box
+      component="footer"
+      sx={{
+        backgroundColor: "#000",
+        color: '#FFF',
+      }}
+    >
       <Container>
-        <Typography>logo</Typography>
-        <Typography>All rights reserved.</Typography>
+        <Typography color="#FFF">logo</Typography>
+        <Typography color="#FFF">All rights reserved.</Typography>
       </Container>
-
     </Box>
   );
 };

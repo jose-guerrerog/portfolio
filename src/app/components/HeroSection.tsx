@@ -5,15 +5,15 @@ const HeroSection = () => {
   return (
     <Box component='section'>
       <Grid container>
-        <Grid xs={1} lg={7} item>
-          <Typography>
+        <Grid xs={12} sm={7} item>
+          <Typography variant="h2">
             Hello, I'm Jose
           </Typography>
           <Typography>
             jnskdjnajdnjsdnajk jdanjdnajksdnkjas
           </Typography>
         </Grid>
-        <Grid xs={1} lg={5} item>
+        <Grid xs={12} sm={5} item>
           fdkwmkdlmfklsd
         </Grid>
       </Grid>

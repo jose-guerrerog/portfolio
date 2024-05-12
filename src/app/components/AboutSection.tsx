@@ -2,6 +2,7 @@
 import React, { useTransition, useState } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
+import { Box, Grid, Typography } from '@mui/material'
 
 const TAB_DATA = [
   {
@@ -51,9 +52,27 @@ const AboutSection = () => {
   };
 
   return (
-    <section className="text-white" id="about">
-      <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-24 xl:px-16">
-        {/* <Image src="/images/about-image.png" width={500} height={500} /> */}
+    <Box component="section" id="about">
+      <Grid container>
+        <Grid xs={12} sm={4} item>
+          <Typography variant="h2">
+            About Me
+          </Typography>
+          <Typography variant="body1" textAlign="justify">
+          I am a full stack web developer with a passion for creating
+            interactive and responsive web applications. I have experience
+            working with JavaScript, React, Redux, Node.js, Express, PostgreSQL,
+            Sequelize, HTML, CSS, and Git. I am a quick learner and I am always
+            looking to expand my knowledge and skill set. I am a team player and
+            I am excited to work with others to create amazing applications.
+          </Typography>
+        </Grid>
+        <Grid xs={12} sm={8} item>
+       IMAGE
+        </Grid>
+      </Grid>
+      {/* <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-24 xl:px-16">
+        <Image src="/images/about-image.png" width={500} height={500} />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
           <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
           <p className="text-base lg:text-lg">
@@ -91,8 +110,8 @@ const AboutSection = () => {
             {TAB_DATA.find((t) => t.id === tab)?.content}
           </div>
         </div>
-      </div>
-    </section>
+      </div> */}
+    </Box>
   );
 };
 
