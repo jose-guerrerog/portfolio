@@ -5,12 +5,27 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, TextField, Button, Grid } from "@mui/material";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import * as Yup from 'yup';
+import { validationSchema } from "../schema";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors
+    }
+  } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(validationSchema)
+  })
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault()
     // e.preventDefault();
 
     // const data = {
@@ -40,50 +55,66 @@ const EmailSection = () => {
     //   console.log("Message sent.");
     //   setEmailSubmitted(true);
     // }
+  // };
+
+  const onSubmit = (data: any) => {
+    console.log(JSON.stringify(data, null, 2));
   };
+
 
   return (
     <Box component="section" id="contact">
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2} mt={5}>
           <Grid item xs={12} sm={6}>
             <TextField
-              id="outlined-basic"
+              id="firstName"
               variant="outlined"
-              name="firstName"
               label="First Name"
+              {...register('firstName')}
+              error={!!errors.firstName}
+              helperText={errors.firstName?.message}
               fullWidth
+              required
             />
           </Grid>
 
           <Grid item xs={12} sm={6}>
             <TextField
-              id="outlined-basic"
+              id="lastName"
               variant="outlined"
-              name="lastName"
               label="Last Name"
+              {...register('lastName')}
+              helperText={errors.lastName?.message}
               fullWidth
             />
           </Grid>
 
           <Grid item xs={12} sm={6}>
             <TextField
-              id="outlined-basic"
+              id="email"
               variant="outlined"
-              name="email"
               label="Email"
+              {...register('email')}
+              error={!!errors.email}
+              helperText={errors.email?.message}
               fullWidth
+              required
             />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
+              id="comment"
+              variant="outlined"
               multiline
               rows={4}
-              name="comment"
               label="Comment"
+              {...register('comment')}
+              error={!!errors.comment}
+              helperText={errors.comment?.message}
               fullWidth
-              variant="outlined"
+              required
             />
           </Grid>
         </Grid>

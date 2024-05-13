@@ -2,7 +2,7 @@
 import React, { useTransition, useState } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
-import { Box, Grid, Typography } from '@mui/material'
+import { Avatar, Box, Grid, Typography } from '@mui/material'
 
 const TAB_DATA = [
   {
@@ -68,8 +68,9 @@ const AboutSection = () => {
           </Typography>
         </Grid>
         <Grid xs={12} sm={8} item>
-       IMAGE
+        <i className="devicon-threedsmax-plain colored"></i>
         </Grid>
+
       </Grid>
       {/* <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-24 xl:px-16">
         <Image src="/images/about-image.png" width={500} height={500} />
