@@ -64,7 +64,7 @@ const EmailSection = () => {
 
   return (
     <Box component="section" id="contact" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
-      <Typography>
+      <Typography variant="h3">
         Get in Touch
       </Typography>
       <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800}>

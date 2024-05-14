@@ -8,7 +8,7 @@ const AboutSection = () => {
   return (
     <Box component="section" id="about">
       <Grid container>
-        <Grid xs={12} sm={4} item>
+        <Grid xs={12} sm={5} item>
           <Typography variant="h2">
             Hello
           </Typography>
@@ -18,7 +18,7 @@ const AboutSection = () => {
             I am excited to work with others to create amazing applications.
           </Typography>
         </Grid>
-        <Grid xs={12} sm={8} container justifyContent='center'>
+        <Grid xs={12} sm={7} container justifyContent='center'>
           <Avatar
             alt="photo"
             src="/images/photo.png"
