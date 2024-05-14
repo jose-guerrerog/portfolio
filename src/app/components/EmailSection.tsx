@@ -4,7 +4,7 @@ import React, { useState } from "react";
 // import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, TextField, Button, Grid } from "@mui/material";
+import { Box, TextField, Button, Grid, Typography } from "@mui/material";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -63,8 +63,11 @@ const EmailSection = () => {
 
 
   return (
-    <Box component="section" id="contact">
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box component="section" id="contact" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+      <Typography>
+        Get in Touch
+      </Typography>
+      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800}>
         <Grid container spacing={2} mt={5}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -118,7 +121,9 @@ const EmailSection = () => {
             />
           </Grid>
         </Grid>
-        <Button type="submit">Submit</Button>
+        <Box display='flex' justifyContent='center' mt={3}>
+          <Button type="submit" variant="contained">Submit</Button>
+        </Box>
       </Box>
     </Box>
   );

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import NavLink from "./NavLink";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import MenuIcon from '@mui/icons-material/Menu';
 import MenuOverlay from "./MenuOverlay";
 import {
   Box,
@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <AppBar position="sticky">
-      <Toolbar>
+      <Toolbar sx={{ justifyContent: {xs: 'flex-start', sm: 'flex-end'} }}>
         <IconButton
           color="inherit"
           aria-controls="menu-appbar"
@@ -51,16 +51,9 @@ const Navbar = () => {
           onClick={handleOpenNavMenu}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
-          <Bars3Icon />
+          <MenuIcon />
         </IconButton>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-        >
-          LOGO
-        </Typography>
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box sx={{ display: { xs: "none", sm: "block" }}}>
           {navLinks.map((item) => (
             <Link
               href={item.path}

@@ -5,15 +5,15 @@ const Footer = () => {
   return (
     <Box
       component="footer"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       sx={{
         backgroundColor: "#000",
-        color: '#FFF',
+        minHeight: '80px',
       }}
     >
-      <Container>
-        <Typography color="#FFF">logo</Typography>
         <Typography color="#FFF">All rights reserved.</Typography>
-      </Container>
     </Box>
   );
 };
