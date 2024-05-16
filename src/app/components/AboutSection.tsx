@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition, useState } from "react";
+import React from "react";
 import { Avatar, Box, Grid, Typography } from '@mui/material';
 import { icons } from "../constants";
 
@@ -13,7 +13,7 @@ const AboutSection = () => {
             Hello
           </Typography>
           <Typography variant="body1" textAlign="justify">
-            I'm Jose and I am a software developer with a passion for creating
+            I&apos;m Jose and I am a software developer with a passion for creating
             interactive and responsive web applications. I am a team player and
             I am excited to work with others to create amazing applications.
           </Typography>
