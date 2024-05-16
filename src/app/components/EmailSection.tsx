@@ -12,7 +12,6 @@ import * as Yup from 'yup';
 import { validationSchema } from "../schema";
 
 const EmailSection = () => {
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
@@ -24,51 +23,43 @@ const EmailSection = () => {
     resolver: yupResolver(validationSchema)
   })
 
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault()
-    // e.preventDefault();
+  const onSubmit = async (e: any) => {
+    const data = {
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+    const JSONdata = JSON.stringify(data);
+    const endpoint = "/api/send";
 
-    // const data = {
-    //   email: e.target.email.value,
-    //   subject: e.target.subject.value,
-    //   message: e.target.message.value,
-    // };
-    // const JSONdata = JSON.stringify(data);
-    // const endpoint = "/api/send";
-
-    // // Form the request for sending data to the server.
-    // const options = {
-    //   // The method is POST because we are sending data.
-    //   method: "POST",
-    //   // Tell the server we're sending JSON.
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   // Body of the request is the JSON data we created above.
-    //   body: JSONdata,
-    // };
+    const options = {
+      // The method is POST because we are sending data.
+      method: "POST",
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Body of the request is the JSON data we created above.
+      body: JSONdata,
+    };
 
     // const response = await fetch(endpoint, options);
     // const resData = await response.json();
 
     // if (response.status === 200) {
     //   console.log("Message sent.");
-    //   setEmailSubmitted(true);
     // }
-  // };
 
-  const onSubmit = (data: any) => {
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(JSON.stringify(data, null, 2));
   };
 
 
   return (
-    <Box component="section" id="contact" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+    <Box component="section" id="contact" display="flex" justifyContent="center" flexDirection="column" alignItems="center" mt={8} mb={4}>
       <Typography variant="h3">
         Get in Touch
       </Typography>
       <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800}>
-        <Grid container spacing={2} mt={5}>
+        <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
             <TextField
               id="firstName"
@@ -122,7 +113,7 @@ const EmailSection = () => {
           </Grid>
         </Grid>
         <Box display='flex' justifyContent='center' mt={3}>
-          <Button type="submit" variant="contained">Submit</Button>
+          <Button type="submit" variant="contained" color="secondary">Submit</Button>
         </Box>
       </Box>
     </Box>

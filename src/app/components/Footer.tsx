@@ -13,7 +13,7 @@ const Footer = () => {
         minHeight: '80px',
       }}
     >
-        <Typography color="#FFF">All rights reserved.</Typography>
+      <Typography color="#FFF"> {`${new Date().getFullYear()} | All rights reserved.`}</Typography>
     </Box>
   );
 };

@@ -18,17 +18,16 @@ const AboutSection = () => {
             I am excited to work with others to create amazing applications.
           </Typography>
         </Grid>
-        <Grid xs={12} sm={7} container justifyContent='center'>
+        <Grid xs={12} sm={7} container justifyContent='center' mt={{ xs: 2, sm: 0}}>
           <Avatar
             alt="photo"
             src="/images/photo.png"
             style={{ width: 250, height: 250 }}
           />
         </Grid>
-
       </Grid>
-      <Typography variant="h3">Skills</Typography>
-      <Grid container rowGap={5} >
+      <Typography variant="h3" mt={4}>Skills</Typography>
+      <Grid container rowGap={5} mt={5}>
       {
         icons.map((icon, index) => (
           <Grid xs={6} sm={3} container justifyContent="center" key={index}>

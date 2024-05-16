@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Button,
@@ -17,10 +17,6 @@ const navLinks = [
   {
     title: "About",
     path: "#about",
-  },
-  {
-    title: "Projects",
-    path: "#projects",
   },
   {
     title: "Contact",
@@ -39,8 +35,8 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Toolbar sx={{ justifyContent: {xs: 'flex-start', sm: 'flex-end'} }}>
+    <AppBar component="nav" position="sticky">
+      <Toolbar sx={{ justifyContent: { xs: "flex-start", sm: "flex-end" } }}>
         <IconButton
           color="inherit"
           aria-controls="menu-appbar"
@@ -51,7 +47,7 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Box sx={{ display: { xs: "none", sm: "block" }}}>
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
           {navLinks.map((item) => (
             <Link
               href={item.path}
@@ -86,16 +82,16 @@ const Navbar = () => {
           }}
         >
           {navLinks.map((item) => (
-            <MenuItem  key={item.title}>
-               <Link
-              href={item.path}
-              style={{
-                marginRight: "20px",
-                textDecoration: "none",
-              }}
-            >
-              {item.title}
-            </Link>
+            <MenuItem key={item.title}>
+              <Link
+                href={item.path}
+                style={{
+                  marginRight: "20px",
+                  textDecoration: "none",
+                }}
+              >
+                {item.title}
+              </Link>
             </MenuItem>
           ))}
         </Menu>
