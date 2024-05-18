@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 // import GithubIcon from "../../../public/github-icon.svg";
 // import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
@@ -25,8 +25,9 @@ const EmailSection = () => {
 
   const onSubmit = async (e: any) => {
     const data = {
-      email: e.target.email.value,
-      message: e.target.message.value,
+      name: 'jose',
+      email: e.email,
+      message: e.message,
     };
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
@@ -41,15 +42,15 @@ const EmailSection = () => {
       // Body of the request is the JSON data we created above.
       body: JSONdata,
     };
+    // sendEmail({name: 'jose', email: e.email, message: e.message})
+    const response = await fetch(endpoint, options);
+    const resData = await response.json();
 
-    // const response = await fetch(endpoint, options);
-    // const resData = await response.json();
+    if (response.status === 200) {
+      console.log("Message sent.");
+    }
 
-    // if (response.status === 200) {
-    //   console.log("Message sent.");
-    // }
-
-    // console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
   };
 
 
@@ -58,7 +59,7 @@ const EmailSection = () => {
       <Typography variant="h3">
         Get in Touch
       </Typography>
-      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800}>
+      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form">
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -99,14 +100,14 @@ const EmailSection = () => {
 
           <Grid item xs={12}>
             <TextField
-              id="comment"
+              id="message"
               variant="outlined"
               multiline
               rows={4}
-              label="Comment"
-              {...register('comment')}
-              error={!!errors.comment}
-              helperText={errors.comment?.message}
+              label="Message"
+              {...register('message')}
+              error={!!errors.message}
+              helperText={errors.message?.message}
               fullWidth
               required
             />
