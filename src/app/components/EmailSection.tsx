@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
-import GithubIcon from "../../../public/images/github-mark.svg";
-import Link from "next/link";
-import Image from "next/image";
 import { Box, TextField, Button, Grid, Typography } from "@mui/material";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
 
@@ -12,18 +9,15 @@ const EmailSection = () => {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isValid,
-    }
+    formState: { errors, isValid },
   } = useForm({
-    mode: 'onTouched',
-    resolver: yupResolver(validationSchema)
-  })
+    mode: "onTouched",
+    resolver: yupResolver(validationSchema),
+  });
 
   const onSubmit = async (e: any) => {
     const data = {
-      name: 'jose',
+      name: "jose",
       email: e.email,
       message: e.message,
     };
@@ -51,12 +45,18 @@ const EmailSection = () => {
     console.log(JSON.stringify(data, null, 2));
   };
 
-
   return (
-    <Box component="section" id="contact" display="flex" justifyContent="center" flexDirection="column" alignItems="center" mt={8} mb={4}>
-      <Typography variant="h3">
-        Get in Touch
-      </Typography>
+    <Box
+      component="section"
+      id="contact"
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+      alignItems="center"
+      mt={8}
+      mb={4}
+    >
+      <Typography variant="h3" fontWeight={700}>Get in Touch</Typography>
       <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form">
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
@@ -64,7 +64,7 @@ const EmailSection = () => {
               id="firstName"
               variant="outlined"
               label="First Name"
-              {...register('firstName')}
+              {...register("firstName")}
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
               fullWidth
@@ -77,7 +77,7 @@ const EmailSection = () => {
               id="lastName"
               variant="outlined"
               label="Last Name"
-              {...register('lastName')}
+              {...register("lastName")}
               helperText={errors.lastName?.message}
               fullWidth
             />
@@ -88,7 +88,7 @@ const EmailSection = () => {
               id="email"
               variant="outlined"
               label="Email"
-              {...register('email')}
+              {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
               fullWidth
@@ -103,7 +103,7 @@ const EmailSection = () => {
               multiline
               rows={4}
               label="Message"
-              {...register('message')}
+              {...register("message")}
               error={!!errors.message}
               helperText={errors.message?.message}
               fullWidth
@@ -111,14 +111,17 @@ const EmailSection = () => {
             />
           </Grid>
         </Grid>
-        <Box display='flex' justifyContent='center' mt={3}>
-          <Button type="submit" variant="contained" color="secondary" disabled={!isValid}>Submit</Button>
+        <Box display="flex" justifyContent="center" mt={3}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            disabled={!isValid}
+            size="large"
+          >
+            Submit
+          </Button>
         </Box>
-      </Box>
-      <Box>
-        <Link href="https://github.com/jose-guerrerog">
-          <Image src={GithubIcon} alt="Github Icon" />
-        </Link>
       </Box>
     </Box>
   );
