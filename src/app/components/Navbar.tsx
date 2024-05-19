@@ -12,17 +12,7 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-
-const navLinks = [
-  {
-    title: "About",
-    path: "#about",
-  },
-  {
-    title: "Contact",
-    path: "#contact",
-  },
-];
+import { navLinks } from "../constants";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

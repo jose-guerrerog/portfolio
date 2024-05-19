@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
-// import GithubIcon from "../../../public/github-icon.svg";
-// import LinkedinIcon from "../../../public/linkedin-icon.svg";
+import GithubIcon from "../../../public/images/github-mark.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, TextField, Button, Grid, Typography } from "@mui/material";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import * as Yup from 'yup';
 import { validationSchema } from "../schema";
 
 const EmailSection = () => {
@@ -16,7 +13,8 @@ const EmailSection = () => {
     register,
     handleSubmit,
     formState: {
-      errors
+      errors,
+      isValid,
     }
   } = useForm({
     mode: 'onTouched',
@@ -114,8 +112,13 @@ const EmailSection = () => {
           </Grid>
         </Grid>
         <Box display='flex' justifyContent='center' mt={3}>
-          <Button type="submit" variant="contained" color="secondary">Submit</Button>
+          <Button type="submit" variant="contained" color="secondary" disabled={!isValid}>Submit</Button>
         </Box>
+      </Box>
+      <Box>
+        <Link href="https://github.com/jose-guerrerog">
+          <Image src={GithubIcon} alt="Github Icon" />
+        </Link>
       </Box>
     </Box>
   );

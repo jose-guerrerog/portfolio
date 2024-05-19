@@ -1,3 +1,14 @@
+export const navLinks = [
+  {
+    title: "About",
+    path: "#about",
+  },
+  {
+    title: "Contact",
+    path: "#contact",
+  },
+];
+
 export const icons = [
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
