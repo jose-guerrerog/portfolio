@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
 
-const EmailSection = () => {
+const Contact = () => {
   const {
     register,
     handleSubmit,
@@ -131,4 +131,4 @@ const EmailSection = () => {
   );
 };
 
-export default EmailSection;
+export default Contact;

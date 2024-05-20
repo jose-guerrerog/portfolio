@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Navbar from "./components/Navbar";
-import AboutSection from "./components/AboutSection";
-import EmailSection from "./components/EmailSection";
+import About from "./sections/About";
+import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -10,8 +10,8 @@ export default function Home() {
       <Navbar />
       <Box display="flex" justifyContent="center" sx={{ margin: 4 }}>
         <Box width="100%" maxWidth={1000}>
-          <AboutSection />
-          <EmailSection />
+          <About />
+          <Contact />
         </Box>
       </Box>
       <Footer />

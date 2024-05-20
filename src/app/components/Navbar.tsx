@@ -1,16 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
-  Button,
   AppBar,
   Toolbar,
   IconButton,
   Menu,
   MenuItem,
-  Typography,
 } from "@mui/material";
 import { navLinks } from "../constants";
 

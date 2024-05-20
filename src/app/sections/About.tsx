@@ -4,7 +4,7 @@ import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { icons } from "../constants";
 import { TypeAnimation } from "react-type-animation";
 
-const AboutSection = () => {
+const About = () => {
   return (
     <Box component="section" id="about">
       <Box display="flex" justifyContent="center" mb={4}>
@@ -81,4 +81,4 @@ const AboutSection = () => {
   );
 };
 
-export default AboutSection;
+export default About ;
