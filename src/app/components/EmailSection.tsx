@@ -56,7 +56,11 @@ const EmailSection = () => {
       mt={8}
       mb={4}
     >
-      <Typography variant="h3" fontWeight={700}>Get in Touch</Typography>
+      <Typography variant="h3" fontWeight={700} sx={{
+          background: "linear-gradient(45deg, #2196f3 30%, #21f364 90%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent"
+      }}>Get in Touch</Typography>
       <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form">
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>

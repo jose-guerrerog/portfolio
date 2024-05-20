@@ -54,7 +54,13 @@ const AboutSection = () => {
           />
         </Grid>
       </Grid>
-      <Typography variant="h3" mt={4} fontWeight={700}>
+      <Typography variant="h3" mt={4} fontWeight={700}
+        sx={{
+          background: "linear-gradient(to left,  #FF6767, #4c82ed )",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent"
+        }}
+      >
         Skills
       </Typography>
       <Grid container rowGap={5} mt={5}>
