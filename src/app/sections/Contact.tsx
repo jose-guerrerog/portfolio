@@ -1,15 +1,18 @@
 "use client";
 import React from "react";
-import { Box, TextField, Button, Grid, Typography } from "@mui/material";
+import { Box, TextField, Grid, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    reset,
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
@@ -39,10 +42,15 @@ const Contact = () => {
     const resData = await response.json();
 
     if (response.status === 200) {
-      console.log("Message sent.");
+      toast.success("Message sent", {
+        theme: "colored",
+      });
+    } else {
+      toast.error("Message unsuccessful");
     }
 
     console.log(JSON.stringify(data, null, 2));
+    reset();
   };
 
   return (
@@ -56,11 +64,17 @@ const Contact = () => {
       mt={8}
       mb={4}
     >
-      <Typography variant="h3" fontWeight={700} sx={{
+      <Typography
+        variant="h3"
+        fontWeight={700}
+        sx={{
           background: "linear-gradient(45deg, #2196f3 30%, #21f364 90%)",
           WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-      }}>Get in Touch</Typography>
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        Get in Touch
+      </Typography>
       <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form">
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
@@ -116,15 +130,16 @@ const Contact = () => {
           </Grid>
         </Grid>
         <Box display="flex" justifyContent="center" mt={3}>
-          <Button
+          <LoadingButton
             type="submit"
             variant="contained"
             color="secondary"
             disabled={!isValid}
             size="large"
+            loading={isSubmitting}
           >
             Submit
-          </Button>
+          </LoadingButton>
         </Box>
       </Box>
     </Box>

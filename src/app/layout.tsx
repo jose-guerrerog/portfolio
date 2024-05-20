@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./themes/theme";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
