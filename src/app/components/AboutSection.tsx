@@ -1,56 +1,43 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { icons } from "../constants";
-import { keyframes } from '@emotion/react';
+import { TypeAnimation } from "react-type-animation";
 
 const AboutSection = () => {
-  const hue = keyframes`
-  from, 20%, 53%, 80%, to {
-    transform: translate3d(0,0,0);
-  }
-
-  40%, 43% {
-    transform: translate3d(0, -30px, 0);
-  }
-
-  70% {
-    transform: translate3d(0, -15px, 0);
-  }
-
-  90% {
-    transform: translate3d(0,-4px,0);
-  }
-`
-
   return (
     <Box component="section" id="about">
-      <Grid container>
+      <Box display="flex" justifyContent="center" mb={4}>
+        <Typography
+          variant="h1"
+          fontWeight={700}
+          fontStyle="italic"
+          sx={{
+            background: "linear-gradient(to left, #4c82ed, #FF6767 )",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            "@keyframes shine": {
+              from: {
+                WebkitFilter: "hue-rotate(0deg)",
+              },
+              to: {
+                WebkitFilter: "hue-rotate(-360deg)",
+              },
+            },
+            animation: `shine 5s linear infinite`,
+          }}
+        >
+          <TypeAnimation
+            sequence={["Welcome to my Site!", 500, "Hello World!", 500]}
+            repeat={Infinity}
+          />
+        </Typography>
+      </Box>
+      <Grid container alignItems={'center'}>
         <Grid xs={12} sm={5} item>
-
-            <Typography variant="h2" fontWeight={700} sx={{
-              background:  "-webkit-linear-gradient(45deg, #2196f3 30%, #21f364 90%)",
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: "transparent",
-              // -webkit-animation: ${hue} 10s infinite linear;
-              WebkitAnimation:  `${hue} 10s infinite linear`,
-            }}>
-              Welcome to my site
-            </Typography>
-            {/* </Typography>
-                <img
-                  src="https://refine.ams3.cdn.digitaloceanspaces.comundefined"
-                  alt="image"
-                /> */}
-          {/* <Typography variant="h2" fontWeight={700}>
-            Welcomet to my site
-          </Typography> */}
           <Typography variant="body1" textAlign="justify" mt={2}>
-            I&apos;m Jose and I am a software developer with a passion for
-            creating interactive and responsive web applications. I am a team
-            player and I am excited to work with others to create amazing
-            applications.
+            My name is Jose and I am a software developer with a passion for
+            creating interactive and responsive web applications.
           </Typography>
         </Grid>
         <Grid
@@ -78,6 +65,7 @@ const AboutSection = () => {
               width={80}
               height={80}
               key={index}
+              alt="icon-skill"
               style={{ maxWidth: "100%", display: "block" }}
             />
           </Grid>
