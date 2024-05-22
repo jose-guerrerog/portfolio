@@ -20,7 +20,8 @@ const Contact = () => {
 
   const onSubmit = async (e: any) => {
     const data = {
-      name: "jose",
+      firstName: e.firstName,
+      lastName: e.lastName,
       email: e.email,
       message: e.message,
     };

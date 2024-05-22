@@ -6,13 +6,23 @@ import EmailTemplate from "@/app/templates/emailTemplate";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: any, res: any) {
-  const { email, subject, message } = await req.json();
+  const {
+    firstName,
+    lastName, 
+    email,
+    message,
+  } = await req.json();
+
+  const name = lastName ? `${firstName} ${lastName}` : firstName;
+  const senderEmail: string = process.env.SENDER_EMAIL ?? '';
+  const receiverEmail: string = process.env.RECEIVER_EMAIL ?? '';
+
   try {
     const data = await resend.emails.send({
-      from: process.env.SENDER_EMAIL as string,
-      to: process.env.RECEIVER_EMAIL as string,
-      subject: 'asasas',
-      react: EmailTemplate({email: 'joseguerrerog880@gmail.com',name: 'jose', message: 'sdasd'}),
+      from: senderEmail,
+      to: receiverEmail,
+      subject: 'new email form',
+      react: EmailTemplate({ email, name, message }),
     });
     return NextResponse.json(data);
   } catch (error) {
