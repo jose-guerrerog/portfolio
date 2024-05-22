@@ -9,6 +9,10 @@ export const navLinks = [
   },
 ];
 
+export const githubLink = 'https://github.com/jose-guerrerog'
+
+export const linkedinLink = 'https://www.linkedin.com/in/jose-guerrerog/'
+
 export const icons = [
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",

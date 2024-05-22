@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
-import { Box, TextField, Grid, Typography } from "@mui/material";
+import { Box, TextField, Grid, Typography, Stack } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
 import { toast } from "react-toastify";
+import Link from "next/link";
+import Image from "next/image";
+import { githubLink, linkedinLink } from "../constants";
 
 const Contact = () => {
   const {
@@ -141,6 +144,34 @@ const Contact = () => {
           >
             Submit
           </LoadingButton>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography mt={4} mb={2} variant="h5" color="#3949AB">
+            Let&apos;s connect
+          </Typography>
+          <Stack direction="row" gap={1} alignItems="center">
+            <Link href={githubLink}>
+              <Image
+                src="/images/github-mark.svg"
+                alt="Github Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
+            <Link href={linkedinLink}>
+              <Image
+                src="/images/linkedin-icon.svg"
+                alt="Linkedin Icon"
+                width={50}
+                height={50}
+              />
+            </Link>
+          </Stack>
         </Box>
       </Box>
     </Box>
