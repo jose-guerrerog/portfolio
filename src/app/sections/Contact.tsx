@@ -65,7 +65,7 @@ const Contact = () => {
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
-      mt={8}
+      mt={10}
       mb={4}
     >
       <Typography
@@ -79,7 +79,7 @@ const Contact = () => {
       >
         Get in Touch
       </Typography>
-      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form">
+      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form" mt={2}>
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -151,7 +151,7 @@ const Contact = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography mt={4} mb={2} variant="h5" color="#3949AB">
+          <Typography mt={6} mb={2} variant="h5" color="#3949AB">
             Let&apos;s connect
           </Typography>
           <Stack direction="row" gap={1} alignItems="center">

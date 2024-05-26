@@ -10,7 +10,7 @@ const About = () => {
         <Grid xs={12} sm={5} item>
           <Typography variant="h6" textAlign="justify" fontStyle="italic" color='#007070'>
             My name is Jose and I am a software developer with a passion for
-            creating interactive and responsive web applications.
+            creating interactive web applications.
           </Typography>
         </Grid>
         <Grid
@@ -27,7 +27,7 @@ const About = () => {
           />
         </Grid>
       </Grid>
-      <Typography variant="h3" mt={4} fontWeight={700}
+      <Typography variant="h3" mt={6} fontWeight={700}
         sx={{
           background: "#2482ff",
           WebkitBackgroundClip: "text",
@@ -36,7 +36,7 @@ const About = () => {
       >
         Skills
       </Typography>
-      <Grid container rowGap={5} mt={5}>
+      <Grid container rowGap={5} mt={6}>
         {icons.map((icon, index) => (
           <Grid xs={6} sm={3} container justifyContent="center" key={index}>
             <img
