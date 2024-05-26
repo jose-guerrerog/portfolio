@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import MainTitle from "./sections/MainTitle";
 import Navbar from "./components/Navbar";
 import About from "./sections/About";
 import Contact from "./sections/Contact";
@@ -9,7 +10,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Box display="flex" justifyContent="center" sx={{ margin: 4 }}>
+      <MainTitle />
+      <Box display="flex" justifyContent="center" m={4}>
         <Box width="100%" maxWidth={1000}>
           <ToastContainer />
           <About />

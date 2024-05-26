@@ -2,40 +2,13 @@
 import React from "react";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { icons } from "../constants";
-import { TypeAnimation } from "react-type-animation";
 
 const About = () => {
   return (
     <Box component="section" id="about">
-      <Box display="flex" justifyContent="center" mb={4}>
-        <Typography
-          variant="h1"
-          fontWeight={700}
-          fontStyle="italic"
-          sx={{
-            background: "linear-gradient(to left, #4c82ed, #FF6767 )",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            "@keyframes shine": {
-              from: {
-                WebkitFilter: "hue-rotate(0deg)",
-              },
-              to: {
-                WebkitFilter: "hue-rotate(-360deg)",
-              },
-            },
-            animation: `shine 5s linear infinite`,
-          }}
-        >
-          <TypeAnimation
-            sequence={["Welcome to my Site!", 500, "Hello World!", 500]}
-            repeat={Infinity}
-          />
-        </Typography>
-      </Box>
       <Grid container alignItems={'center'}>
         <Grid xs={12} sm={5} item>
-          <Typography variant="body1" textAlign="justify" mt={2}>
+          <Typography variant="h6" textAlign="justify" fontStyle="italic" color='#7c3f00'>
             My name is Jose and I am a software developer with a passion for
             creating interactive and responsive web applications.
           </Typography>
