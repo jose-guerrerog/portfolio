@@ -41,6 +41,13 @@ export const projects = [
   },
   {
     id: 2,
+    title: "Connect Four",
+    image: "/images/connect-four.png",
+    githubLink: "https://github.com/jose-guerrerog/connect-four",
+    demoLink: "https://jose-guerrerog.github.io/connect-four/",
+  },
+  {
+    id: 3,
     title: "Portfolio",
     image: "/images/portfolio-view.png",
     githubLink: "https://github.com/jose-guerrerog/portfolio",

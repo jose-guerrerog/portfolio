@@ -15,9 +15,9 @@ const Projects = () => {
       >
         Projects
       </Typography>
-      <Grid container mt={6} gap={3}>
+      <Grid container mt={6} spacing={2}>
         {projects.map((project, index) => (
-          <Grid key={index} item sm={4} xs={12} spacing={3}>
+          <Grid key={index} item sm={4} xs={12}>
           <ProjectCard
             key={project.id}
             title={project.title}
