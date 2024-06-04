@@ -93,7 +93,7 @@ const ProjectCard = ({
         </Link>
       </Box>
       <Box display="flex" justifyContent="center">
-        <Typography fontWeight={700}>{title}</Typography>
+        <Typography fontWeight={700} color="textPrimary">{title}</Typography>
       </Box>
     </Box>
   );

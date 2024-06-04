@@ -151,26 +151,29 @@ const Contact = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography mt={6} mb={2} variant="h5" color="#3949AB">
+          <Typography mt={8} mb={2} variant="h4" color="#2196f3">
             Let&apos;s connect
+          </Typography>
+          <Typography mb={3} variant="h6" color="textPrimary">
+            I can also be found in Github
           </Typography>
           <Stack direction="row" gap={1} alignItems="center">
             <Link href={githubLink}>
               <Image
-                src="/images/github-mark.svg"
+                src="/images/github-mark-white.svg"
                 alt="Github Icon"
                 width={40}
                 height={40}
               />
             </Link>
-            <Link href={linkedinLink}>
+            {/* <Link href={linkedinLink}>
               <Image
                 src="/images/linkedin-icon.svg"
                 alt="Linkedin Icon"
                 width={50}
                 height={50}
               />
-            </Link>
+            </Link> */}
           </Stack>
         </Box>
       </Box>

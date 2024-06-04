@@ -8,7 +8,7 @@ const About = () => {
     <Box component="section" id="about">
       <Grid container alignItems={'center'}>
         <Grid xs={12} sm={5} item>
-          <Typography variant="h6" textAlign="justify" fontStyle="italic" color='#007070'>
+          <Typography variant="h6" textAlign="justify" fontStyle="italic" color='textPrimary'>
             My name is Jose and I am a software developer with a passion for
             creating interactive web applications.
           </Typography>
@@ -27,7 +27,7 @@ const About = () => {
           />
         </Grid>
       </Grid>
-      <Typography variant="h3" mt={6} fontWeight={700}
+      <Typography variant="h3" mt={8} fontWeight={700}
         sx={{
           background: "#2482ff",
           WebkitBackgroundClip: "text",
