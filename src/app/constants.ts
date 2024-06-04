@@ -1,7 +1,7 @@
 export const navLinks = [
   {
-    title: "About",
-    path: "#about",
+    title: "Projects",
+    path: "#projects",
   },
   {
     title: "Contact",
@@ -30,3 +30,20 @@ export const icons = [
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/heroku/heroku-original-wordmark.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original-wordmark.svg",
 ];
+
+export const projects = [
+  {
+    id: 1,
+    title: "Chat app",
+    image: "/images/chat-view.png",
+    githubLink: "https://github.com/jose-guerrerog/chat-server",
+    demoLink: "https://chat-client-utmh.onrender.com/",
+  },
+  {
+    id: 2,
+    title: "Portfolio",
+    image: "/images/portfolio-view.png",
+    githubLink: "https://github.com/jose-guerrerog/portfolio",
+    demoLink: "https://portfolio-pink-seven-87.vercel.app/",
+  }
+]

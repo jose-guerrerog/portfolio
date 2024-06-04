@@ -5,6 +5,7 @@ import About from "./sections/About";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
+import Projects from "./sections/Projects";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <Box width="100%" maxWidth={1000}>
           <ToastContainer />
           <About />
+          <Projects />
           <Contact />
         </Box>
       </Box>
