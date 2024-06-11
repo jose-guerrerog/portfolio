@@ -9,7 +9,7 @@ const About = () => {
       <Grid container alignItems={'center'}>
         <Grid xs={12} sm={5} item>
           <Typography variant="h6" textAlign="justify" fontStyle="italic" color='textPrimary'>
-            My name is Luis and I am a software developer with a passion for
+            My name is Jose and I am a software developer with a passion for
             creating interactive web applications.
           </Typography>
         </Grid>
