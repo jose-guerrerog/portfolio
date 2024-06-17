@@ -9,7 +9,8 @@ const Footer = () => {
       justifyContent="center"
       alignItems="center"
       sx={{
-        backgroundColor: "#000",
+        backgroundColor: "#121212",
+        backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))',
         minHeight: '80px',
       }}
     >

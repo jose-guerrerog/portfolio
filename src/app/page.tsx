@@ -18,7 +18,7 @@ export default function Home() {
           <ToastContainer />
           <About />
           <Projects />
-          <Skills />
+          {/* <Skills /> */}
           <Contact />
         </Box>
       </Box>
