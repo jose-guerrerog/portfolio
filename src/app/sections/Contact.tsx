@@ -155,9 +155,9 @@ const Contact = () => {
             Let&apos;s connect
           </Typography>
           <Typography mb={3} variant="h6" color="textPrimary">
-            I can also be found in Github
+            I can also be found in Github and LinkedIn
           </Typography>
-          <Stack direction="row" gap={1} alignItems="center">
+          <Stack direction="row" gap={2} alignItems="center">
             <Link href={githubLink}>
               <Image
                 src="/images/github-mark-white.svg"
@@ -166,14 +166,14 @@ const Contact = () => {
                 height={40}
               />
             </Link>
-            {/* <Link href={linkedinLink}>
+            <Link href={linkedinLink}>
               <Image
                 src="/images/linkedin-icon.svg"
                 alt="Linkedin Icon"
                 width={50}
                 height={50}
               />
-            </Link> */}
+            </Link>
           </Stack>
         </Box>
       </Box>
