@@ -5,8 +5,8 @@ import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
   return (
-    <Box component="section" id="projects">
-      <Typography variant="h3" mt={12} fontWeight={700}
+    <Box component="section" id="projects" mt={14} >
+      <Typography variant="h3" fontWeight={700}
         sx={{
           background: "#2482ff",
           WebkitBackgroundClip: "text",

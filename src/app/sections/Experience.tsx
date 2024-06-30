@@ -10,10 +10,9 @@ import Image from "next/image";
 
 const Experience = () => {
   return (
-    <Box component="section" id="experience">
+    <Box component="section" id="experience" mt={14}>
       <Typography
         variant="h3"
-        mt={10}
         fontWeight={700}
         sx={{
           background: "#2482ff",
@@ -23,7 +22,7 @@ const Experience = () => {
       >
         Skills
       </Typography>
-      <Grid container columnGap={4} mt={6}>
+      <Grid container gap={4} mt={6}>
         <Grid xs={12} sm={6} container justifyContent="center">
           <Box sx={{
             display: 'flex',
