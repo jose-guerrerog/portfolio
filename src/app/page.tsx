@@ -17,8 +17,9 @@ export default function Home() {
         <Box width="100%" maxWidth={1000}>
           <ToastContainer />
           <About />
-          <Experience /> 
           <Projects />
+          <Experience /> 
+
           <Contact />
         </Box>
       </Box>

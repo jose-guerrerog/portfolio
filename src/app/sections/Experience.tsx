@@ -22,24 +22,8 @@ const Experience = () => {
       >
         Skills
       </Typography>
-      <Grid container gap={4} mt={6}>
-        <Grid xs={12} sm={6} container justifyContent="center">
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-          }}>
-          <Image
-            src="/images/skills.jpeg"
-            width={0}
-            height={0}
-            alt="skills"
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-          />
-          </Box>
-        </Grid>
-        <Grid xs={12} sm={5} container justifyContent="center">
+      <Grid container mt={6} justifyContent='center'>
+        <Grid xs={12} sm={7} container justifyContent='center'>
           <Typography
             variant="h4"
             fontWeight={700}
@@ -52,11 +36,11 @@ const Experience = () => {
               <Chip label={skill} key={skill} />
             ))}
           </Grid>
-
+        </Grid>
+        <Grid xs={12} sm={7} container justifyContent='center' mt={6}>
           <Typography
             variant="h4"
             fontWeight={700}
-            mt={6}
             color="primary"
           >
             BackEnd & Cloud
@@ -66,10 +50,11 @@ const Experience = () => {
               <Chip label={skill} key={skill} />
             ))}
           </Grid>
+        </Grid>
+        <Grid xs={12} sm={7} container justifyContent='center' mt={6}>
           <Typography
             variant="h4"
             fontWeight={700}
-            mt={6}
             color="primary"
           >
             Collaboration
