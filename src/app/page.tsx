@@ -12,8 +12,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <MainTitle />
-      <Box display="flex" justifyContent="center" m={4}>
+      <Box display="flex" justifyContent="center" m={16}>
         <Box width="100%" maxWidth={1000}>
           <ToastContainer />
           <About />
