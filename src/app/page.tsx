@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Box display="flex" justifyContent="center" m={16}>
+      <Box display="flex" justifyContent="center" my={16} mx={{ xs: 6, sm: 16}}>
         <Box width="100%" maxWidth={1000}>
           <ToastContainer />
           <About />
