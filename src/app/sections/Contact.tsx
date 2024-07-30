@@ -65,7 +65,7 @@ const Contact = () => {
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
-      mt={14}
+      mt={16}
       mb={4}
     >
       <Typography
