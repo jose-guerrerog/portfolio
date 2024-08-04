@@ -1,27 +1,77 @@
 "use client";
 import React from "react";
-import { Avatar, Box, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { icons } from "../constants";
-import Image from 'next/image';
-import Photo from '@/app/components/Photo';
+import Image from "next/image";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import Photo from "@/app/components/Photo";
 
 const About = () => {
   return (
     <Box component="section" id="about" mt={10}>
-      <Grid container alignItems={'center'}>
+      <Grid container alignItems={"center"}>
         <Grid xs={12} sm={7} item>
-          <Typography variant="h5" textAlign="justify" color='textPrimary' mb={1}>
+          <Typography
+            variant="h5"
+            textAlign="justify"
+            color="textPrimary"
+            mb={1}
+          >
             Hello,
           </Typography>
-          <Typography variant="h2" textAlign="justify" color='textPrimary' fontWeight={700}>
-            I&apos;m <Typography component="span" variant="h2" color="#FCE205" fontWeight={700}>Jose</Typography>
+          <Typography
+            variant="h2"
+            textAlign="justify"
+            color="textPrimary"
+            fontWeight={700}
+          >
+            I&apos;m{" "}
+            <Typography
+              component="span"
+              variant="h2"
+              color="#FCE205"
+              fontWeight={700}
+            >
+              Jose
+            </Typography>
           </Typography>
-          <Typography variant="h2" textAlign="justify" color='textPrimary' fontWeight={700} mb={2}>
+          <Typography
+            variant="h2"
+            textAlign="justify"
+            color="textPrimary"
+            fontWeight={700}
+            mb={2}
+          >
             Software Developer
           </Typography>
-          <Typography variant="body1" textAlign="justify" color='textPrimary'>
-            I am a skilled and passionate software developer with experience in creating interactive web applications
+          <Typography variant="body1" textAlign="justify" color="textPrimary">
+            I am a skilled and passionate software developer with experience in
+            creating interactive web applications
           </Typography>
+          <Button sx={{ mt: 5, border: "1px solid #00ff99" }}>
+            <Link
+              href="/assets/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              underline="none"
+            >
+              <Stack flexDirection={"row"} gap={1} px={2} py={1}>
+                <Typography textTransform={"capitalize"} color="#00ff99">
+                  Download Resume
+                </Typography>
+                <FileDownloadIcon htmlColor="#00ff99" />
+              </Stack>
+            </Link>
+          </Button>
         </Grid>
         <Grid
           xs={12}
@@ -36,13 +86,13 @@ const About = () => {
             style={{ width: 350, height: 350 }}
           /> */}
           <Image
-             src="/images/photo.png"
-              width={300}
-              height={380}
-              alt='photo'
-              style={{
-                borderRadius: '20px'
-              }}
+            src="/images/photo.png"
+            width={300}
+            height={380}
+            alt="photo"
+            style={{
+              borderRadius: "20px",
+            }}
           />
         </Grid>
       </Grid>
@@ -50,4 +100,4 @@ const About = () => {
   );
 };
 
-export default About ;
+export default About;
