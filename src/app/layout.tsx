@@ -5,6 +5,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
+import Navbar from "@/app/components/Navbar";
+import PageTransition from "@/app/components/PageTransition";
+import StairTransition from "@/app/components/StairTransition";
+import { Box } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +26,21 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
+          <Navbar />
+          <StairTransition />
+          <PageTransition>
+            <CssBaseline />
+            <Box
+              display="flex"
+              justifyContent="center"
+              my={6}
+              mx={{ xs: 6, sm: 16 }}
+            >
+              <Box width="100%" maxWidth={1000}>
+                {children}
+              </Box>
+            </Box>
+          </PageTransition>
         </ThemeProvider>
       </body>
     </html>

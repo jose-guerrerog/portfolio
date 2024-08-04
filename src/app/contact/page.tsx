@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { Box, TextField, Grid, Typography, Stack } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -65,8 +66,7 @@ const Contact = () => {
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
-      mt={16}
-      mb={4}
+      my={3}
     >
       <Typography
         variant="h3"

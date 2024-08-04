@@ -11,6 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { navLinks } from "../constants";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -21,10 +22,11 @@ const Navbar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <AppBar component="nav" position="sticky">
-      <Toolbar sx={{ justifyContent: { xs: "flex-start", sm: "flex-end" } }}>
+      <Toolbar>
         <IconButton
           color="inherit"
           aria-controls="menu-appbar"
@@ -35,21 +37,37 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          {navLinks.map((item) => (
-            <Link
-              href={item.path}
-              key={item.title}
-              color="#fff"
-              style={{
-                color: "#fff",
-                marginRight: "20px",
-                textDecoration: "none",
-              }}
-            >
-              {item.title}
+        <Box
+          display={{ xs: "none", sm: "flex" }}
+          justifyContent="space-between"
+          alignItems='center'
+          sx={{
+            width: '100%'
+          }}
+        >
+          <Box sx={{marginLeft: '20px'}}>
+            <Link href="/">
+              <h1 className="text-4xl fnt-semibold">
+                Jose<span className="text-accent">.</span>
+              </h1>
             </Link>
-          ))}
+          </Box>
+          <Box>
+            {navLinks.map((item) => (
+              <Link
+                href={item.path}
+                key={item.title}
+                color={item.path === pathname ? "#00ff99" : "#fff"}
+                style={{
+                  color: item.path === pathname ? "#00ff99" : "#fff",
+                  marginRight: "20px",
+                  textDecoration: "none",
+                }}
+              >
+                {item.title}
+              </Link>
+            ))}
+          </Box>
         </Box>
         <Menu
           id="menu-appbar"

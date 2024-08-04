@@ -2,10 +2,12 @@
 import React from "react";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { icons } from "../constants";
+import Image from 'next/image';
+import Photo from '@/app/components/Photo';
 
 const About = () => {
   return (
-    <Box component="section" id="about">
+    <Box component="section" id="about" mt={10}>
       <Grid container alignItems={'center'}>
         <Grid xs={12} sm={7} item>
           <Typography variant="h5" textAlign="justify" color='textPrimary' mb={1}>
@@ -28,10 +30,19 @@ const About = () => {
           justifyContent="center"
           mt={{ xs: 2, sm: 0 }}
         >
-          <Avatar
+          {/* <Avatar
             alt="photo"
             src="/images/photo.png"
-            style={{ width: 250, height: 250 }}
+            style={{ width: 350, height: 350 }}
+          /> */}
+          <Image
+             src="/images/photo.png"
+              width={300}
+              height={380}
+              alt='photo'
+              style={{
+                borderRadius: '20px'
+              }}
           />
         </Grid>
       </Grid>

@@ -1,7 +1,19 @@
 export const navLinks = [
   {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Projects",
+    path: "/projects",
+  },
+  {
+    title: "Skills",
+    path: "/skills",
+  },
+  {
     title: "Contact",
-    path: "#contact",
+    path: "/contact",
   },
 ];
 
@@ -25,6 +37,11 @@ export const icons = [
   {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
     name: ''
+  },
+  {
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+    addBackground: true,
+    name: "Figma",
   },
   {
     icon:  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg",

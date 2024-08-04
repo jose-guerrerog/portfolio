@@ -3,9 +3,9 @@ import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { icons } from "../constants";
 
-const Experience = () => {
+const Skills = () => {
   return (
-    <Box component="section" id="experience" mt={14}>
+    <Box component="section" id="experience" my={3}>
       <Typography
         variant="h3"
         fontWeight={700}
@@ -41,9 +41,11 @@ const Experience = () => {
               </Box>
 
               {icon.name !== "" && (
+                <Box display='flex' justifyContent='center'>
                 <Typography variant="body1" color="textPrimary">
                   {icon.name}
                 </Typography>
+                </Box>
               )}
             </Box>
           </Grid>
@@ -53,4 +55,4 @@ const Experience = () => {
   );
 };
 
-export default Experience;
+export default Skills;
