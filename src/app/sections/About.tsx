@@ -5,14 +5,28 @@ import {
   Box,
   Button,
   Grid,
-  Link,
+  Link as MuiLink,
   Stack,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 import { icons } from "../constants";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Photo from "@/app/components/Photo";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { githubLink, linkedinLink } from "../constants";
+
+const socials: { icon: React.ReactNode; path: string }[] = [
+  {
+    icon: <FaGithub />,
+    path: githubLink,
+  },
+  {
+    icon: <FaLinkedinIn />,
+    path: linkedinLink,
+  },
+];
 
 const About = () => {
   return (
@@ -56,22 +70,42 @@ const About = () => {
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
-          <Button sx={{ mt: 5, border: "1px solid #00ff99" }}>
-            <Link
-              href="/assets/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-              underline="none"
-            >
-              <Stack flexDirection={"row"} gap={1} px={2} py={1}>
-                <Typography textTransform={"capitalize"} color="#00ff99">
-                  Download Resume
-                </Typography>
-                <FileDownloadIcon htmlColor="#00ff99" />
-              </Stack>
+          <Stack flexDirection={"row"} gap={4} mt={5} alignItems={'center'}>
+            <Button sx={{ border: "1px solid #00ff99" }}>
+              <MuiLink
+                href="/assets/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                underline="none"
+              >
+                <Stack flexDirection={"row"} gap={1} px={2} py={1}>
+                  <Typography textTransform={"capitalize"} color="#00ff99">
+                    Download Resume
+                  </Typography>
+                  <FileDownloadIcon htmlColor="#00ff99" />
+                </Stack>
+              </MuiLink>
+            </Button>
+            <Stack direction="row" gap={2} alignItems="center">
+            <Link href={githubLink}>
+              <Image
+                src="/images/github-mark-white.svg"
+                alt="Github Icon"
+                width={35}
+                height={35}
+              />
             </Link>
-          </Button>
+            <Link href={linkedinLink}>
+              <Image
+                src="/images/linkedin-icon.svg"
+                alt="Linkedin Icon"
+                width={45}
+                height={45}
+              />
+            </Link>
+            </Stack>
+          </Stack>
         </Grid>
         <Grid
           xs={12}
