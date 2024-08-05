@@ -121,8 +121,8 @@ const About = () => {
           /> */}
           <Image
             src="/images/photo.png"
-            width={300}
-            height={380}
+            width={250}
+            height={330}
             alt="photo"
             style={{
               borderRadius: "20px",
