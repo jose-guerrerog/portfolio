@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import {
-  Avatar,
   Box,
   Button,
   Grid,
@@ -10,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { icons } from "../constants";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -70,7 +70,7 @@ const About = () => {
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
-          <Stack flexDirection={"row"} gap={4} mt={5} alignItems={'center'}>
+          <Stack flexDirection={"row"} gap={4} mt={5} alignItems={"center"}>
             <Button sx={{ border: "1px solid #00ff99" }}>
               <MuiLink
                 href="/assets/resume.pdf"
@@ -88,22 +88,22 @@ const About = () => {
               </MuiLink>
             </Button>
             <Stack direction="row" gap={2} alignItems="center">
-            <Link href={githubLink}>
-              <Image
-                src="/images/github-mark-white.svg"
-                alt="Github Icon"
-                width={35}
-                height={35}
-              />
-            </Link>
-            <Link href={linkedinLink}>
-              <Image
-                src="/images/linkedin-icon.svg"
-                alt="Linkedin Icon"
-                width={45}
-                height={45}
-              />
-            </Link>
+              <Link href={githubLink}>
+                <Image
+                  src="/images/github-mark-white.svg"
+                  alt="Github Icon"
+                  width={35}
+                  height={35}
+                />
+              </Link>
+              <Link href={linkedinLink}>
+                <Image
+                  src="/images/linkedin-icon.svg"
+                  alt="Linkedin Icon"
+                  width={45}
+                  height={45}
+                />
+              </Link>
             </Stack>
           </Stack>
         </Grid>
@@ -119,15 +119,42 @@ const About = () => {
             src="/images/photo.png"
             style={{ width: 350, height: 350 }}
           /> */}
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: 0.8,
+                duration: 0.4,
+                ease: "easeIn",
+              },
+            }}
+            className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
+          >
+            <Image
+              src="/images/photo.png"
+              priority
+              quality={100}
+              width={270}
+              height={330}
+              alt=""
+              className="object-contain"
+            />
+          </motion.div>
+
+          {/* <Avatar.Image>
           <Image
             src="/images/photo.png"
             width={250}
             height={330}
             alt="photo"
             style={{
-              borderRadius: "20px",
+              // borderRadius: "50%",
+              padding: '10px',
             }}
           />
+          </Avatar.Image> */}
         </Grid>
       </Grid>
     </Box>
