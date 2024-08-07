@@ -81,7 +81,12 @@ const Contact = () => {
       >
         Get in Touch
       </Typography>
-      <Box onSubmit={handleSubmit(onSubmit)} maxWidth={800} component="form" mt={2}>
+      <Box
+        onSubmit={handleSubmit(onSubmit)}
+        maxWidth={800}
+        component="form"
+        mt={2}
+      >
         <Grid container spacing={2} mt={1}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -143,8 +148,13 @@ const Contact = () => {
             disabled={!isValid}
             size="large"
             loading={isSubmitting}
+            sx={{
+              borderRadius: "36px",
+            }}
           >
-            Submit
+            <Typography textTransform={"capitalize"} px={1} py="4px">
+              Submit
+            </Typography>
           </LoadingButton>
         </Box>
         <Box
