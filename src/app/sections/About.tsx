@@ -16,6 +16,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Photo from "@/app/components/Photo";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { githubLink, linkedinLink } from "../constants";
+import { TypeAnimation } from "react-type-animation";
 
 const socials: { icon: React.ReactNode; path: string }[] = [
   {
@@ -30,7 +31,7 @@ const socials: { icon: React.ReactNode; path: string }[] = [
 
 const About = () => {
   return (
-    <Box component="section" id="about" mt={10}>
+    <Box component="section" id="about" mt={8}>
       <Grid container alignItems={"center"}>
         <Grid xs={12} sm={7} item>
           <Typography
@@ -58,20 +59,45 @@ const About = () => {
             </Typography>
           </Typography>
           <Typography
-            variant="h2"
-            textAlign="justify"
-            color="textPrimary"
+            variant="h3"
             fontWeight={700}
-            mb={2}
+            fontStyle="italic"
+            sx={{
+              background: '#fff',
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              "@keyframes shine": {
+                from: {
+                  WebkitFilter: "hue-rotate(0deg)",
+                },
+                to: {
+                  WebkitFilter: "hue-rotate(-360deg)",
+                },
+              },
+              animation: `shine 5s linear infinite`,
+            }}
+            mt={1}
+            mb={3}
           >
-            Software Developer
+            <TypeAnimation
+              sequence={[
+                "React/NextJs Dev",
+                500,
+                "Full-Stack Dev",
+                500,
+                "Web Developer",
+                500,
+              ]}
+              repeat={Infinity}
+            />
           </Typography>
+
           <Typography variant="body1" textAlign="justify" color="textPrimary">
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
           <Stack flexDirection={"row"} gap={4} mt={5} alignItems={"center"}>
-            <Button sx={{ border: "1px solid #00ff99" }}>
+            <Button sx={{ border: "1px solid #00ff99", borderRadius: '36px' }}>
               <MuiLink
                 href="/assets/resume.pdf"
                 target="_blank"
@@ -87,7 +113,19 @@ const About = () => {
                 </Stack>
               </MuiLink>
             </Button>
-            <Stack direction="row" gap={2} alignItems="center">
+            <Button sx={{ border: "1px solid #fff", borderRadius: '36px' }}>
+              <Link
+                href="/contact"
+              >
+                <Stack flexDirection={"row"} gap={1} px={2} py={1}>
+                  <Typography textTransform={"capitalize"} color="#fff">
+                    Contact Me
+                  </Typography>
+                </Stack>
+              </Link>
+            </Button>
+          </Stack>
+          <Stack direction="row" gap={2} alignItems="center" mt={4}>
               <Link href={githubLink}>
                 <Image
                   src="/images/github-mark-white.svg"
@@ -105,7 +143,6 @@ const About = () => {
                 />
               </Link>
             </Stack>
-          </Stack>
         </Grid>
         <Grid
           xs={12}

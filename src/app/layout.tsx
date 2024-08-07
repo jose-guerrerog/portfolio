@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./themes/theme";
 import { Inter } from "next/font/google";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
+          <ToastContainer />
           <StairTransition />
           <PageTransition>
             <Box

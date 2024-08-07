@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import Image from "next/image";
 import { githubLink, linkedinLink } from "../constants";
+import { ToastContainer } from "react-toastify";
 
 const Contact = () => {
   const {
@@ -68,6 +69,7 @@ const Contact = () => {
       alignItems="center"
       my={3}
     >
+      <ToastContainer />
       <Typography
         variant="h3"
         fontWeight={700}
