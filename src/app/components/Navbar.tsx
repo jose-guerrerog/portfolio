@@ -9,6 +9,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { navLinks } from "../constants";
 import { usePathname } from "next/navigation";
@@ -52,7 +54,7 @@ const Navbar = () => {
               </h1>
             </Link>
           </Box>
-          <Box>
+          <Stack flexDirection={'row'}>
             {navLinks.map((item) => (
               <Link
                 href={item.path}
@@ -64,10 +66,12 @@ const Navbar = () => {
                   textDecoration: "none",
                 }}
               >
-                {item.title}
+                <Typography>
+                  {item.title}
+                </Typography>
               </Link>
             ))}
-          </Box>
+          </Stack>
         </Box>
         <Menu
           id="menu-appbar"
