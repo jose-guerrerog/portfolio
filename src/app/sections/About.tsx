@@ -119,7 +119,6 @@ const About = () => {
             src="/images/photo.png"
             style={{ width: 350, height: 350 }}
           /> */}
-
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
@@ -136,7 +135,7 @@ const About = () => {
               src="/images/photo.png"
               priority
               quality={100}
-              width={270}
+              width={250}
               height={330}
               alt=""
               className="object-contain"
