@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import {
+  Avatar,
   Box,
   Button,
   Grid,
@@ -10,10 +11,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { icons } from "../constants";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import Photo from "@/app/components/Photo";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { githubLink, linkedinLink } from "../constants";
 import { TypeAnimation } from "react-type-animation";
@@ -31,7 +30,7 @@ const socials: { icon: React.ReactNode; path: string }[] = [
 
 const About = () => {
   return (
-    <Box component="section" id="about" mt={8}>
+    <Box component="section" id="about" mt={10}>
       <Grid container alignItems={"center"}>
         <Grid xs={12} sm={7} item>
           <Typography
@@ -151,24 +150,24 @@ const About = () => {
           justifyContent="center"
           mt={{ xs: 2, sm: 0 }}
         >
-          {/* <Avatar
-            alt="photo"
-            src="/images/photo.png"
-            style={{ width: 350, height: 350 }}
-          /> */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
               transition: {
-                delay: 0.8,
-                duration: 0.4,
+                delay: 0.4,
+                duration: 0.2,
                 ease: "easeIn",
               },
             }}
             className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
           >
-            <Image
+            <Avatar
+            alt="photo"
+            // src="/images/photo.png"
+            style={{ width: 330, height: 330, backgroundColor: '#ccc' }}
+          >
+             <Image
               src="/images/photo.png"
               priority
               quality={100}
@@ -177,20 +176,9 @@ const About = () => {
               alt=""
               className="object-contain"
             />
+          </Avatar>
           </motion.div>
-
-          {/* <Avatar.Image>
-          <Image
-            src="/images/photo.png"
-            width={250}
-            height={330}
-            alt="photo"
-            style={{
-              // borderRadius: "50%",
-              padding: '10px',
-            }}
-          />
-          </Avatar.Image> */}
+          
         </Grid>
       </Grid>
     </Box>
