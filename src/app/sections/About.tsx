@@ -171,7 +171,7 @@ const About = () => {
               src="/images/photo.png"
               priority
               quality={100}
-              width={250}
+              width={300}
               height={330}
               alt=""
               className="object-contain"
