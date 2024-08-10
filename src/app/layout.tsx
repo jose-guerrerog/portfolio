@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/app/components/Navbar";
 import PageTransition from "@/app/components/PageTransition";
-import StairTransition from "@/app/components/StairTransition";
 import { Box } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -37,7 +36,6 @@ export default function RootLayout({
           <CssBaseline />
           <Navbar />
           <ToastContainer />
-          <StairTransition />
           <PageTransition>
             <Box
               display="flex"

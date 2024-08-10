@@ -95,7 +95,7 @@ const About = () => {
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
-          <Stack flexDirection={"row"} gap={4} mt={5} alignItems={"center"}>
+          <Stack flexDirection={"row"} gap={1} mt={5} alignItems={"center"}>
             <Button sx={{ border: "1px solid #00ff99", borderRadius: '36px' }}>
               <MuiLink
                 href="/assets/resume.pdf"
@@ -124,7 +124,7 @@ const About = () => {
               </Link>
             </Button>
           </Stack>
-          <Stack direction="row" gap={2} alignItems="center" mt={4}>
+          <Stack direction="row" gap={1} alignItems="center" mt={4}>
               <Link href={githubLink}>
                 <Image
                   src="/images/github-mark-white.svg"
@@ -155,12 +155,12 @@ const About = () => {
             animate={{
               opacity: 1,
               transition: {
-                delay: 0.4,
+                // delay: 1,
                 duration: 0.2,
-                ease: "easeIn",
+                // ease: "easeIn",
               },
             }}
-            className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
+            // className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
           >
             <Avatar
             alt="photo"
