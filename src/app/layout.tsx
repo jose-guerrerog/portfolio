@@ -43,7 +43,7 @@ export default function RootLayout({
               my={6}
               mx={{ xs: 6, sm: 16 }}
             >
-              <Box width="100%" maxWidth={1000}>
+              <Box width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
                 {children}
               </Box>
             </Box>

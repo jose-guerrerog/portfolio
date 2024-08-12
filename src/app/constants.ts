@@ -83,28 +83,28 @@ export const projects = [
   {
     id: 1,
     title: "Teleconference",
-    image: "/images/teleconference.png",
+    image: "/images/1.png",
     githubLink: "https://github.com/jose-guerrerog/teleconference",
     demoLink: "https://teleconference.onrender.com/",
   },
   {
     id: 2,
     title: "Chat app",
-    image: "/images/chat-view.png",
+    image: "/images/2.png",
     githubLink: "https://github.com/jose-guerrerog/chat-server",
     demoLink: "https://chat-client-utmh.onrender.com/",
   },
   {
     id: 3,
     title: "Portfolio",
-    image: "/images/portfolio-view.png",
+    image: "/images/3.png",
     githubLink: "https://github.com/jose-guerrerog/portfolio",
     demoLink: "https://portfolio-pink-seven-87.vercel.app/",
   },
   {
     id: 4,
     title: "Connect Four",
-    image: "/images/connect-four.png",
+    image: "/images/4.png",
     githubLink: "https://github.com/jose-guerrerog/connect-four",
     demoLink: "https://jose-guerrerog.github.io/connect-four/",
   }

@@ -48,7 +48,7 @@ const ProjectCard = ({
       <Card>
         <CardMedia
           component="img"
-          height="194"
+          // height="250"
           image={image}
           alt="image-card"
         />
@@ -59,7 +59,14 @@ const ProjectCard = ({
         </CardContent>
       </Card>
 
-      <Link href={githubLink}>
+      <Link href={githubLink} 
+        style={{
+          border: '#adb7be',
+          height: '45px',
+          width: '45px',
+          borderRadius: '50%',
+        }}
+      className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link">
         <CodeIcon
           sx={{
             color: "#ADB7BE",
@@ -67,8 +74,8 @@ const ProjectCard = ({
             position: "absolute",
             left: "35%",
             top: "40%",
-            height: 40,
-            width: 40,
+            height: 60,
+            width: 60,
             "&:hover": {
               color: "#FFFFFF",
             },
@@ -84,8 +91,8 @@ const ProjectCard = ({
             position: "absolute",
             left: "55%",
             top: "40%",
-            height: 40,
-            width: 40,
+            height: 60,
+            width: 60,
             "&:hover": {
               color: "#FFFFFF",
             },

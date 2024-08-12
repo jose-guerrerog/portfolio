@@ -30,7 +30,7 @@ const socials: { icon: React.ReactNode; path: string }[] = [
 
 const About = () => {
   return (
-    <Box component="section" id="about" mt={10}>
+    <Box component="section" id="about" mt={10} maxWidth={1000}>
       <Grid container alignItems={"center"}>
         <Grid xs={12} sm={7} item>
           <Typography
