@@ -10,6 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/app/components/Navbar";
 import PageTransition from "@/app/components/PageTransition";
 import { Box } from "@mui/material";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,7 +45,9 @@ export default function RootLayout({
               mx={{ xs: 6, sm: 16 }}
             >
               <Box width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
-                {children}
+                <Suspense fallback={<div>Loading...</div>}>
+                  {children}
+                </Suspense>
               </Box>
             </Box>
           </PageTransition>
