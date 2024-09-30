@@ -16,7 +16,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { githubLink, linkedinLink } from "../constants";
 import { TypeAnimation } from "react-type-animation";
-import {useSearchParams} from "next/navigation";
+// import {useSearchParams} from "next/navigation";
 
 const socials: { icon: React.ReactNode; path: string }[] = [
   {
@@ -30,9 +30,9 @@ const socials: { icon: React.ReactNode; path: string }[] = [
 ];
 
 const About = () => {
-  const searchParams = useSearchParams();
-  const version = searchParams.get('version');
-  const isOriginalVersion = version !== '1';
+  // const searchParams = useSearchParams();
+  // const version = searchParams.get('version');
+  // const isOriginalVersion = version !== '1';
   return (
     <Box component="section" id="about" mt={10} maxWidth={1000}>
       <Grid container alignItems={"center"}>
@@ -58,9 +58,7 @@ const About = () => {
               color="#FCE205"
               fontWeight={700}
             >
-              {
-                isOriginalVersion ? 'Jose' : 'Peter'
-              }
+             Jose
             </Typography>
           </Typography>
           <Typography
@@ -174,7 +172,8 @@ const About = () => {
             style={{ width: 330, height: 330, backgroundColor: '#ccc' }}
           >
              <Image
-              src={isOriginalVersion ?"/images/photo.png" : "/images/photo-peter.png" }
+              // src={isOriginalVersion ?"/images/photo.png" : "/images/photo-peter.png" }
+              src={"/images/photo.png"}
               priority
               quality={100}
               width={300}

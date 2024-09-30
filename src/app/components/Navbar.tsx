@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { navLinks } from "../constants";
-import { useSearchParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -27,9 +27,7 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const searchParams = useSearchParams();
-  const version = searchParams.get('version');
-  const isOriginalVersion = version !== '1';
+  // const isOriginalVersion = version !== '1';
 
   return (
     <AppBar component="nav" position="sticky">
@@ -55,7 +53,7 @@ const Navbar = () => {
           <Box sx={{marginLeft: '20px'}}>
             <Link href="/">
               <h1 className="text-4xl fnt-semibold">
-                {isOriginalVersion ? 'Jose' : 'Peter'}
+                Jose
                 <span className="text-accent">.</span>
               </h1>
             </Link>
@@ -64,12 +62,6 @@ const Navbar = () => {
             {navLinks.map((item) => (
               <Link
                 href={
-                  version ? {
-                    pathname: item.path,
-                    query: {
-                      version
-                    }
-                  }  : 
                   item.path
                 }
                 key={item.title}
