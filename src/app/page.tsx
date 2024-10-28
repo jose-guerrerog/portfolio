@@ -46,17 +46,26 @@ const Home = () => {
 
   return (
     <div>
+      {/* <Box
+        component='div'
+       sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: 'nowrap'
+      }}
+       > */}
       <Typography
-        noWrap
         sx={{
-          display: "flex",
-          justifyContent: "center",
           color: "white",
+          wordBreak: "break-word",
+          textAlign: 'center',
+          flexWrap: 'wrap'
         }}
         variant="h3"
       >
         Welcome to my Site
       </Typography>
+      {/* </Box> */}
       <Canvas
         style={{
           height: "400px",

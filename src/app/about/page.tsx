@@ -25,7 +25,15 @@ import "react-vertical-timeline-component/style.min.css";
 
 const About = () => {
   return (
-    <Box component="section" id="about" mt={10} maxWidth={1000}>
+    <Box
+      component="section"
+      id="about"
+      mt={{
+        xs: 0,
+        md: 5,
+      }}
+      maxWidth={1000}
+    >
       <Grid container alignItems={"center"} mb={7}>
         <Grid xs={12} md={7} item>
           <Typography
@@ -52,7 +60,12 @@ const About = () => {
               Jose
             </Typography>
           </Typography>
-          <Typography variant="body1" textAlign="justify" color="textPrimary" mt={2}>
+          <Typography
+            variant="body1"
+            textAlign="justify"
+            color="textPrimary"
+            mt={2}
+          >
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
@@ -140,9 +153,7 @@ const About = () => {
           </motion.div>
         </Grid>
       </Grid>
-      <VerticalTimeline
-        animate
-      >
+      <VerticalTimeline animate>
         {experiences.map((experience, index) => (
           <VerticalTimelineElement
             visible
@@ -152,7 +163,7 @@ const About = () => {
             key={experience.company_name}
             // date={experience.date}
             date={experience.date}
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
             icon={
               <div className="flex justify-center items-center w-full h-full">
                 <Image
@@ -160,7 +171,7 @@ const About = () => {
                   alt={experience.company_name}
                   fill
                   style={{
-                    borderRadius: '50%'
+                    borderRadius: "50%",
                   }}
                 />
               </div>
@@ -183,10 +194,13 @@ const About = () => {
                 {experience.company_name}
               </p>
             </div> */}
-           
-            <h3 className="vertical-timeline-element-title" color="black">{experience.title}</h3>
-    <h4 className="vertical-timeline-element-subtitle" color="black">{experience.company_name}</h4>
-   
+
+            <h3 className="vertical-timeline-element-title" color="black">
+              {experience.title}
+            </h3>
+            <h4 className="vertical-timeline-element-subtitle" color="black">
+              {experience.company_name}
+            </h4>
 
             <ul className="my-5 list-disc ml-5 space-y-2">
               {experience.points.map((point, index) => (
