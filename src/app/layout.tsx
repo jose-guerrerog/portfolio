@@ -39,12 +39,13 @@ export default function RootLayout({
           <ToastContainer />
           <PageTransition>
             <Box
+              component='div'
               display="flex"
               justifyContent="center"
               my={6}
               mx={{ xs: 6, sm: 16 }}
             >
-              <Box width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
+              <Box component='div' width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
                 <Suspense fallback={<div>Loading...</div>}>
                   {children}
                 </Suspense>
