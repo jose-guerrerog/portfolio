@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Canvas } from "@react-three/fiber";
+import { Volume2, VolumeX } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import {
   Avatar,
@@ -11,66 +12,69 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { githubLink, linkedinLink } from "../constants";
-import DeathStar from '../models/DeathStar'
-import { Bird } from '../models/Bird'
-import StormTrooper from '../models/StormTrooper'
-import { TypeAnimation } from "react-type-animation";
-// import {useSearchParams} from "next/navigation";
-
-const socials: { icon: React.ReactNode; path: string }[] = [
-  {
-    icon: <FaGithub />,
-    path: githubLink,
-  },
-  {
-    icon: <FaLinkedinIn />,
-    path: linkedinLink,
-  },
-];
+import StormTrooper from "../models/StormTrooper";
 
 const About2 = () => {
+  const audioRef = useRef(
+    typeof Audio !== "undefined" ? new Audio("/audio.mp3") : undefined
+  );
+  if (audioRef && audioRef.current) {
+    audioRef.current.volume = 0.4;
+    audioRef.current.loop = true;
+  }
+
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+
   // const searchParams = useSearchParams();
   // const version = searchParams.get('version');
   // const isOriginalVersion = version !== '1';
 
-  const adjustIslandForScreenSize = () => {
-    let screenScale, screenPosition;
-
-    // if (window.innerWidth < 768) {
-    //   screenScale = [0.9, 0.9, 0.9];
-    //   screenPosition = [0, -6.5, -43.4];
-    // } else {
-      screenScale = [5, 5, 5];
-      screenPosition = [0, -36.5, -43.4];
-    //}
-
-    return [screenScale, screenPosition];
+  const toggle = () => {
+    const newState = !isPlayingMusic;
+    setIsPlayingMusic(!isPlayingMusic);
+    if (newState) {
+      audioRef && audioRef.current && audioRef.current.play();
+    } else {
+      audioRef && audioRef.current && audioRef.current.pause();
+    }
   };
 
-  const [islandScale, islandPosition] = adjustIslandForScreenSize();
+  useEffect(() => {
+    if (!(audioRef && audioRef.current)) {
+      return;
+    }
+
+    if (isPlayingMusic) {
+      audioRef.current.play();
+    }
+
+    return () => {
+      if (!(audioRef && audioRef.current)) {
+        return;
+      }
+      audioRef.current.pause();
+    };
+  }, [isPlayingMusic]);
 
   return (
     <div>
       {/* <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div> */}
-      <Typography sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        color: 'white',
-      }}
-      variant="h3">
+      <Typography
+        noWrap
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          color: "white",
+        }}
+        variant="h3"
+      >
         Welcome to my Site
       </Typography>
       <Canvas
         style={{
-          height: '400px'
+          height: "400px",
         }}
         // className={`w-full h-full bg-transparent`}
         // camera={{ near: 0.1, far: 20 }}
@@ -89,14 +93,37 @@ const About2 = () => {
         </Suspense>
       </Canvas>
 
-      <div className='absolute bottom-2 left-2'>
-        {/* <img
-          src={!isPlayingMusic ? soundoff : soundon}
-          alt='jukebox'
-          onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-          className='w-10 h-10 cursor-pointer object-contain'
-        /> */}
-      </div>
+      <Box
+        component="div"
+        sx={{
+          position: "absolute",
+          right: '50px',
+          top: "75px",
+          cursor: 'pointer'
+        }}
+      >
+        {isPlayingMusic ? (
+            <Volume2
+              color="#ffffff"
+              className="w-full h-full text-foreground group-hover:text-accent"
+              strokeWidth={1.5}
+              style={{
+                padding: '1px',
+              }}
+              onClick={toggle}
+            />
+          ) : (
+            <VolumeX
+              color="#ffffff"
+              className="w-full h-full text-foreground group-hover:text-accent"
+              strokeWidth={1.5}
+              style={{
+                padding: '1px'
+              }}
+              onClick={toggle}
+            />
+          )}
+      </Box>
     </div>
   );
 };

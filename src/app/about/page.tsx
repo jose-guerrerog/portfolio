@@ -1,5 +1,5 @@
 "use client";
-import React, { experimental_taintObjectReference } from "react";
+import React from "react";
 import {
   Avatar,
   Box,
@@ -14,10 +14,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { githubLink, linkedinLink, experiences } from "../constants";
-import { TypeAnimation } from "react-type-animation";
-// import {useSearchParams} from "next/navigation";
 
 import {
   VerticalTimeline,
@@ -26,45 +23,11 @@ import {
 
 import "react-vertical-timeline-component/style.min.css";
 
-
-
-// const experiences = [
-//   {
-//     company_name: "Ansarada",
-//     iconBg: "black",
-//     title: "Front-End Developer",
-//     date: "03-04-24",
-//     icon: '/images/ansarada_logo.jpeg',
-//     points: [5, 4],
-//   },
-//   {
-//     company_name: "Medius Health",
-//     iconBg: "black",
-//     title: "Front-End Developer",
-//     date: "03-04-24",
-//     icon: '/images/medius_health_logo.jpeg',
-//     points: [5, 4],
-//   },
-// ];
-const socials: { icon: React.ReactNode; path: string }[] = [
-  {
-    icon: <FaGithub />,
-    path: githubLink,
-  },
-  {
-    icon: <FaLinkedinIn />,
-    path: linkedinLink,
-  },
-];
-
 const About = () => {
-  // const searchParams = useSearchParams();
-  // const version = searchParams.get('version');
-  // const isOriginalVersion = version !== '1';
   return (
     <Box component="section" id="about" mt={10} maxWidth={1000}>
-      <Grid container alignItems={"center"}>
-        <Grid xs={12} sm={7} item>
+      <Grid container alignItems={"center"} mb={7}>
+        <Grid xs={12} md={7} item>
           <Typography
             variant="h5"
             textAlign="justify"
@@ -89,41 +52,7 @@ const About = () => {
               Jose
             </Typography>
           </Typography>
-          {/* <Typography
-            variant="h3"
-            fontWeight={700}
-            fontStyle="italic"
-            sx={{
-              background: "#fff",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              "@keyframes shine": {
-                from: {
-                  WebkitFilter: "hue-rotate(0deg)",
-                },
-                to: {
-                  WebkitFilter: "hue-rotate(-360deg)",
-                },
-              },
-              animation: `shine 5s linear infinite`,
-            }}
-            mt={1}
-            mb={3}
-          >
-            <TypeAnimation
-              sequence={[
-                "React/NextJs Dev",
-                500,
-                "Full-Stack Dev",
-                500,
-                "Web Developer",
-                500,
-              ]}
-              repeat={Infinity}
-            />
-          </Typography> */}
-
-          <Typography variant="body1" textAlign="justify" color="textPrimary">
+          <Typography variant="body1" textAlign="justify" color="textPrimary" mt={2}>
             I am a skilled and passionate software developer with experience in
             creating interactive web applications
           </Typography>
@@ -175,7 +104,7 @@ const About = () => {
         </Grid>
         <Grid
           xs={12}
-          sm={5}
+          md={5}
           container
           justifyContent="center"
           mt={{ xs: 2, sm: 0 }}
@@ -195,7 +124,7 @@ const About = () => {
             <Avatar
               alt="photo"
               // src="/images/photo.png"
-              style={{ width: 330, height: 330, backgroundColor: "#ccc" }}
+              style={{ width: 310, height: 310, backgroundColor: "#ccc" }}
             >
               <Image
                 // src={isOriginalVersion ?"/images/photo.png" : "/images/photo-peter.png" }
