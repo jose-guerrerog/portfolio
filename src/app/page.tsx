@@ -62,6 +62,7 @@ const Home = () => {
           flexWrap: 'wrap'
         }}
         variant="h3"
+        fontStyle="italic"
       >
         Welcome to my Site
       </Typography>

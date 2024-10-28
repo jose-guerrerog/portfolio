@@ -137,15 +137,15 @@ const About = () => {
             <Avatar
               alt="photo"
               // src="/images/photo.png"
-              style={{ width: 310, height: 310, backgroundColor: "#ccc" }}
+              style={{ width: 280, height: 300, backgroundColor: "#ccc" }}
             >
               <Image
                 // src={isOriginalVersion ?"/images/photo.png" : "/images/photo-peter.png" }
                 src={"/images/photo.png"}
                 priority
                 quality={100}
-                width={300}
-                height={330}
+                width={280}
+                height={300}
                 alt=""
                 className="object-contain"
               />

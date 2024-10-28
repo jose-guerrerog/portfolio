@@ -97,6 +97,7 @@ const Navbar = () => {
           sx={{
             display: { xs: "block", md: "none" },
           }}
+          onBlur={handleCloseNavMenu}
         >
           {navLinks.map((item) => (
             <MenuItem key={item.title}>

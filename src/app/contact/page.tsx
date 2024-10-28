@@ -167,7 +167,7 @@ const Contact = () => {
           <Typography mt={8} mb={2} variant="h4" color="#2196f3">
             Let&apos;s connect
           </Typography>
-          <Typography mb={3} variant="h6" color="textPrimary">
+          <Typography mb={3} variant="h6" color="textPrimary" textAlign='center'>
             I can also be found in Github and LinkedIn
           </Typography>
           <Stack direction="row" gap={2} alignItems="center">
