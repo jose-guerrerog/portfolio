@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./themes/theme";
@@ -7,7 +8,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/app/components/Navbar";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,17 +29,27 @@ export default function RootLayout({
           <CssBaseline />
           <Navbar />
           <ToastContainer />
+          <Box
+            component="div"
+            display="flex"
+            justifyContent="center"
+            my={6}
+            mx={{ xs: 2, sm: 16 }}
+          >
             <Box
-              component='div'
+              component="div"
+              width="100%"
+              maxWidth={1400}
               display="flex"
-              justifyContent="center"
-              my={6}
-              mx={{ xs: 2, sm: 16 }}
+              justifyContent={"center"}
             >
-              <Box component='div' width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
+              <Suspense
+                fallback={<Typography color="#fff">Loading...</Typography>}
+              >
                 {children}
-              </Box>
+              </Suspense>
             </Box>
+          </Box>
         </ThemeProvider>
       </body>
     </html>

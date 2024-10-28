@@ -5,6 +5,7 @@ import { Volume2, VolumeX } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import StormTrooper from "./models/StormTrooper";
+import Loader from "./components/Loader";
 
 const Home = () => {
   const audioRef = useRef(
@@ -72,7 +73,7 @@ const Home = () => {
           height: "400px",
         }}
       >
-        <Suspense fallback={<>loading</>}>
+        <Suspense fallback={<Loader />}>
           <StormTrooper
             isRotating
             position={[0, -2.2, 1]}
