@@ -37,7 +37,6 @@ export default function RootLayout({
           <CssBaseline />
           <Navbar />
           <ToastContainer />
-          <PageTransition>
             <Box
               component='div'
               display="flex"
@@ -46,12 +45,11 @@ export default function RootLayout({
               mx={{ xs: 6, sm: 16 }}
             >
               <Box component='div' width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<>Loading...</>}>
                   {children}
                 </Suspense>
               </Box>
             </Box>
-          </PageTransition>
         </ThemeProvider>
       </body>
     </html>
