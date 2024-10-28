@@ -43,6 +43,7 @@ const Navbar = () => {
           <MenuIcon />
         </IconButton>
         <Box
+          component='div'
           display={{ xs: "none", sm: "flex" }}
           justifyContent="space-between"
           alignItems='center'
@@ -50,7 +51,7 @@ const Navbar = () => {
             width: '100%'
           }}
         >
-          <Box sx={{marginLeft: '20px'}}>
+          <Box component='div' sx={{marginLeft: '20px'}}>
             <Link href="/">
               <h1 className="text-4xl fnt-semibold">
                 Jose
