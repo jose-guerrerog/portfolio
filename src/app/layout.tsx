@@ -7,17 +7,9 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/app/components/Navbar";
-import PageTransition from "@/app/components/PageTransition";
 import { Box } from "@mui/material";
-import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
-
-// const jetbrainsMono = JetBrains_Mono({
-//   subsets: ["latin"],
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-//   variable: '--font-jetbrainsMono'
-// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,9 +36,7 @@ export default function RootLayout({
               mx={{ xs: 6, sm: 16 }}
             >
               <Box component='div' width="100%" maxWidth={1400} display='flex' justifyContent={'center'}>
-                <Suspense fallback={<>Loading...</>}>
-                  {children}
-                </Suspense>
+                {children}
               </Box>
             </Box>
         </ThemeProvider>
