@@ -5,7 +5,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const MainTitle = () => {
   return (
-    <Box display="flex" justifyContent="center">
+    <Box component="div" display="flex" justifyContent="center">
       <Typography
         variant="h1"
         fontWeight={700}

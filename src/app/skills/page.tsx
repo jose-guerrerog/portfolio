@@ -20,8 +20,9 @@ const Skills = () => {
       <Grid container rowGap={8} mt={8}>
         {icons.map((icon, index) => (
           <Grid xs={6} sm={3} container justifyContent="center" key={index}>
-            <Box key={index}>
+            <Box component='div' key={index}>
               <Box
+                component="div"
                 {...(icon.addBackground && {
                   borderRadius: "50%",
                   backgroundColor: "#b2b2b2",
@@ -41,7 +42,7 @@ const Skills = () => {
               </Box>
 
               {icon.name !== "" && (
-                <Box display='flex' justifyContent='center'>
+                <Box component='div' display='flex' justifyContent='center'>
                 <Typography variant="body1" color="textPrimary">
                   {icon.name}
                 </Typography>

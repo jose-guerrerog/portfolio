@@ -140,7 +140,7 @@ const Contact = () => {
             />
           </Grid>
         </Grid>
-        <Box display="flex" justifyContent="center" mt={3}>
+        <Box component='div' display="flex" justifyContent="center" mt={3}>
           <LoadingButton
             type="submit"
             variant="contained"
@@ -158,6 +158,7 @@ const Contact = () => {
           </LoadingButton>
         </Box>
         <Box
+          component="div"
           display="flex"
           flexDirection="column"
           justifyContent="center"
