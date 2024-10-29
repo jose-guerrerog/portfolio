@@ -5,6 +5,8 @@ import { Volume2, VolumeX } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import StormTrooper from "./models/StormTrooper";
+import Thanos from "./models/Thanos";
+import Bart from "./models/Bart";
 import Loader from "./components/Loader";
 
 const Home = () => {
@@ -46,7 +48,7 @@ const Home = () => {
   }, [isPlayingMusic]);
 
   return (
-    <div>
+    <Box component='div' sx={{ width: '100%'}}>
       {/* <Box
         component='div'
        sx={{
@@ -56,11 +58,26 @@ const Home = () => {
       }}
        > */}
       <Typography
+        // sx={{
+        //   color: "white",
+        //   wordBreak: "break-word",
+        //   textAlign: 'center',
+        //   flexWrap: 'wrap'
+        // }}
+        textAlign={'center'}
         sx={{
-          color: "white",
-          wordBreak: "break-word",
-          textAlign: 'center',
-          flexWrap: 'wrap'
+          background: "linear-gradient(to left, #4c82ed, #FF6767 )",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          "@keyframes shine": {
+            from: {
+              WebkitFilter: "hue-rotate(0deg)",
+            },
+            to: {
+              WebkitFilter: "hue-rotate(-360deg)",
+            },
+          },
+          animation: `shine 5s linear infinite`,
         }}
         variant="h3"
         fontStyle="italic"
@@ -69,15 +86,25 @@ const Home = () => {
       </Typography>
       {/* </Box> */}
       <Canvas
-        style={{
-          height: "400px",
-        }}
+      style={{
+        width: '100%',
+        height: '650px'
+      }}
       >
         <Suspense fallback={<Loader />}>
           <StormTrooper
+            position={[-2, -2, 1]}
+            scale={[1, 1, 1]}
+          />
+          <Bart
             isRotating
-            position={[0, -2.2, 1]}
-            scale={[1.25, 1.25, 1.25]}
+            position={[2, -2, 1]}
+            scale={[1, 1, 1]}
+          />
+          <Thanos
+            isRotating
+            position={[0, -2, -3]}
+            scale={[0.016, 0.016, 0.016]}
           />
         </Suspense>
       </Canvas>
@@ -113,7 +140,7 @@ const Home = () => {
           />
         )}
       </Box>
-    </div>
+    </Box>
   );
 };
 
