@@ -114,7 +114,7 @@ const Home = () => {
         sx={{
           position: "absolute",
           right: "50px",
-          top: "75px",
+          top: "60px",
           cursor: "pointer",
         }}
       >
@@ -123,6 +123,7 @@ const Home = () => {
             color="#ffffff"
             className="w-full h-full text-foreground group-hover:text-accent"
             strokeWidth={1.5}
+            size={55}
             style={{
               padding: "1px",
             }}
@@ -133,6 +134,7 @@ const Home = () => {
             color="#ffffff"
             className="w-full h-full text-foreground group-hover:text-accent"
             strokeWidth={1.5}
+            size={55}
             style={{
               padding: "1px",
             }}
