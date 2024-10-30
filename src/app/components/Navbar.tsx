@@ -30,7 +30,13 @@ const Navbar = () => {
   // const isOriginalVersion = version !== '1';
 
   return (
-    <AppBar component="nav" position="sticky">
+    <AppBar
+      component="nav"
+      position="sticky"
+      sx={{
+        backgroundColor: "transparent",
+      }}
+    >
       <Toolbar>
         <IconButton
           color="inherit"
@@ -43,15 +49,15 @@ const Navbar = () => {
           <MenuIcon />
         </IconButton>
         <Box
-          component='div'
+          component="div"
           display={{ xs: "none", sm: "flex" }}
           justifyContent="space-between"
-          alignItems='center'
+          alignItems="center"
           sx={{
-            width: '100%'
+            width: "100%",
           }}
         >
-          <Box component='div' sx={{marginLeft: '20px'}}>
+          <Box component="div" sx={{ marginLeft: "20px" }}>
             <Link href="/">
               <h1 className="text-4xl fnt-semibold">
                 Jose
@@ -59,12 +65,10 @@ const Navbar = () => {
               </h1>
             </Link>
           </Box>
-          <Stack flexDirection={'row'}>
+          <Stack flexDirection={"row"}>
             {navLinks.map((item) => (
               <Link
-                href={
-                  item.path
-                }
+                href={item.path}
                 key={item.title}
                 color={item.path === pathname ? "#00ff99" : "#fff"}
                 style={{
@@ -73,9 +77,7 @@ const Navbar = () => {
                   textDecoration: "none",
                 }}
               >
-                <Typography>
-                  {item.title}
-                </Typography>
+                <Typography>{item.title}</Typography>
               </Link>
             ))}
           </Stack>

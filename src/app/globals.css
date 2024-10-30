@@ -1,5 +1,6 @@
 body {
   font-family: "JetBrains Mono !important";
+  background-image: url('/images/space.jpg');
 }
 
 :root {

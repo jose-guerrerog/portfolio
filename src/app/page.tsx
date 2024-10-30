@@ -79,7 +79,7 @@ const Home = () => {
           },
           animation: `shine 5s linear infinite`,
         }}
-        variant="h3"
+        variant="h2"
         fontStyle="italic"
       >
         Welcome to my Site
