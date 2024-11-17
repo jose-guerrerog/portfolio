@@ -92,7 +92,7 @@ export const projects = [
     title: "3D Sofa",
     image: "/images/5.png",
     githubLink: "https://github.com/jose-guerrerog/3D-sofa",
-    demoLink: "https://3-d-sofa-fz8x8hfqg-jose-guerreros-projects-e13ce748.vercel.app/",
+    demoLink: "https://3-d-sofa-git-main-jose-guerreros-projects-e13ce748.vercel.app/",
   },
   {
     id: 3,
