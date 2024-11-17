@@ -81,18 +81,18 @@ export const icons = [
 
 export const projects = [
   {
-    id: 1,
-    title: "Teleconference",
-    image: "/images/1.png",
-    githubLink: "https://github.com/jose-guerrerog/teleconference",
-    demoLink: "https://teleconference.onrender.com/",
-  },
-  {
     id: 2,
     title: "Chat app",
     image: "/images/2.png",
     githubLink: "https://github.com/jose-guerrerog/chat-server",
     demoLink: "https://chat-client-utmh.onrender.com/",
+  },
+  {
+    id: 5,
+    title: "3D Sofa",
+    image: "/images/5.png",
+    githubLink: "https://github.com/jose-guerrerog/3D-sofa",
+    demoLink: "https://3-d-sofa-fz8x8hfqg-jose-guerreros-projects-e13ce748.vercel.app/",
   },
   {
     id: 3,
