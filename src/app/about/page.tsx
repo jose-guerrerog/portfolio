@@ -72,7 +72,7 @@ const About = () => {
           <Stack flexDirection={"row"} gap={1} mt={5} alignItems={"center"}>
             <Button sx={{ border: "1px solid #00ff99", borderRadius: "36px" }}>
               <MuiLink
-                href="/assets/resume.pdf"
+                href="/assets/Resume - Jose Guerrero.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 download
