@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import {
-  Avatar,
   Box,
   Button,
   Grid,
@@ -10,12 +9,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import Loader from "@/app/components/Loader";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { githubLink, linkedinLink, experiences } from "../constants";
-
+import { Avatar } from "@/app/models/Avatar";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -122,35 +123,24 @@ const About = () => {
           justifyContent="center"
           mt={{ xs: 2, sm: 0 }}
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              transition: {
-                // delay: 1,
-                duration: 0.2,
-                // ease: "easeIn",
-              },
+          <Canvas
+            style={{
+              // width: "100%",
+              height: "650px",
             }}
-            // className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
+            shadows
+            camera={{
+              position: [0, 1, 4],
+              fov: 30,
+            }}
           >
-            <Avatar
-              alt="photo"
-              // src="/images/photo.png"
-              style={{ width: 280, height: 300, backgroundColor: "#ccc" }}
-            >
-              <Image
-                // src={isOriginalVersion ?"/images/photo.png" : "/images/photo-peter.png" }
-                src={"/images/photo.png"}
-                priority
-                quality={100}
-                width={280}
-                height={300}
-                alt=""
-                className="object-contain"
-              />
-            </Avatar>
-          </motion.div>
+            <Suspense fallback={<Loader />}>
+              <group position-x={0.1} position-y={-0.8}>
+                <Avatar />
+              </group>
+              <ambientLight intensity={1} />
+            </Suspense>
+          </Canvas>
         </Grid>
       </Grid>
       <VerticalTimeline animate>
