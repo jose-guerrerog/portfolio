@@ -84,7 +84,7 @@ export const projects = [
     id: 2,
     title: "Chat app",
     image: "/images/2.png",
-    githubLink: "https://github.com/jose-guerrerog/chat-server",
+    githubLink: "https://github.com/jose-guerrerog/chat-client",
     demoLink: "https://chat-client-utmh.onrender.com/",
   },
   {
