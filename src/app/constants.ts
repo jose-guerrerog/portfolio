@@ -95,6 +95,13 @@ export const projects = [
     demoLink: "https://3-d-sofa-git-main-jose-guerreros-projects-e13ce748.vercel.app/",
   },
   {
+    id: 6,
+    title: "Pokedex",
+    image: "/images/6.png",
+    githubLink: "https://github.com/jose-guerrerog/Pokemon",
+    demoLink: "https://pokemon-f8f6.onrender.com/",
+  },
+  {
     id: 3,
     title: "Portfolio",
     image: "/images/3.png",
