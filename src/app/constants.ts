@@ -98,8 +98,8 @@ export const projects = [
     id: 6,
     title: "Pokedex",
     image: "/images/6.png",
-    githubLink: "https://github.com/jose-guerrerog/Pokemon",
-    demoLink: "https://pokemon-f8f6.onrender.com/",
+    githubLink: "https://github.com/jose-guerrerog/pokedex-app",
+    demoLink: "https://pokedex-app-flame-nu.vercel.app/",
   },
   {
     id: 3,
