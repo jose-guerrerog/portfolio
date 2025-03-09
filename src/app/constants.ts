@@ -83,10 +83,17 @@ export const projects = [
   {
     id: 2,
     title: "Chat app",
-    image: "/images/2.png",
-    githubLink: "https://github.com/jose-guerrerog/chat-client",
-    demoLink: "https://chat-client-utmh.onrender.com/",
+    image: "/images/8.png",
+    githubLink: "https://github.com/jose-guerrerog/chat-room-fe/",
+    demoLink: "https://chat-room-fe.onrender.com/",
   },
+  // {
+  //   id: 7,
+  //   title: "Book Review",
+  //   image: "/images/2.png",
+  //   githubLink: "https://github.com/jose-guerrerog/book-review",
+  //   demoLink: "https://book-review-098i.onrender.com/",
+  // },
   {
     id: 5,
     title: "3D Sofa",

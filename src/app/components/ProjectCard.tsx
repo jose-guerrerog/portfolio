@@ -49,6 +49,9 @@ const ProjectCard = ({
         <CardMedia
           component="img"
           // height="250"
+          // sx={{
+          //   minHeight: 200
+          // }}
           image={image}
           alt="image-card"
         />
