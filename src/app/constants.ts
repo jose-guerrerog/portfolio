@@ -82,10 +82,17 @@ export const icons = [
 export const projects = [
   {
     id: 2,
-    title: "Chat app",
+    title: "Chat App with Rooms",
     image: "/images/8.png",
     githubLink: "https://github.com/jose-guerrerog/chat-room-fe/",
     demoLink: "https://chat-room-fe.onrender.com/",
+  },
+  {
+    id: 7,
+    title: "Book Review",
+    image: "/images/9.png",
+    githubLink: "https://github.com/jose-guerrerog/book-review",
+    demoLink: "https://book-review-098i.onrender.com/",
   },
   // {
   //   id: 7,
