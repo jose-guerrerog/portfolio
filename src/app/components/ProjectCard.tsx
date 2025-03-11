@@ -4,6 +4,8 @@ import { Box, Card, CardMedia, CardContent, Typography } from "@mui/material";
 import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CodeIcon from "@mui/icons-material/Code";
+import Image from "next/image";
+import OptimizedCardMedia from './OptimizedCardMedia';
 
 const ProjectCard = ({
   title,
@@ -46,14 +48,9 @@ const ProjectCard = ({
         />
       )}
       <Card>
-        <CardMedia
-          component="img"
-          // height="250"
-          // sx={{
-          //   minHeight: 200
-          // }}
+        <OptimizedCardMedia
           image={image}
-          alt="image-card"
+          title={title}
         />
         <CardContent>
           <Typography fontWeight={700} color="textPrimary">
@@ -62,14 +59,15 @@ const ProjectCard = ({
         </CardContent>
       </Card>
 
-      <Link href={githubLink} 
+      <Link
+        href={githubLink}
         style={{
-          border: '#adb7be',
-          height: '45px',
-          width: '45px',
-          borderRadius: '50%',
+          border: "#adb7be",
+          height: "45px",
+          width: "45px",
+          borderRadius: "50%",
         }}
-      className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link">
+        className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link">
         <CodeIcon
           sx={{
             color: "#ADB7BE",

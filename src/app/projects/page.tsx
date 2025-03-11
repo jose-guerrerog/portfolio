@@ -5,7 +5,7 @@ import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
   return (
-    <Box component="section" id="projects" my={3}>
+    <Box component="section" id="projects" my={3} sx={{ width: '100%'}}>
       <Typography variant="h3" fontWeight={700}
         sx={{
           background: "#2482ff",
@@ -17,7 +17,7 @@ const Projects = () => {
       </Typography>
       <Grid container mt={4} rowSpacing={5} columnSpacing={3}>
         {projects.map((project, index) => (
-          <Grid key={index} item md={4} sm={12}>
+          <Grid key={index} item md={4} xs={12}>
           <ProjectCard
             key={project.id}
             title={project.title}
