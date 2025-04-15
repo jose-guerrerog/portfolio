@@ -4,10 +4,34 @@ import { Canvas } from "@react-three/fiber";
 import { Volume2, VolumeX } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import StormTrooper from "./models/StormTrooper";
-import Thanos from "./models/Thanos";
-import Bart from "./models/Bart";
 import Loader from "./components/Loader";
+import dynamic from 'next/dynamic';
+
+// Simple loading component for model loading
+const ModelLoader = () => {
+  return (
+    <mesh>
+      <sphereGeometry args={[0.5, 16, 16]} />
+      <meshStandardMaterial color="#4c82ed" wireframe />
+    </mesh>
+  );
+};
+
+// Dynamically import models with custom loading states
+const StormTrooper = dynamic(() => import("./models/StormTrooper"), {
+  loading: () => <ModelLoader />,
+  ssr: false,
+});
+
+const Bart = dynamic(() => import("./models/Bart"), {
+  loading: () => <ModelLoader />,
+  ssr: false,
+});
+
+const Thanos = dynamic(() => import("./models/Thanos"), {
+  loading: () => <ModelLoader />,
+  ssr: false,
+});
 
 const Home = () => {
   const audioRef = useRef(
@@ -19,6 +43,32 @@ const Home = () => {
   }
 
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [visibleModels, setVisibleModels] = useState({
+    stormTrooper: false,
+    bart: false,
+    thanos: false
+  });
+
+  // Load models sequentially with delays
+  useEffect(() => {
+    // Start loading the first model immediately
+    setVisibleModels(prev => ({ ...prev, stormTrooper: true }));
+    
+    // Load second model after 500ms
+    const timer1 = setTimeout(() => {
+      setVisibleModels(prev => ({ ...prev, bart: true }));
+    }, 500);
+    
+    // Load third model after 1000ms
+    const timer2 = setTimeout(() => {
+      setVisibleModels(prev => ({ ...prev, thanos: true }));
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
 
   const toggle = () => {
     const newState = !isPlayingMusic;
@@ -49,21 +99,7 @@ const Home = () => {
 
   return (
     <Box component='div' sx={{ width: '100%'}}>
-      {/* <Box
-        component='div'
-       sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: 'nowrap'
-      }}
-       > */}
       <Typography
-        // sx={{
-        //   color: "white",
-        //   wordBreak: "break-word",
-        //   textAlign: 'center',
-        //   flexWrap: 'wrap'
-        // }}
         textAlign={'center'}
         sx={{
           background: "linear-gradient(to left, #4c82ed, #FF6767 )",
@@ -84,29 +120,39 @@ const Home = () => {
       >
         Welcome to my Site
       </Typography>
-      {/* </Box> */}
+      
       <Canvas
-      style={{
-        width: '100%',
-        height: '650px'
-      }}
+        style={{
+          width: '100%',
+          height: '650px'
+        }}
       >
-        <Suspense fallback={<Loader />}>
+        {/* Common lighting and environment that all models need */}
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
+        
+        {visibleModels.stormTrooper && (
           <StormTrooper
             position={[-2, -2, 1]}
             scale={[1, 1, 1]}
           />
+        )}
+        
+        {visibleModels.bart && (
           <Bart
             isRotating
             position={[2, -2, 1]}
             scale={[1, 1, 1]}
           />
+        )}
+        
+        {visibleModels.thanos && (
           <Thanos
             isRotating
             position={[0, -2, -3]}
             scale={[0.016, 0.016, 0.016]}
           />
-        </Suspense>
+        )}
       </Canvas>
 
       <Box
