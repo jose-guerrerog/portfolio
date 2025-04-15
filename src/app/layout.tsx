@@ -33,7 +33,7 @@ export default function RootLayout({
             component="div"
             display="flex"
             justifyContent="center"
-            my={6}
+            my={14}
             mx={{ xs: 2, sm: 16 }}
           >
             <Box
