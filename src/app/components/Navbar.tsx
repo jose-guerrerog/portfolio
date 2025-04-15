@@ -17,9 +17,18 @@ import {
 } from "@mui/material";
 import { navLinks } from "../constants";
 import { usePathname } from "next/navigation";
+import { styled } from '@mui/material/styles';
+
+const FlexEndBox = styled('div')({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  paddingLeft: '16px',
+  paddingRight: '16px',
+  paddingTop: '8px'
+});
 
 // Hide navbar on scroll down, show on scroll up
-function HideOnScroll(props) {
+function HideOnScroll(props: any) {
   const { children } = props;
   const trigger = useScrollTrigger();
 
@@ -48,7 +57,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -216,19 +225,15 @@ const Navbar = () => {
             }}
           >
             {/* Close button in mobile menu */}
-            <Box 
-  display="flex" 
-  justifyContent="flex-end"
-  paddingX={2}
-  paddingTop={1}
->              <IconButton
+            <FlexEndBox>
+              <IconButton
                 size="small"
                 onClick={handleCloseNavMenu}
                 sx={{ color: "#fff" }}
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
-            </Box>
+            </FlexEndBox>
             
             {navLinks.map((item) => {
               const isActive = item.path === pathname;
