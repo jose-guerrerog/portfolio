@@ -10,13 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Loader from "@/app/components/Loader";
 import Link from "next/link";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { githubLink, linkedinLink, experiences } from "../constants";
-import { Avatar } from "@/app/models/Avatar";
+import dynamic from 'next/dynamic';
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -24,7 +24,36 @@ import {
 
 import "react-vertical-timeline-component/style.min.css";
 
+// Simple loading component for avatar loading
+const ModelLoader = () => {
+  return (
+    <mesh position={[0, 1.1, 0]}>
+      <sphereGeometry args={[0.2, 16, 16]} />
+      <meshStandardMaterial color="#4c82ed" wireframe />
+    </mesh>
+  );
+};
+
+// Dynamically import Avatar model with custom loading state
+const DynamicAvatar = dynamic(() => import("@/app/models/Avatar").then((mod) => mod.Avatar), {
+  loading: () => <ModelLoader />,
+  ssr: false,
+});
+
 const About = () => {
+  const [visibleAvatar, setVisibleAvatar] = useState(false);
+
+  // Load avatar with slight delay for better user experience
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisibleAvatar(true);
+    }, 300);
+    
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <Box
       component="section"
@@ -134,12 +163,13 @@ const About = () => {
               fov: 30,
             }}
           >
-            <Suspense fallback={<Loader />}>
+            {/* Directly use Suspense with loader here as fallback */}
+            <ambientLight intensity={1} />
+            {visibleAvatar && (
               <group position-x={0.1} position-y={-0.8}>
-                <Avatar />
+                <DynamicAvatar />
               </group>
-              <ambientLight intensity={1} />
-            </Suspense>
+            )}
           </Canvas>
         </Grid>
       </Grid>
