@@ -81,6 +81,13 @@ export const icons = [
 
 export const projects = [
   {
+    id: 10,
+    title: "MovieMatch",
+    image: "/images/10.png",
+    githubLink: "https://github.com/jose-guerrerog/movie-match-fe",
+    demoLink: "https://movie-match-fe.vercel.app/",
+  },
+  {
     id: 2,
     title: "Chat App with Rooms",
     image: "/images/8.png",
