@@ -87,13 +87,13 @@ export const projects = [
     githubLink: "https://github.com/jose-guerrerog/movie-match-fe",
     demoLink: "https://movie-match-fe.vercel.app/",
   },
-  // {
-  //   id: 2,
-  //   title: "Chat App with Rooms",
-  //   image: "/images/8.png",
-  //   githubLink: "https://github.com/jose-guerrerog/chat-room-fe/",
-  //   demoLink: "https://chat-room-fe.onrender.com/",
-  // },
+  {
+    id: 2,
+    title: "Chat App with Rooms",
+    image: "/images/14.png",
+    githubLink: "https://github.com/jose-guerrerog/chat-with-room-fe",
+    demoLink: "https://chat-with-room-fe.vercel.app/",
+  },
   {
     id: 7,
     title: "Book Review",
