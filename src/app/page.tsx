@@ -1,14 +1,15 @@
+// src/app/page.tsx
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Volume2, VolumeX } from "lucide-react";
 import { Suspense } from "react";
-// Properly import MUI components
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import dynamic from 'next/dynamic';
+import * as THREE from "three";
+import DeathStar from "./models/DeathStar";
 
-// Simple loading component for model loading
+// Simple loading component
 const ModelLoader = () => {
   return (
     <mesh>
@@ -18,17 +19,99 @@ const ModelLoader = () => {
   );
 };
 
-// Dynamically import your Death Star model
-const DeathStar = dynamic(() => import("./models/DeathStar"), {
-  loading: () => <ModelLoader />,
-  ssr: false,
-});
+// Scene component with rotation logic
+const Scene = () => {
+  const { gl, camera } = useThree();
+  const [isDragging, setIsDragging] = useState(false);
+  const [previousMousePosition, setPreviousMousePosition] = useState({ x: 0, y: 0 });
+  const [deathStarGroup, setDeathStarGroup] = useState<THREE.Group | null>(null);
+  
+  // Set initial camera position
+  useEffect(() => {
+    camera.position.set(0, 0, 10);
+  }, [camera]);
+
+  useEffect(() => {
+    if (!gl || !deathStarGroup) return;
+    
+    // Mouse down event - start dragging
+    const handleMouseDown = (e: MouseEvent) => {
+      setIsDragging(true);
+      setPreviousMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    // Mouse move event - rotate if dragging
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !deathStarGroup) return;
+      
+      const deltaMove = {
+        x: e.clientX - previousMousePosition.x,
+        y: e.clientY - previousMousePosition.y
+      };
+
+      // Update model rotation based on mouse movement
+      deathStarGroup.rotation.y += deltaMove.x * 0.01;
+      deathStarGroup.rotation.x += deltaMove.y * 0.01;
+
+      setPreviousMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    // Mouse up event - stop dragging
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    // Add event listeners to the canvas
+    const canvas = gl.domElement;
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mouseleave', handleMouseUp);
+
+    // Cleanup event listeners
+    return () => {
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mouseleave', handleMouseUp);
+    };
+  }, [gl, isDragging, previousMousePosition, deathStarGroup]);
+
+  // Handle getting reference to the Death Star group
+  const handleDeathStarLoad = (group: THREE.Group) => {
+    setDeathStarGroup(group);
+  };
+
+  return (
+    <>
+      {/* Basic lighting setup */}
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
+      
+      {/* Death Star model */}
+      <Suspense fallback={<ModelLoader />}>
+        <DeathStar 
+          position={[0, 0, 0]} 
+          scale={[0.05, 0.05, 0.05]}
+          isRotating={false}
+          onLoad={handleDeathStarLoad}
+        />
+      </Suspense>
+    </>
+  );
+};
 
 const Home = () => {
-  const audioRef = useRef(
+  const audioRef = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined" ? new Audio("/audio.mp3") : undefined
   );
-  if (audioRef && audioRef.current) {
+  if (audioRef.current) {
     audioRef.current.volume = 0.4;
     audioRef.current.loop = true;
   }
@@ -38,16 +121,16 @@ const Home = () => {
   // Toggle music
   const toggle = () => {
     const newState = !isPlayingMusic;
-    setIsPlayingMusic(!isPlayingMusic);
+    setIsPlayingMusic(newState);
     if (newState) {
-      audioRef && audioRef.current && audioRef.current.play();
+      audioRef.current?.play();
     } else {
-      audioRef && audioRef.current && audioRef.current.pause();
+      audioRef.current?.pause();
     }
   };
 
   useEffect(() => {
-    if (!(audioRef && audioRef.current)) {
+    if (!audioRef.current) {
       return;
     }
 
@@ -56,10 +139,7 @@ const Home = () => {
     }
 
     return () => {
-      if (!(audioRef && audioRef.current)) {
-        return;
-      }
-      audioRef.current.pause();
+      audioRef.current?.pause();
     };
   }, [isPlayingMusic]);
 
@@ -87,36 +167,25 @@ const Home = () => {
         Welcome to my Site
       </Typography>
       
+      <div style={{ 
+        textAlign: 'center', 
+        color: 'white', 
+        marginBottom: '10px',
+        fontSize: '14px'
+      }}>
+        Click and drag to rotate the Death Star
+      </div>
+      
       <Canvas
         style={{
           width: '100%',
-          height: '650px'
+          height: '600px'
         }}
       >
-        {/* Brighter lighting for better visibility */}
-        <ambientLight intensity={0.6} />
-        <directionalLight 
-          position={[5, 5, 5]} 
-          intensity={1.0} 
-          color="#ffffff" 
-        />
-        
-        {/* Add a subtle highlight from another angle */}
-        <directionalLight 
-          position={[-5, 3, 2]} 
-          intensity={0.3} 
-          color="#aaaaff" 
-        />
-        
-        {/* Your Death Star model with improved color */}
-        <DeathStar
-          position={[0, 0, 0]} 
-          scale={[0.05, 0.05, 0.05]}
-          isRotating={true} 
-        />
+        <Scene />
       </Canvas>
 
-      {/* <Box
+      <Box
         component="div"
         sx={{
           position: "absolute",
@@ -149,7 +218,7 @@ const Home = () => {
             onClick={toggle}
           />
         )}
-      </Box> */}
+      </Box>
     </Box>
   );
 };
