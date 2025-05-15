@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
@@ -25,10 +24,12 @@ const Scene = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [previousMousePosition, setPreviousMousePosition] = useState({ x: 0, y: 0 });
   const [deathStarGroup, setDeathStarGroup] = useState<THREE.Group | null>(null);
+  const [autoRotate, setAutoRotate] = useState(true);
   
   // Set initial camera position
   useEffect(() => {
-    camera.position.set(0, 0, 10);
+    // Let the camera start closer to see the Death Star better
+    camera.position.set(0, 0, 8);
   }, [camera]);
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const Scene = () => {
     // Mouse down event - start dragging
     const handleMouseDown = (e: MouseEvent) => {
       setIsDragging(true);
+      setAutoRotate(false); // Temporarily disable auto-rotation during manual rotation
       setPreviousMousePosition({
         x: e.clientX,
         y: e.clientY
@@ -65,6 +67,8 @@ const Scene = () => {
     // Mouse up event - stop dragging
     const handleMouseUp = () => {
       setIsDragging(false);
+      // Resume auto-rotation after 1 second
+      setTimeout(() => setAutoRotate(true), 1000);
     };
 
     // Add event listeners to the canvas
@@ -73,6 +77,44 @@ const Scene = () => {
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseup', handleMouseUp);
     canvas.addEventListener('mouseleave', handleMouseUp);
+    
+    // Touch events for mobile
+    canvas.addEventListener('touchstart', (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      setIsDragging(true);
+      setAutoRotate(false);
+      setPreviousMousePosition({
+        x: touch.clientX,
+        y: touch.clientY
+      });
+    });
+    
+    canvas.addEventListener('touchmove', (e: TouchEvent) => {
+      e.preventDefault();
+      if (!isDragging || !deathStarGroup) return;
+      
+      const touch = e.touches[0];
+      const deltaMove = {
+        x: touch.clientX - previousMousePosition.x,
+        y: touch.clientY - previousMousePosition.y
+      };
+      
+      // Update the rotation
+      deathStarGroup.rotation.y += deltaMove.x * 0.01;
+      deathStarGroup.rotation.x += deltaMove.y * 0.01;
+      
+      setPreviousMousePosition({
+        x: touch.clientX,
+        y: touch.clientY
+      });
+    });
+    
+    canvas.addEventListener('touchend', () => {
+      setIsDragging(false);
+      // Resume auto-rotation after 1 second
+      setTimeout(() => setAutoRotate(true), 1000);
+    });
 
     // Cleanup event listeners
     return () => {
@@ -80,6 +122,9 @@ const Scene = () => {
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseup', handleMouseUp);
       canvas.removeEventListener('mouseleave', handleMouseUp);
+      canvas.removeEventListener('touchstart', handleMouseDown as any);
+      canvas.removeEventListener('touchmove', handleMouseMove as any);
+      canvas.removeEventListener('touchend', handleMouseUp);
     };
   }, [gl, isDragging, previousMousePosition, deathStarGroup]);
 
@@ -90,16 +135,25 @@ const Scene = () => {
 
   return (
     <>
-      {/* Basic lighting setup */}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
+      {/* Enhanced lighting setup */}
+      <ambientLight intensity={0.3} />
+      <directionalLight 
+        position={[5, 5, 5]} 
+        intensity={1.2}
+        castShadow
+      />
+      <directionalLight 
+        position={[-5, 5, 5]} 
+        intensity={0.6}
+        color="#8080ff"
+      />
       
       {/* Death Star model */}
       <Suspense fallback={<ModelLoader />}>
         <DeathStar 
           position={[0, 0, 0]} 
-          scale={[0.05, 0.05, 0.05]}
-          isRotating={false}
+          scale={[0.08, 0.08, 0.08]}
+          isRotating={autoRotate}
           onLoad={handleDeathStarLoad}
         />
       </Suspense>
@@ -148,18 +202,24 @@ const Home = () => {
       <Typography
         textAlign={'center'}
         sx={{
-          background: "linear-gradient(to left, #4c82ed, #FF6767 )",
+          background: "linear-gradient(to right, #FF6767, #4c82ed, #FF6767)",
+          backgroundSize: "200% auto",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           "@keyframes shine": {
-            from: {
-              WebkitFilter: "hue-rotate(0deg)",
+            "0%": {
+              backgroundPosition: "0% center",
             },
-            to: {
-              WebkitFilter: "hue-rotate(-360deg)",
+            "100%": {
+              backgroundPosition: "200% center",
             },
           },
           animation: `shine 5s linear infinite`,
+          fontSize: { xs: '2rem', md: '3rem' },
+          fontWeight: 'bold',
+          mb: 1,
+          position: 'relative',
+          zIndex: 10
         }}
         variant="h2"
         fontStyle="italic"
@@ -169,12 +229,24 @@ const Home = () => {
       
       <div style={{ 
         textAlign: 'center', 
-        color: 'white', 
+        color: '#a3e4ff', 
         marginBottom: '10px',
-        fontSize: '14px'
+        fontSize: '16px',
+        fontWeight: '500',
+        letterSpacing: '1px',
+        textShadow: '0 0 5px rgba(163, 228, 255, 0.7)',
+        animation: 'pulse 2s infinite ease-in-out'
       }}>
         Click and drag to rotate the Death Star
       </div>
+      
+      <style jsx global>{`
+        @keyframes pulse {
+          0% { opacity: 0.7; }
+          50% { opacity: 1; }
+          100% { opacity: 0.7; }
+        }
+      `}</style>
       
       <Canvas
         style={{

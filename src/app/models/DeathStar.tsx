@@ -28,7 +28,7 @@ const DeathStar: React.FC<DeathStarProps> = ({ position, scale, isRotating, onLo
   // Auto-rotation if enabled
   useFrame(() => {
     if (isRotating && groupRef.current) {
-      groupRef.current.rotation.y += 0.0005;
+      groupRef.current.rotation.y += 0.005;
     }
   });
   
