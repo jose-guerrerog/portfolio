@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Volume2, VolumeX } from "lucide-react";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Suspense } from "react";
+// Properly import MUI components
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import dynamic from 'next/dynamic';
 
 // Simple loading component for model loading
@@ -16,24 +18,11 @@ const ModelLoader = () => {
   );
 };
 
-// Dynamically import models with custom loading states
-const StormTrooper = dynamic(() => import("./models/StormTrooper"), {
+// Dynamically import your Death Star model
+const DeathStar = dynamic(() => import("./models/DeathStar"), {
   loading: () => <ModelLoader />,
   ssr: false,
 });
-
-// Commented out other models
-/*
-const Bart = dynamic(() => import("./models/Bart"), {
-  loading: () => <ModelLoader />,
-  ssr: false,
-});
-
-const Thanos = dynamic(() => import("./models/Thanos"), {
-  loading: () => <ModelLoader />,
-  ssr: false,
-});
-*/
 
 const Home = () => {
   const audioRef = useRef(
@@ -45,36 +34,8 @@ const Home = () => {
   }
 
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const [visibleModels, setVisibleModels] = useState({
-    stormTrooper: false,
-    // Keeping these in state but not using them
-    // bart: false,
-    // thanos: false
-  });
 
-  // Load only the StormTrooper model
-  useEffect(() => {
-    // Start loading the StormTrooper model immediately
-    setVisibleModels(prev => ({ ...prev, stormTrooper: true }));
-    
-    /* Commented out loading of other models
-    // Load second model after 500ms
-    const timer1 = setTimeout(() => {
-      setVisibleModels(prev => ({ ...prev, bart: true }));
-    }, 500);
-    
-    // Load third model after 1000ms
-    const timer2 = setTimeout(() => {
-      setVisibleModels(prev => ({ ...prev, thanos: true }));
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-    */
-  }, []);
-
+  // Toggle music
   const toggle = () => {
     const newState = !isPlayingMusic;
     setIsPlayingMusic(!isPlayingMusic);
@@ -103,7 +64,7 @@ const Home = () => {
   }, [isPlayingMusic]);
 
   return (
-    <Box component='div' sx={{ width: '100%'}}>
+    <Box component='div' sx={{ width: '100%', position: 'relative' }}>
       <Typography
         textAlign={'center'}
         sx={{
@@ -132,44 +93,37 @@ const Home = () => {
           height: '650px'
         }}
       >
-        {/* Common lighting and environment that all models need */}
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
+        {/* Brighter lighting for better visibility */}
+        <ambientLight intensity={0.6} />
+        <directionalLight 
+          position={[5, 5, 5]} 
+          intensity={1.0} 
+          color="#ffffff" 
+        />
         
-        {visibleModels.stormTrooper && (
-          <StormTrooper
-            position={[0, -2, 0]} 
-            scale={[1.2, 1.2, 1.2]}
-            isRotating={true} 
-          />
-        )}
+        {/* Add a subtle highlight from another angle */}
+        <directionalLight 
+          position={[-5, 3, 2]} 
+          intensity={0.3} 
+          color="#aaaaff" 
+        />
         
-        {/* Commented out other models
-        {visibleModels.bart && (
-          <Bart
-            isRotating
-            position={[2, -2, 1]}
-            scale={[1, 1, 1]}
-          />
-        )}
-        
-        {visibleModels.thanos && (
-          <Thanos
-            isRotating
-            position={[0, -2, -3]}
-            scale={[0.016, 0.016, 0.016]}
-          />
-        )}
-        */}
+        {/* Your Death Star model with improved color */}
+        <DeathStar
+          position={[0, 0, 0]} 
+          scale={[0.05, 0.05, 0.05]}
+          isRotating={true} 
+        />
       </Canvas>
 
-      <Box
+      {/* <Box
         component="div"
         sx={{
           position: "absolute",
           right: "50px",
           top: "60px",
           cursor: "pointer",
+          zIndex: 100
         }}
       >
         {isPlayingMusic ? (
@@ -195,7 +149,7 @@ const Home = () => {
             onClick={toggle}
           />
         )}
-      </Box>
+      </Box> */}
     </Box>
   );
 };
