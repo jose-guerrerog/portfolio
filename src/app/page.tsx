@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import { Volume2, VolumeX } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import Loader from "./components/Loader";
 import dynamic from 'next/dynamic';
 
 // Simple loading component for model loading
@@ -23,6 +22,8 @@ const StormTrooper = dynamic(() => import("./models/StormTrooper"), {
   ssr: false,
 });
 
+// Commented out other models
+/*
 const Bart = dynamic(() => import("./models/Bart"), {
   loading: () => <ModelLoader />,
   ssr: false,
@@ -32,6 +33,7 @@ const Thanos = dynamic(() => import("./models/Thanos"), {
   loading: () => <ModelLoader />,
   ssr: false,
 });
+*/
 
 const Home = () => {
   const audioRef = useRef(
@@ -45,15 +47,17 @@ const Home = () => {
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [visibleModels, setVisibleModels] = useState({
     stormTrooper: false,
-    bart: false,
-    thanos: false
+    // Keeping these in state but not using them
+    // bart: false,
+    // thanos: false
   });
 
-  // Load models sequentially with delays
+  // Load only the StormTrooper model
   useEffect(() => {
-    // Start loading the first model immediately
+    // Start loading the StormTrooper model immediately
     setVisibleModels(prev => ({ ...prev, stormTrooper: true }));
     
+    /* Commented out loading of other models
     // Load second model after 500ms
     const timer1 = setTimeout(() => {
       setVisibleModels(prev => ({ ...prev, bart: true }));
@@ -68,6 +72,7 @@ const Home = () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
+    */
   }, []);
 
   const toggle = () => {
@@ -133,11 +138,13 @@ const Home = () => {
         
         {visibleModels.stormTrooper && (
           <StormTrooper
-            position={[-2, -2, 1]}
-            scale={[1, 1, 1]}
+            position={[0, -2, 0]} 
+            scale={[1.2, 1.2, 1.2]}
+            isRotating={true} 
           />
         )}
         
+        {/* Commented out other models
         {visibleModels.bart && (
           <Bart
             isRotating
@@ -153,6 +160,7 @@ const Home = () => {
             scale={[0.016, 0.016, 0.016]}
           />
         )}
+        */}
       </Canvas>
 
       <Box
