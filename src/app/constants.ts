@@ -208,15 +208,17 @@ export const collaborationSkills = [
 
 export const experiences = [
   {
-    company_name: "Self Employed",
+    company_name: "Children's Hospital Westmead - WSU",
     iconBg: "black",
-    title: "Freelance Software Developer",
+    title: "Master of Philosophy - Researcher",
     date: "Jun 2024 - Present",
-    icon: "/images/briefcase.jpg",
+    icon: "/images/schnkids_logo.jpeg",
     points: [
-      "Currently developing a new website for the Eastside Learning Centre, a math tutoring center using React.js and Next.js",
-      "Automated the sales process for Quality Blinds by leveraging Visual Basic in conjunction with Microsoft Excel",
-      "Enhancing my portfolio to attract more freelance job opportunities",
+      "Building an interactive VR/AR visual analytics platform in Unity (C#) for exploring genomic and biomedical data",
+      "Developing 3D interfaces that translate complex data patterns into intuitive, spatially organized visuals for clinicians",
+      "Applying supervised and unsupervised ML (e.g. Random Forest, UMAP) to extract insights from biomedical data for clinical use",
+      "Processing and analysing gene expression and flow cytometry datasets in Python to enable pattern discovery and interpretation",
+      "Collaborating with medical researchers to ensure outputs align with real-world diagnostic and research workflows",
     ],
   },
   {
