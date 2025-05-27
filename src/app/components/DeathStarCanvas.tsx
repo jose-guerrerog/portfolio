@@ -158,7 +158,7 @@ const Scene = () => {
 
 export default function DeathStarCanvas() {
   return (
-    <Canvas style={{ width: '100%', height: '600px' }}>
+    <Canvas dpr={[1, 1.5]} performance={{ min: 0.2 }} shadows={false} style={{ width: '100%', height: '600px' }}>
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
