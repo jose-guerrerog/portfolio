@@ -94,13 +94,13 @@ export const projects = [
   //   githubLink: "https://github.com/jose-guerrerog/chat-with-room-fe",
   //   demoLink: "https://chat-with-room-fe.vercel.app/",
   // },
-  {
-    id: 7,
-    title: "Book Review",
-    image: "/images/9.png",
-    githubLink: "https://github.com/jose-guerrerog/book-review",
-    demoLink: "https://book-review-098i.onrender.com/",
-  },
+  // {
+  //   id: 7,
+  //   title: "Book Review",
+  //   image: "/images/9.png",
+  //   githubLink: "https://github.com/jose-guerrerog/book-review",
+  //   demoLink: "https://book-review-098i.onrender.com/",
+  // },
   // {
   //   id: 7,
   //   title: "Book Review",
