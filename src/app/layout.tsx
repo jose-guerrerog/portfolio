@@ -8,6 +8,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/app/components/Navbar";
+import StarsBackground from '@/app/components/StarsBackground';
 import { Box, Typography } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <StarsBackground />
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
