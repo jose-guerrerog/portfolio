@@ -1,11 +1,9 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
-import { Volume2, VolumeX } from "lucide-react";
-import { Suspense } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import dynamic from 'next/dynamic';
+import AudioControl from './components/AudioControl';
 
 const DeathStarCanvas = dynamic(() => import('./components/DeathStarCanvas'), {
   ssr: false,
@@ -111,41 +109,7 @@ const Home = () => {
         <Scene />
       </Canvas> */}
       <DeathStarCanvas />
-
-      <Box
-        component="div"
-        sx={{
-          position: "absolute",
-          right: "50px",
-          top: "60px",
-          cursor: "pointer",
-          zIndex: 100
-        }}
-      >
-        {isPlayingMusic ? (
-          <Volume2
-            color="#ffffff"
-            className="w-full h-full text-foreground group-hover:text-accent"
-            strokeWidth={1.5}
-            size={55}
-            style={{
-              padding: "1px",
-            }}
-            onClick={toggle}
-          />
-        ) : (
-          <VolumeX
-            color="#ffffff"
-            className="w-full h-full text-foreground group-hover:text-accent"
-            strokeWidth={1.5}
-            size={55}
-            style={{
-              padding: "1px",
-            }}
-            onClick={toggle}
-          />
-        )}
-      </Box>
+      <AudioControl />
     </Box>
   );
 };

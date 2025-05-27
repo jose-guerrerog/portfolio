@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import { CardMedia, Box } from '@mui/material';
+import CardMedia from '@mui/material/CardMedia';
 
 const OptimizedCardMedia = ({ image, title }: {image: string, title: string}) => {
   const [isLoaded, setIsLoaded] = useState(false);
