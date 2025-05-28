@@ -10,14 +10,22 @@ export default function StarsBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
     const isMobile = window.innerWidth < 768;
     const starCount = isMobile ? 100 : 300;
     const stars: { x: number; y: number; radius: number; twinkle: number }[] = [];
 
     for (let i = 0; i < starCount; i++) {
       stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
         radius: Math.random() * 1.5 + 0.3,
         twinkle: Math.random() * 100,
       });
@@ -28,7 +36,6 @@ export default function StarsBackground() {
     const animate = () => {
       if (!ctx) return;
 
-      // blue glow radial gradient
       const gradient = ctx.createRadialGradient(
         canvas.width / 2,
         canvas.height / 2,
@@ -44,7 +51,7 @@ export default function StarsBackground() {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      stars.forEach((star, i) => {
+      stars.forEach((star) => {
         const twinkle = Math.abs(Math.sin((Date.now() + star.twinkle * 10) / 1000));
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
@@ -55,11 +62,12 @@ export default function StarsBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
     animate();
 
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', resizeCanvas);
+    };
   }, []);
 
   return <canvas ref={canvasRef} className="stars-background-canvas" />;
