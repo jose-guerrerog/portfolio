@@ -12,6 +12,13 @@ body {
   z-index: -1;
   pointer-events: none;
   display: block;
+  background: radial-gradient(
+    circle at center,
+    #00040f 0%,     /* almost black in the center */
+    #000d1a 30%,
+    #001525 60%,
+    #000a1f 100%
+  );
 }
 
 .stars-background {
@@ -22,13 +29,6 @@ body {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(
-    circle at center,
-    #000814 0%,       /* deep black-blue center */
-    #00152a 30%,
-    #001e3c 60%,
-    #000a1f 100%       
-  );
   overflow: hidden;
 }
 

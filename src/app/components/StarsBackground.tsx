@@ -45,12 +45,6 @@ export default function StarsBackground() {
         canvas.width * 1.6
       );
       
-      gradient.addColorStop(0, 'rgba(20, 80, 180, 0.05)');   // very soft blue core
-      gradient.addColorStop(0.25, 'rgba(15, 50, 100, 0.1)'); // gentle mid blue
-      gradient.addColorStop(0.5, 'rgba(5, 20, 50, 0.2)');    // deeper tone
-      gradient.addColorStop(0.85, 'rgba(2, 10, 25, 0.6)');   // dark navy
-      gradient.addColorStop(1, 'rgba(0, 5, 15, 0.9)');       // space black
-
       gradient.addColorStop(0.4, 'rgba(10, 40, 90, 0.7)');
       gradient.addColorStop(0.7, 'rgba(0, 20, 40, 0.85)');
       gradient.addColorStop(1, 'rgba(0, 5, 20, 1)');
