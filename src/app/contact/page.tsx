@@ -1,7 +1,13 @@
 "use client";
 
 import React from "react";
-import { Box, TextField, Grid, Typography, Stack } from "@mui/material";
+
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
+
 import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

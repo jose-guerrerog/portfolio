@@ -1,10 +1,14 @@
 "use client";
 import { useState } from "react";
-import { Box, Card, CardMedia, CardContent, Typography } from "@mui/material";
+
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+
 import Link from "next/link";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CodeIcon from "@mui/icons-material/Code";
-import Image from "next/image";
 import OptimizedCardMedia from './OptimizedCardMedia';
 
 const ProjectCard = ({

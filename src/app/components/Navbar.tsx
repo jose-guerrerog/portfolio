@@ -3,18 +3,18 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-  useScrollTrigger,
-  Slide,
-} from "@mui/material";
+
+import Box from '@mui/material/Box'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
+import Slide from '@mui/material/Slide'
+
 import { navLinks } from "../constants";
 import { usePathname } from "next/navigation";
 import { styled } from '@mui/material/styles';
