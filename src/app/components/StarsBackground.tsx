@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
 export default function StarsBackground() {
@@ -8,14 +7,14 @@ export default function StarsBackground() {
   useEffect(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const count = isMobile ? 100 : 300;
-  
+
     const generateStars = () => {
       const generatedStars = Array.from({ length: count }, (_, i) => {
-        const size = Math.random() * 2 + 0.5;
+        const size = Math.random() * 2 + 0.5; // 0.5px to 2.5px
         const x = Math.random() * 100;
         const y = Math.random() * 100;
         const delay = Math.random() * 3;
-  
+
         return (
           <div
             key={i}
@@ -32,7 +31,7 @@ export default function StarsBackground() {
       });
       setStars(generatedStars);
     };
-  
+
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(generateStars);
     } else {
@@ -40,9 +39,5 @@ export default function StarsBackground() {
     }
   }, []);
 
-  return (
-    <div className="stars-background">
-      {stars}
-    </div>
-  );
+  return <div className="stars-background">{stars}</div>;
 }
