@@ -22,11 +22,12 @@ body {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at center,
-    rgba(0, 90, 230, 0.8) 0%,
-    rgba(10, 40, 90, 0.7) 40%,
-    rgba(0, 20, 40, 0.85) 70%,
-    rgba(0, 5, 20, 1) 100%
+  background: radial-gradient(
+    circle at center,
+    #000814 0%,       /* deep black-blue center */
+    #00152a 30%,
+    #001e3c 60%,
+    #000a1f 100%       
   );
   overflow: hidden;
 }
