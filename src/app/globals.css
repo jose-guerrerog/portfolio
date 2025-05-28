@@ -27,6 +27,8 @@ body {
   border-radius: 50%;
   opacity: 0.5;
   animation: twinkle 3s ease-in-out infinite;
+  will-change: transform, opacity;
+  contain: layout style paint;
 }
 
 @keyframes twinkle {
