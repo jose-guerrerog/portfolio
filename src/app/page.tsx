@@ -5,6 +5,9 @@ import Typography from "@mui/material/Typography";
 import dynamic from 'next/dynamic';
 import AudioControl from './components/AudioControl';
 
+import { useGLTF } from '@react-three/drei';
+useGLTF.preload('./models/death_star-draco-2.glb');
+
 const DeathStarCanvas = dynamic(() => import('./components/DeathStarCanvas'), {
   ssr: false,
   loading: () => <div style={{ height: 600, textAlign: 'center' }}>Loading 3D...</div>
@@ -14,40 +17,22 @@ const DeathStarCanvas = dynamic(() => import('./components/DeathStarCanvas'), {
 
 
 const Home = () => {
-  const audioRef = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined" ? new Audio("/audio.mp3") : undefined
-  );
-  if (audioRef.current) {
-    audioRef.current.volume = 0.4;
-    audioRef.current.loop = true;
-  }
-
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-
-  // Toggle music
-  const toggle = () => {
-    const newState = !isPlayingMusic;
-    setIsPlayingMusic(newState);
-    if (newState) {
-      audioRef.current?.play();
-    } else {
-      audioRef.current?.pause();
-    }
-  };
-
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null)
+  
   useEffect(() => {
-    if (!audioRef.current) {
-      return;
-    }
-
-    if (isPlayingMusic) {
-      audioRef.current.play();
-    }
-
-    return () => {
-      audioRef.current?.pause();
-    };
-  }, [isPlayingMusic]);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          setIsVisible(true);
+        }, 100);
+        observer.disconnect();
+      }
+    });
+  
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  });
 
   return (
     <Box component='div' sx={{ width: '100%', position: 'relative' }}>
@@ -108,7 +93,10 @@ const Home = () => {
       >
         <Scene />
       </Canvas> */}
-      <DeathStarCanvas />
+      <div ref={containerRef} style={{ height: '600px' }}>
+        {isVisible && <DeathStarCanvas />}
+      </div>
+      {/* <DeathStarCanvas /> */}
       <AudioControl />
     </Box>
   );

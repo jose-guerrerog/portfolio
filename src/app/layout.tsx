@@ -11,6 +11,8 @@ import Navbar from "@/app/components/Navbar";
 import dynamic from 'next/dynamic';
 import { Box, Typography } from "@mui/material";
 
+import '../lib/draco-setup'; // This runs the setup
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/models/death_star-draco-2.glb" as="fetch" crossOrigin="anonymous" />
+      </head>
       <body className={inter.className}>
         <StarsBackground />
         <ThemeProvider theme={theme}>
