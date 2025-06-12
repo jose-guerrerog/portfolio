@@ -145,6 +145,10 @@ a {
   text-decoration: none;
 }
 
+.vertical-timeline-element-date {
+  color: white !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
