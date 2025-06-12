@@ -14,7 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { githubLink, linkedinLink, experiences } from "../constants";
-import dynamic from 'next/dynamic';
+import { Avatar } from '@/app/models/Avatar'; // Named import
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -32,11 +32,20 @@ const ModelLoader = () => {
   );
 };
 
-// Dynamically import Avatar model with custom loading state
-const DynamicAvatar = dynamic(() => import("@/app/models/Avatar").then((mod) => mod.Avatar), {
-  loading: () => <ModelLoader />,
-  ssr: false,
-});
+// Loading component that shows outside Canvas
+const CanvasLoader = () => (
+  <div style={{ 
+    height: 650, 
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontSize: '18px'
+  }}>
+    Loading 3D...
+  </div>
+);
 
 const About = () => {
   const [visibleAvatar, setVisibleAvatar] = useState(false);
@@ -166,43 +175,47 @@ const About = () => {
           mt={{ xs: 2, sm: 0 }}
           ref={avatarContainerRef}
         >
-          <Canvas
-            style={{
-              height: "650px",
-              width: "100%",
-              backgroundColor: "transparent",
-            }}
-            shadows={false} // Disable shadows for better performance
-            dpr={[1, 1.5]} // Limit device pixel ratio
-            performance={{ min: 0.5 }} // Allow performance drops
-            gl={{ 
-              alpha: true, // Enable transparency
-              antialias: false, // Disable expensive antialiasing initially
-              powerPreference: "high-performance",
-              stencil: false, // Disable stencil buffer
-            }}
-            camera={{
-              position: [0, 1, 4],
-              fov: 30,
-            }}
-          >
-            {/* Progressive lighting setup */}
-            <ambientLight intensity={lightsReady ? 1 : 0.5} />
-            {lightsReady && (
-              <>
-                <directionalLight position={[5, 5, 5]} intensity={0.8} />
-                <pointLight position={[-5, 2, 5]} intensity={0.3} />
-              </>
-            )}
-            
-            {shouldLoadAvatar && visibleAvatar && (
-              <Suspense fallback={<ModelLoader />}>
-                <group position-x={0.1} position-y={-0.8}>
-                  <DynamicAvatar />
-                </group>
-              </Suspense>
-            )}
-          </Canvas>
+          {shouldLoadAvatar ? (
+            <Canvas
+              style={{
+                height: "650px",
+                width: "100%",
+                backgroundColor: "transparent",
+              }}
+              shadows={false} // Disable shadows for better performance
+              dpr={[1, 1.5]} // Limit device pixel ratio
+              performance={{ min: 0.5 }} // Allow performance drops
+              gl={{ 
+                alpha: true, // Enable transparency
+                antialias: false, // Disable expensive antialiasing initially
+                powerPreference: "high-performance",
+                stencil: false, // Disable stencil buffer
+              }}
+              camera={{
+                position: [0, 1, 4],
+                fov: 30,
+              }}
+            >
+              {/* Progressive lighting setup */}
+              <ambientLight intensity={lightsReady ? 1 : 0.5} />
+              {lightsReady && (
+                <>
+                  <directionalLight position={[5, 5, 5]} intensity={0.8} />
+                  <pointLight position={[-5, 2, 5]} intensity={0.3} />
+                </>
+              )}
+              
+              {visibleAvatar && (
+                <Suspense fallback={<ModelLoader />}>
+                  <group position-x={0.1} position-y={-0.8}>
+                    <Avatar />
+                  </group>
+                </Suspense>
+              )}
+            </Canvas>
+          ) : (
+            <CanvasLoader />
+          )}
         </Grid>
       </Grid>
       

@@ -10,7 +10,7 @@ useGLTF.preload('./models/death_star-draco-2.glb');
 
 const DeathStarCanvas = dynamic(() => import('./components/DeathStarCanvas'), {
   ssr: false,
-  loading: () => <div style={{ height: 600, textAlign: 'center' }}>Loading 3D...</div>
+  loading: () => <div style={{ height: 600, textAlign: 'center', color: '#fff' }}>Loading 3D...</div>
 });
 
 // Scene component with rotation logic
