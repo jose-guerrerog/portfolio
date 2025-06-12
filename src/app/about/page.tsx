@@ -5,13 +5,11 @@ import {
   Button,
   Grid,
   Link as MuiLink,
-  Fab,
   Stack,
   Typography,
 } from "@mui/material";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useState } from "react";
-import Loader from "@/app/components/Loader";
+import { Suspense, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -42,16 +40,31 @@ const DynamicAvatar = dynamic(() => import("@/app/models/Avatar").then((mod) => 
 
 const About = () => {
   const [visibleAvatar, setVisibleAvatar] = useState(false);
+  const [shouldLoadAvatar, setShouldLoadAvatar] = useState(false);
+  const [lightsReady, setLightsReady] = useState(false);
+  const avatarContainerRef = useRef<HTMLDivElement>(null);
 
-  // Load avatar with slight delay for better user experience
+  // Intersection observer for avatar - only load when section is visible
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisibleAvatar(true);
-    }, 300);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadAvatar(true);
+          // Small delay for smoother experience
+          setTimeout(() => setVisibleAvatar(true), 200);
+          // Delay lighting setup
+          setTimeout(() => setLightsReady(true), 400);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% visible
+    );
     
-    return () => {
-      clearTimeout(timer);
-    };
+    if (avatarContainerRef.current) {
+      observer.observe(avatarContainerRef.current);
+    }
+    
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -151,37 +164,55 @@ const About = () => {
           container
           justifyContent="center"
           mt={{ xs: 2, sm: 0 }}
+          ref={avatarContainerRef}
         >
           <Canvas
             style={{
-              // width: "100%",
               height: "650px",
+              width: "100%",
+              backgroundColor: "transparent",
             }}
-            shadows
+            shadows={false} // Disable shadows for better performance
+            dpr={[1, 1.5]} // Limit device pixel ratio
+            performance={{ min: 0.5 }} // Allow performance drops
+            gl={{ 
+              alpha: true, // Enable transparency
+              antialias: false, // Disable expensive antialiasing initially
+              powerPreference: "high-performance",
+              stencil: false, // Disable stencil buffer
+            }}
             camera={{
               position: [0, 1, 4],
               fov: 30,
             }}
           >
-            {/* Directly use Suspense with loader here as fallback */}
-            <ambientLight intensity={1} />
-            {visibleAvatar && (
-              <group position-x={0.1} position-y={-0.8}>
-                <DynamicAvatar />
-              </group>
+            {/* Progressive lighting setup */}
+            <ambientLight intensity={lightsReady ? 1 : 0.5} />
+            {lightsReady && (
+              <>
+                <directionalLight position={[5, 5, 5]} intensity={0.8} />
+                <pointLight position={[-5, 2, 5]} intensity={0.3} />
+              </>
+            )}
+            
+            {shouldLoadAvatar && visibleAvatar && (
+              <Suspense fallback={<ModelLoader />}>
+                <group position-x={0.1} position-y={-0.8}>
+                  <DynamicAvatar />
+                </group>
+              </Suspense>
             )}
           </Canvas>
         </Grid>
       </Grid>
+      
+      {/* Timeline section */}
       <VerticalTimeline animate>
         {experiences.map((experience, index) => (
           <VerticalTimelineElement
             visible
             className="vertical-timeline-element--work"
-            // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-            // contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
             key={experience.company_name}
-            // date={experience.date}
             date={experience.date}
             iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
             icon={
@@ -203,18 +234,6 @@ const About = () => {
               boxShadow: "none",
             }}
           >
-            {/* <div>
-              <h3 className="text-black text-xl font-poppins font-semibold">
-                {experience.title}
-              </h3>
-              <p
-                className="text-black-500 font-medium text-base"
-                style={{ margin: 0 }}
-              >
-                {experience.company_name}
-              </p>
-            </div> */}
-
             <h3 className="vertical-timeline-element-title" color="black">
               {experience.title}
             </h3>
