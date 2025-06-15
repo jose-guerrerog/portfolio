@@ -116,18 +116,18 @@ export const projects = [
   //   demoLink: "https://book-review-098i.onrender.com/",
   // },
   {
-    id: 5,
-    title: "3D Sofa",
-    image: "/images/5.png",
-    githubLink: "https://github.com/jose-guerrerog/3D-sofa",
-    demoLink: "https://3-d-sofa-git-main-jose-guerreros-projects-e13ce748.vercel.app/",
-  },
-  {
     id: 6,
     title: "Pokedex",
     image: "/images/6.png",
     githubLink: "https://github.com/jose-guerrerog/pokedex-app",
     demoLink: "https://pokedex-app-flame-nu.vercel.app/",
+  },
+  {
+    id: 5,
+    title: "3D Sofa",
+    image: "/images/5.png",
+    githubLink: "https://github.com/jose-guerrerog/3D-sofa",
+    demoLink: "https://3-d-sofa-git-main-jose-guerreros-projects-e13ce748.vercel.app/",
   },
   {
     id: 3,
