@@ -81,6 +81,13 @@ export const icons = [
 
 export const projects = [
   {
+    id: 11,
+    title: "Crypto Portfolio",
+    image: "/images/11.png",
+    githubLink: "https://github.com/jose-guerrerog/frontend-crypto/",
+    demoLink: "https://frontend-crypto-nine.vercel.app/",
+  },
+  {
     id: 10,
     title: "MovieMatch",
     image: "/images/10.png",
