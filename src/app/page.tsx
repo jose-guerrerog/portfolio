@@ -41,7 +41,6 @@ export default function Home() {
       <p className="text-center text-[#a3e4ff] text-base font-medium mb-2 tracking-wide drop-shadow-md animate-pulse">
         Click and drag to rotate the Death Star
       </p>
-
       <div ref={containerRef} className="h-[600px]">
         {isVisible && <DeathStarCanvas />}
       </div>
