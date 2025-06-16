@@ -45,7 +45,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="max-w-7xl mx-auto px-6 py-8">
+    <section id="about" className="max-w-7xl mx-auto px-6 py-6">
       {/* Top section: Intro and Avatar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-10">
         {/* Left Text Section */}
