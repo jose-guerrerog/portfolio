@@ -1,154 +1,81 @@
 "use client";
-import React from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  Link as MuiLink,
-  Stack,
-  Typography,
-} from "@mui/material";
+
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useState, useRef } from "react";
+import { Avatar } from "@/app/models/Avatar";
 import Link from "next/link";
 import Image from "next/image";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { githubLink, linkedinLink, experiences } from "../constants";
-import { Avatar } from '@/app/models/Avatar'; // Named import
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
-
 import "react-vertical-timeline-component/style.min.css";
+import { githubLink, linkedinLink, experiences } from "../constants";
 
-// Simple loading component for avatar loading
-const ModelLoader = () => {
-  return (
-    <mesh position={[0, 1.1, 0]}>
-      <sphereGeometry args={[0.2, 16, 16]} />
-      <meshStandardMaterial color="#4c82ed" wireframe />
-    </mesh>
-  );
-};
-
-// Loading component that shows outside Canvas
 const CanvasLoader = () => (
-  <div style={{ 
-    height: 650, 
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff',
-    fontSize: '18px'
-  }}>
+  <div className="h-[500px] w-full flex justify-center items-center text-white text-lg">
     Loading 3D...
   </div>
 );
 
-const About = () => {
+export default function About() {
   const [visibleAvatar, setVisibleAvatar] = useState(false);
   const [shouldLoadAvatar, setShouldLoadAvatar] = useState(false);
   const [lightsReady, setLightsReady] = useState(false);
-  const avatarContainerRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement | null>(null);
 
-  // Intersection observer for avatar - only load when section is visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoadAvatar(true);
-          // Small delay for smoother experience
           setTimeout(() => setVisibleAvatar(true), 200);
-          // Delay lighting setup
           setTimeout(() => setLightsReady(true), 400);
           observer.disconnect();
         }
       },
-      { threshold: 0.1 } // Trigger when 10% visible
+      { threshold: 0.2 }
     );
-    
-    if (avatarContainerRef.current) {
-      observer.observe(avatarContainerRef.current);
+
+    if (avatarRef.current) {
+      observer.observe(avatarRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <Box
-      component="section"
-      id="about"
-      mt={{
-        xs: 0,
-        md: 5,
-      }}
-      maxWidth={1000}
-    >
-      <Grid container alignItems={"center"} mb={7}>
-        <Grid xs={12} md={7} item>
-          <Typography
-            variant="h5"
-            textAlign="justify"
-            color="textPrimary"
-            mb={1}
-          >
-            Hello,
-          </Typography>
-          <Typography
-            variant="h2"
-            textAlign="justify"
-            color="textPrimary"
-            fontWeight={700}
-          >
-            I&apos;m{" "}
-            <Typography
-              component="span"
-              variant="h2"
-              color="#FCE205"
-              fontWeight={700}
-            >
-              Jose
-            </Typography>
-          </Typography>
-          <Typography
-            variant="body1"
-            textAlign="justify"
-            color="textPrimary"
-            mt={2}
-          >
+    <section id="about" className="max-w-7xl mx-auto px-6 py-6">
+      {/* Top section: Intro and Avatar */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+        {/* Left Text Section */}
+        <div className="md:w-1/2 space-y-6">
+          <h2 className="text-xl text-white">Hello,</h2>
+          <h1 className="text-5xl font-bold text-white">
+            I&apos;m <span className="text-yellow-400">Jose</span>
+          </h1>
+          <p className="text-lg text-gray-300 leading-relaxed">
             I am a skilled and passionate software developer with experience in
-            creating interactive web applications
-          </Typography>
-          <Stack flexDirection={"row"} gap={1} mt={5} alignItems={"center"}>
-            <Button sx={{ border: "1px solid #00ff99", borderRadius: "36px" }}>
-              <MuiLink
-                href="/assets/Resume - Jose Guerrero.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-                underline="none"
-              >
-                <Stack flexDirection={"row"} gap={1} px={2} py={1}>
-                  <Typography textTransform={"capitalize"} color="#00ff99">
-                    Download Resume
-                  </Typography>
-                  <FileDownloadIcon htmlColor="#00ff99" />
-                </Stack>
-              </MuiLink>
-            </Button>
-            <Button sx={{ border: "1px solid #fff", borderRadius: "36px" }}>
-              <Link href="/contact">
-                <Stack flexDirection={"row"} gap={1} px={2} py={1}>
-                  <Typography textTransform={"capitalize"} color="#fff">
-                    Contact Me
-                  </Typography>
-                </Stack>
-              </Link>
-            </Button>
-          </Stack>
-          <Stack direction="row" gap={1} alignItems="center" mt={4}>
+            creating interactive web applications.
+          </p>
+
+          <div className="flex gap-4 pt-4">
+            <a
+              href="/assets/Resume - Jose Guerrero.pdf"
+              download
+              className="px-6 py-2 rounded-full border border-[#00ff99] text-[#00ff99] font-medium hover:bg-[#00ff99] hover:text-black transition"
+            >
+              Download Resume
+            </a>
+            <Link
+              href="/contact"
+              className="px-6 py-2 rounded-full border border-white text-white font-medium hover:bg-white hover:text-black transition"
+            >
+              Contact Me
+            </Link>
+          </div>
+
+          <div className="flex gap-4 pt-6">
             <Link href={githubLink}>
               <Image
                 src="/images/github-mark-white.svg"
@@ -165,38 +92,30 @@ const About = () => {
                 height={45}
               />
             </Link>
-          </Stack>
-        </Grid>
-        <Grid
-          xs={12}
-          md={5}
-          container
-          justifyContent="center"
-          mt={{ xs: 2, sm: 0 }}
-          ref={avatarContainerRef}
+          </div>
+        </div>
+
+        {/* Avatar Section */}
+        <div
+          ref={avatarRef}
+          className="md:w-1/2 w-full flex justify-center items-center"
         >
           {shouldLoadAvatar ? (
             <Canvas
               style={{
-                height: "650px",
+                height: "600px",
                 width: "100%",
                 backgroundColor: "transparent",
               }}
-              shadows={false} // Disable shadows for better performance
-              dpr={[1, 1.5]} // Limit device pixel ratio
-              performance={{ min: 0.5 }} // Allow performance drops
-              gl={{ 
-                alpha: true, // Enable transparency
-                antialias: false, // Disable expensive antialiasing initially
+              dpr={[1, 1.5]}
+              shadows={false}
+              gl={{
+                antialias: false,
+                alpha: true,
                 powerPreference: "high-performance",
-                stencil: false, // Disable stencil buffer
               }}
-              camera={{
-                position: [0, 1, 4],
-                fov: 30,
-              }}
+              camera={{ position: [0, 1, 4], fov: 30 }}
             >
-              {/* Progressive lighting setup */}
               <ambientLight intensity={lightsReady ? 1 : 0.5} />
               {lightsReady && (
                 <>
@@ -204,10 +123,9 @@ const About = () => {
                   <pointLight position={[-5, 2, 5]} intensity={0.3} />
                 </>
               )}
-              
               {visibleAvatar && (
-                <Suspense fallback={<ModelLoader />}>
-                  <group position-x={0.1} position-y={-0.8}>
+                <Suspense fallback={null}>
+                  <group position-y={-1} scale={[1.1, 1.1, 1.1]}>
                     <Avatar />
                   </group>
                 </Suspense>
@@ -216,60 +134,50 @@ const About = () => {
           ) : (
             <CanvasLoader />
           )}
-        </Grid>
-      </Grid>
-      
-      {/* Timeline section */}
-      <VerticalTimeline animate>
-        {experiences.map((experience, index) => (
-          <VerticalTimelineElement
-            visible
-            className="vertical-timeline-element--work"
-            key={experience.company_name}
-            date={experience.date}
-            iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            icon={
-              <div className="flex justify-center items-center w-full h-full">
-                <Image
-                  src={experience.icon}
-                  alt={experience.company_name}
-                  fill
-                  style={{
-                    borderRadius: "50%",
-                  }}
-                />
-              </div>
-            }
-            contentStyle={{
-              borderBottom: "8px",
-              borderStyle: "solid",
-              borderBottomColor: experience.iconBg,
-              boxShadow: "none",
-            }}
-          >
-            <h3 className="vertical-timeline-element-title" color="black">
-              {experience.title}
-            </h3>
-            <h4 className="vertical-timeline-element-subtitle" color="black">
-              {experience.company_name}
-            </h4>
+        </div>
+      </div>
 
-            <ul className="my-5 list-disc ml-5 space-y-2">
-              {experience.points.map((point, index) => (
-                <li
-                  key={`experience-point-${index}`}
-                  className="text-white-500/50 font-normal pl-1 text-sm"
-                  color="black"
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </VerticalTimelineElement>
-        ))}
-      </VerticalTimeline>
-    </Box>
+      {/* Timeline Section */}
+      <div className="mt-24">
+        <VerticalTimeline animate>
+          {experiences.map((exp, index) => (
+            <VerticalTimelineElement
+              visible
+              key={exp.company_name}
+              date={exp.date}
+              iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+              icon={
+                <div className="flex justify-center items-center w-full h-full">
+                  <Image
+                    src={exp.icon}
+                    alt={exp.company_name}
+                    fill
+                    className="rounded-full"
+                  />
+                </div>
+              }
+              contentStyle={{
+                borderBottom: "8px solid " + exp.iconBg,
+                boxShadow: "none",
+              }}
+            >
+              <h3 className="vertical-timeline-element-title text-black font-bold text-lg">
+                {exp.title}
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle text-black font-semibold">
+                {exp.company_name}
+              </h4>
+              <ul className="my-5 list-disc ml-5 space-y-2">
+                {exp.points.map((point, i) => (
+                  <li key={`experience-point-${i}`} className="text-gray-700 text-sm">
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </VerticalTimelineElement>
+          ))}
+        </VerticalTimeline>
+      </div>
+    </section>
   );
-};
-
-export default About;
+}

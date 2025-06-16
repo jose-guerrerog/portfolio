@@ -1,6 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  font-family: "JetBrains Mono !important";
-  /* background-image: url('/images/space.jpg'); */
+  font-family: 'Inter', sans-serif;
 }
 
 .stars-background-canvas {
@@ -153,4 +156,17 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shine {
+  animation: shine 5s linear infinite;
 }

@@ -1,276 +1,39 @@
+// src/app/components/Navbar.tsx
+
 "use client";
+
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-
-import Box from '@mui/material/Box'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import useScrollTrigger from '@mui/material/useScrollTrigger'
-import Slide from '@mui/material/Slide'
-
-import { navLinks } from "../constants";
 import { usePathname } from "next/navigation";
-import { styled } from '@mui/material/styles';
 
-const FlexEndBox = styled('div')({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  paddingLeft: '16px',
-  paddingRight: '16px',
-  paddingTop: '8px'
-});
-
-// Hide navbar on scroll down, show on scroll up
-function HideOnScroll(props: any) {
-  const { children } = props;
-  const trigger = useScrollTrigger();
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
-const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
+export default function Navbar() {
   const pathname = usePathname();
 
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrolled]);
-
-  const handleOpenNavMenu = (event: any) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   return (
-    <HideOnScroll>
-      <AppBar
-        component="nav"
-        position="fixed"
-        elevation={scrolled ? 4 : 0}
-        sx={{
-          backgroundColor: scrolled ? "rgba(10, 10, 10, 0.95)" : "transparent",
-          transition: "all 0.3s ease-in-out",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
-        }}
-      >
-        <Toolbar>
-          {/* Mobile logo */}
-          <Box
-            component="div"
-            sx={{ 
-              display: { xs: "flex", sm: "none" },
-              flexGrow: 1,
-              justifyContent: "flex-start"
-            }}
-          >
-            <Link href="/">
-              <h1 className="text-3xl font-semibold">
-                Jose<span className="text-[#00ff99]">.</span>
-              </h1>
-            </Link>
-          </Box>
+    <header className="w-full py-6 px-10 sm:px-20 flex justify-between items-center font-semibold text-white text-lg">
+      <div className="text-3xl font-bold">
+        Jose<span className="text-[#00ffcc]">.</span>
+      </div>
+      <nav className="flex gap-10">
+        {["Home", "About", "Projects", "Contact"].map((name) => {
+          const path = name === "Home" ? "/" : `/${name.toLowerCase()}`;
+          const isActive = pathname === path;
 
-          {/* Mobile menu button */}
-          <IconButton
-            color="inherit"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            edge="end"
-            onClick={handleOpenNavMenu}
-            sx={{ 
-              display: { xs: "flex", sm: "none" },
-              transition: "transform 0.2s",
-              "&:hover": { transform: "scale(1.1)" }
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          {/* Desktop navbar */}
-          <Box
-            component="div"
-            display={{ xs: "none", sm: "flex" }}
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              width: "100%",
-            }}
-          >
-            {/* Desktop logo */}
-            <Box component="div" sx={{ marginLeft: "20px" }}>
-              <Link href="/" className="no-underline">
-                <h1 className="text-4xl font-semibold transition-all duration-300 hover:scale-105">
-                  Jose<span className="text-[#00ff99]">.</span>
-                </h1>
-              </Link>
-            </Box>
-
-            {/* Desktop navigation links */}
-            <Stack 
-              flexDirection="row" 
-              spacing={0} 
-              mr={3} 
-              alignItems="center"
-              sx={{ 
-                height: "100%",
-                "& a": {
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center"
-                }
-              }}
+          return (
+            <Link
+              key={name}
+              href={path}
+              className={`relative hover:text-[#00ffcc] transition duration-200 ${
+                isActive ? "text-[#00ffcc]" : ""
+              }`}
             >
-              {navLinks.map((item) => {
-                const isActive = item.path === pathname;
-                return (
-                  <Link
-                    href={item.path}
-                    key={item.title}
-                    className="no-underline relative"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      height: "64px", // Fixed height for all links
-                      marginRight: "20px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: isActive ? "#00ff99" : "#fff",
-                        position: "relative",
-                        padding: "8px 16px",
-                        fontWeight: isActive ? 600 : 400,
-                        transition: "all 0.3s ease",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        height: "100%",
-                        "&:hover": {
-                          color: "#00ff99",
-                        },
-                        "&::after": {
-                          content: '""',
-                          position: "absolute",
-                          width: isActive ? "100%" : "0%",
-                          height: "2px",
-                          bottom: "0",
-                          left: "0",
-                          backgroundColor: "#00ff99",
-                          transition: "width 0.3s ease"
-                        },
-                        "&:hover::after": {
-                          width: "100%"
-                        }
-                      }}
-                    >
-                      {item.title}
-                    </Typography>
-                  </Link>
-                );
-              })}
-            </Stack>
-          </Box>
-
-          {/* Mobile menu */}
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            keepMounted
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiPaper-root": {
-                backgroundColor: "rgba(10, 10, 10, 0.95)",
-                backdropFilter: "blur(10px)",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
-                mt: 5,
-                minWidth: "200px",
-                borderRadius: "8px"
-              },
-            }}
-            MenuListProps={{
-              sx: { py: 1 }
-            }}
-          >
-            {/* Close button in mobile menu */}
-            <FlexEndBox>
-              <IconButton
-                size="small"
-                onClick={handleCloseNavMenu}
-                sx={{ color: "#fff" }}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </FlexEndBox>
-            
-            {navLinks.map((item) => {
-              const isActive = item.path === pathname;
-              return (
-                <MenuItem 
-                  key={item.title} 
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    backgroundColor: isActive ? "rgba(0, 255, 153, 0.1)" : "transparent",
-                    "&:hover": {
-                      backgroundColor: "rgba(0, 255, 153, 0.1)",
-                    },
-                    mx: 1,
-                    borderRadius: "4px",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <Link
-                    href={item.path}
-                    className="w-full no-underline"
-                    style={{
-                      color: isActive ? "#00ff99" : "#fff",
-                      fontWeight: isActive ? 600 : 400,
-                      display: "block",
-                      padding: "4px 8px",
-                    }}
-                  >
-                    {item.title}
-                  </Link>
-                </MenuItem>
-              );
-            })}
-          </Menu>
-        </Toolbar>
-      </AppBar>
-    </HideOnScroll>
+              {name}
+              {isActive && (
+                <span className="absolute -bottom-[6px] left-0 w-full h-[2px] bg-[#00ffcc]" />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    </header>
   );
-};
-
-export default Navbar;
+}
