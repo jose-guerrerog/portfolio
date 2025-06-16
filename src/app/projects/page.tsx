@@ -1,26 +1,17 @@
 "use client";
 
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 import { projects } from "../constants";
 import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
   return (
-    <Box component="section" id="projects" my={3} sx={{ width: '100%'}}>
-      <Typography variant="h3" fontWeight={700}
-        sx={{
-          background: "#2482ff",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}
-      >
+    <section id="projects" className="w-full my-12 px-4">
+      <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-[#2482ff]">
         Projects
-      </Typography>
-      <Grid container mt={4} rowSpacing={5} columnSpacing={3}>
-        {projects.map((project, index) => (
-          <Grid key={index} item md={4} xs={12}>
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mt-10">
+        {projects.map((project) => (
           <ProjectCard
             key={project.id}
             title={project.title}
@@ -28,10 +19,9 @@ const Projects = () => {
             githubLink={project.githubLink}
             demoLink={project.demoLink}
           />
-        </Grid>
         ))}
-      </Grid>
-    </Box>
+      </div>
+    </section>
   );
 };
 

@@ -1,15 +1,8 @@
 "use client";
 import { useState } from "react";
-
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-
 import Link from "next/link";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CodeIcon from "@mui/icons-material/Code";
-import OptimizedCardMedia from './OptimizedCardMedia';
+import { FaEye, FaCode } from "react-icons/fa";
+import OptimizedCardMedia from "./OptimizedCardMedia";
 
 const ProjectCard = ({
   title,
@@ -23,89 +16,46 @@ const ProjectCard = ({
   demoLink: string;
 }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
-  const onMouseEnter = () => {
-    setIsCardHovered(true);
-  };
-  const onMouseLeave = () => {
-    setIsCardHovered(false);
-  };
-  return (
-    <Box
-      position="relative"
-      component="div"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      {isCardHovered && (
-        <Box
-          component="div"
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "#000",
-            zIndex: 1,
-            opacity: 0.5,
-          }}
-        />
-      )}
-      <Card>
-        <OptimizedCardMedia
-          image={image}
-          title={title}
-        />
-        <CardContent>
-          <Typography fontWeight={700} color="textPrimary">
-            {title}
-          </Typography>
-        </CardContent>
-      </Card>
 
-      <Link
-        href={githubLink}
-        style={{
-          border: "#adb7be",
-          height: "45px",
-          width: "45px",
-          borderRadius: "50%",
-        }}
-        className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link">
-        <CodeIcon
-          sx={{
-            color: "#ADB7BE",
-            opacity: isCardHovered ? 1 : 0,
-            position: "absolute",
-            left: "35%",
-            top: "40%",
-            height: 60,
-            width: 60,
-            "&:hover": {
-              color: "#FFFFFF",
-            },
-            zIndex: 2,
-          }}
-        />
-      </Link>
-      <Link href={demoLink}>
-        <VisibilityIcon
-          sx={{
-            color: "#ADB7BE",
-            opacity: isCardHovered ? 1 : 0,
-            position: "absolute",
-            left: "55%",
-            top: "40%",
-            height: 60,
-            width: 60,
-            "&:hover": {
-              color: "#FFFFFF",
-            },
-            zIndex: 2,
-          }}
-        />
-      </Link>
-    </Box>
+  return (
+    <div
+      className="relative group rounded overflow-hidden shadow-lg"
+      onMouseEnter={() => setIsCardHovered(true)}
+      onMouseLeave={() => setIsCardHovered(false)}
+    >
+      {/* Overlay */}
+      {isCardHovered && (
+        <div className="absolute inset-0 bg-black opacity-50 z-10 transition duration-300" />
+      )}
+
+      {/* Image */}
+      <OptimizedCardMedia image={image} title={title} />
+
+      {/* Title */}
+      <div className="p-4 bg-white dark:bg-gray-900 z-20 relative">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          {title}
+        </h3>
+      </div>
+
+      {/* Action buttons */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex gap-4">
+        <Link
+          href={githubLink}
+          className="h-11 w-11 flex items-center justify-center border-2 border-[#ADB7BE] hover:border-white rounded-full text-[#ADB7BE] hover:text-white transition-opacity duration-300"
+          style={{ opacity: isCardHovered ? 1 : 0 }}
+        >
+          <FaCode className="w-5 h-5" />
+        </Link>
+        <Link
+          href={demoLink}
+          className="h-11 w-11 flex items-center justify-center border-2 border-[#ADB7BE] hover:border-white rounded-full text-[#ADB7BE] hover:text-white transition-opacity duration-300"
+          style={{ opacity: isCardHovered ? 1 : 0 }}
+        >
+          <FaEye className="w-5 h-5" />
+        </Link>
+      </div>
+    </div>
   );
 };
 

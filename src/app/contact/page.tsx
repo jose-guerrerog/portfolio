@@ -1,22 +1,13 @@
 "use client";
 
 import React from "react";
-
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
-
-import { LoadingButton } from "@mui/lab";
+import Link from "next/link";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
-import { toast } from "react-toastify";
-import Link from "next/link";
-import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
 import { githubLink, linkedinLink } from "../constants";
-import { ToastContainer } from "react-toastify";
 
 const Contact = () => {
   const {
@@ -37,166 +28,102 @@ const Contact = () => {
       message: e.message,
     };
     const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
-
-    const options = {
-      // The method is POST because we are sending data.
+    const response = await fetch("/api/send", {
       method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
+      headers: { "Content-Type": "application/json" },
       body: JSONdata,
-    };
-    // sendEmail({name: 'jose', email: e.email, message: e.message})
-    const response = await fetch(endpoint, options);
+    });
     const resData = await response.json();
 
     if (response.status === 200) {
-      toast.success("Message sent", {
-        theme: "colored",
-      });
+      toast.success("Message sent", { theme: "colored" });
     } else {
       toast.error("Message unsuccessful");
     }
 
-    console.log(JSON.stringify(data, null, 2));
     reset();
   };
 
   return (
-    <Box
-      component="section"
-      id="contact"
-      display="flex"
-      justifyContent="center"
-      flexDirection="column"
-      alignItems="center"
-      my={3}
-    >
+    <section id="contact" className="flex flex-col items-center justify-center my-12 px-4">
       <ToastContainer />
-      <Typography
-        variant="h3"
-        fontWeight={700}
-        sx={{
-          background: "linear-gradient(45deg, #2196f3 30%, #21f364 90%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
+      <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">
         Get in Touch
-      </Typography>
-      <Box
+      </h2>
+
+      <form
         onSubmit={handleSubmit(onSubmit)}
-        maxWidth={800}
-        component="form"
-        mt={2}
+        className="w-full max-w-3xl mt-6 space-y-6"
       >
-        <Grid container spacing={2} mt={1}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="firstName"
-              variant="outlined"
-              label="First Name"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-1 text-sm text-white">First Name</label>
+            <input
+              type="text"
               {...register("firstName")}
-              error={!!errors.firstName}
-              helperText={errors.firstName?.message}
-              fullWidth
+              className="w-full rounded-lg border border-gray-700 bg-transparent text-white p-2"
               required
             />
-          </Grid>
+            <p className="text-sm text-red-400 mt-1">{errors.firstName?.message}</p>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="lastName"
-              variant="outlined"
-              label="Last Name"
+          <div>
+            <label className="block mb-1 text-sm text-white">Last Name</label>
+            <input
+              type="text"
               {...register("lastName")}
-              helperText={errors.lastName?.message}
-              fullWidth
+              className="w-full rounded-lg border border-gray-700 bg-transparent text-white p-2"
             />
-          </Grid>
+            <p className="text-sm text-red-400 mt-1">{errors.lastName?.message}</p>
+          </div>
 
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="email"
-              variant="outlined"
-              label="Email"
+          <div className="sm:col-span-2">
+            <label className="block mb-1 text-sm text-white">Email</label>
+            <input
+              type="email"
               {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              fullWidth
+              className="w-full rounded-lg border border-gray-700 bg-transparent text-white p-2"
               required
             />
-          </Grid>
+            <p className="text-sm text-red-400 mt-1">{errors.email?.message}</p>
+          </div>
 
-          <Grid item xs={12}>
-            <TextField
-              id="message"
-              variant="outlined"
-              multiline
+          <div className="sm:col-span-2">
+            <label className="block mb-1 text-sm text-white">Message</label>
+            <textarea
               rows={4}
-              label="Message"
               {...register("message")}
-              error={!!errors.message}
-              helperText={errors.message?.message}
-              fullWidth
+              className="w-full rounded-lg border border-gray-700 bg-transparent text-white p-2"
               required
             />
-          </Grid>
-        </Grid>
-        <Box component='div' display="flex" justifyContent="center" mt={3}>
-          <LoadingButton
+            <p className="text-sm text-red-400 mt-1">{errors.message?.message}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <button
             type="submit"
-            variant="contained"
-            color="secondary"
-            disabled={!isValid}
-            size="large"
-            loading={isSubmitting}
-            sx={{
-              borderRadius: "36px",
-            }}
+            className="px-6 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold transition disabled:opacity-50"
+            disabled={!isValid || isSubmitting}
           >
-            <Typography textTransform={"capitalize"} px={1} py="4px">
-              Submit
-            </Typography>
-          </LoadingButton>
-        </Box>
-        <Box
-          component="div"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography mt={8} mb={2} variant="h4" color="#2196f3">
-            Let&apos;s connect
-          </Typography>
-          <Typography mb={3} variant="h6" color="textPrimary" textAlign='center'>
-            I can also be found in Github and LinkedIn
-          </Typography>
-          <Stack direction="row" gap={2} alignItems="center">
+            {isSubmitting ? "Sending..." : "Submit"}
+          </button>
+        </div>
+
+        <div className="text-center mt-10">
+          <h3 className="text-2xl font-semibold text-blue-400 mb-2">Let's connect</h3>
+          <p className="text-white mb-4">I can also be found on Github and LinkedIn</p>
+          <div className="flex justify-center gap-4">
             <Link href={githubLink}>
-              <Image
-                src="/images/github-mark-white.svg"
-                alt="Github Icon"
-                width={40}
-                height={40}
-              />
+              <Image src="/images/github-mark-white.svg" alt="Github Icon" width={40} height={40} />
             </Link>
             <Link href={linkedinLink}>
-              <Image
-                src="/images/linkedin-icon.svg"
-                alt="Linkedin Icon"
-                width={50}
-                height={50}
-              />
+              <Image src="/images/linkedin-icon.svg" alt="Linkedin Icon" width={50} height={50} />
             </Link>
-          </Stack>
-        </Box>
-      </Box>
-    </Box>
+          </div>
+        </div>
+      </form>
+    </section>
   );
 };
 
