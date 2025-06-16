@@ -31,14 +31,12 @@ const ProjectCard = ({
       {/* Image */}
       <OptimizedCardMedia image={image} title={title} />
 
-      {/* Title */}
-      <div className="p-4 bg-white dark:bg-gray-900 z-20 relative">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {title}
-        </h3>
+      {/* Title Section (Bottom) */}
+      <div className="p-4 bg-black z-20 relative">
+        <h3 className="text-lg font-semibold text-white">{title}</h3>
       </div>
 
-      {/* Action buttons */}
+      {/* Action buttons (hover) */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex gap-4">
         <Link
           href={githubLink}

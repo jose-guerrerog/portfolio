@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "JetBrains Mono !important";
-  /* background-image: url('/images/space.jpg'); */
+  font-family: 'Inter', sans-serif;
 }
 
 .stars-background-canvas {

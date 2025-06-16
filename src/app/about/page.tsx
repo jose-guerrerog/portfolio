@@ -45,7 +45,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="max-w-7xl mx-auto px-6 py-20">
+    <section id="about" className="max-w-7xl mx-auto px-6 py-8">
       {/* Top section: Intro and Avatar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-10">
         {/* Left Text Section */}
@@ -125,7 +125,7 @@ export default function About() {
               )}
               {visibleAvatar && (
                 <Suspense fallback={null}>
-                  <group position-y={-0.8}>
+                  <group position-y={-1} scale={[1.1, 1.1, 1.1]}>
                     <Avatar />
                   </group>
                 </Suspense>
