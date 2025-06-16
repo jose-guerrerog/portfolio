@@ -3,7 +3,7 @@ import HomeClient from "./components/HomeClient";
 export default function Home() {
   return (
     <div className="w-full relative px-4">
-      <div className="w-full max-w-4xl mx-auto text-center pt-2">
+      <div className="w-full max-w-4xl mx-auto text-center pt-16">
         <h1 className="text-4xl md:text-6xl font-semibold italic mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 text-transparent bg-clip-text animate-shine drop-shadow-md tracking-tight">
           Welcome to my Site
         </h1>

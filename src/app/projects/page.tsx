@@ -5,7 +5,7 @@ import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
   return (
-    <section id="projects" className="w-full my-8 px-4 sm:px-10">
+    <section id="projects" className="w-full my-16 px-4 sm:px-10">
       <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-[#2482ff] mb-10">
         Projects
       </h2>
