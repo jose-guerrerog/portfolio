@@ -87,13 +87,13 @@ export const projects = [
     githubLink: "https://github.com/jose-guerrerog/frontend-crypto/",
     demoLink: "https://frontend-crypto-nine.vercel.app/",
   },
-  {
-    id: 10,
-    title: "MovieMatch",
-    image: "/images/10.png",
-    githubLink: "https://github.com/jose-guerrerog/movie-match-fe",
-    demoLink: "https://movie-match-fe.vercel.app/",
-  },
+  // {
+  //   id: 10,
+  //   title: "MovieMatch",
+  //   image: "/images/10.png",
+  //   githubLink: "https://github.com/jose-guerrerog/movie-match-fe",
+  //   demoLink: "https://movie-match-fe.vercel.app/",
+  // },
   // {
   //   id: 2,
   //   title: "Chat App with Rooms",
@@ -136,13 +136,13 @@ export const projects = [
     githubLink: "https://github.com/jose-guerrerog/portfolio",
     demoLink: "https://portfolio-pink-seven-87.vercel.app/",
   },
-  {
-    id: 4,
-    title: "Connect Four",
-    image: "/images/4.png",
-    githubLink: "https://github.com/jose-guerrerog/connect-four",
-    demoLink: "https://jose-guerrerog.github.io/connect-four/",
-  },
+  // {
+  //   id: 4,
+  //   title: "Connect Four",
+  //   image: "/images/4.png",
+  //   githubLink: "https://github.com/jose-guerrerog/connect-four",
+  //   demoLink: "https://jose-guerrerog.github.io/connect-four/",
+  // },
 ];
 
 export const technologies = [
