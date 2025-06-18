@@ -118,7 +118,7 @@ export const projects = [
   {
     id: 6,
     title: "Pokedex",
-    image: "/images/6.png",
+    image: "/images/15.png",
     githubLink: "https://github.com/jose-guerrerog/pokedex-app",
     demoLink: "https://pokedex-app-flame-nu.vercel.app/",
   },
