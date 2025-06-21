@@ -9,17 +9,19 @@ const ProjectCard = ({
   image,
   githubLink,
   demoLink,
+  isPortfolio = false,
 }: {
   title: string;
   image: string;
   githubLink: string;
   demoLink: string;
+  isPortfolio?: boolean;
 }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
 
   return (
     <div
-      className="relative group rounded overflow-hidden shadow-lg"
+      className={`relative group rounded overflow-hidden shadow-lg`}
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
     >
@@ -29,7 +31,13 @@ const ProjectCard = ({
       )}
 
       {/* Image */}
-      <OptimizedCardMedia image={image} title={title} />
+      <div
+        className={`${
+          isPortfolio ? "border-t border-l border-r border-black rounded-t" : ""
+        }`}
+      >
+        <OptimizedCardMedia image={image} title={title} />
+      </div>
 
       {/* Title Section (Bottom) */}
       <div className="p-4 bg-black z-20 relative">

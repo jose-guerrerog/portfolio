@@ -18,6 +18,7 @@ const Projects = () => {
             image={project.image}
             githubLink={project.githubLink}
             demoLink={project.demoLink}
+            isPortfolio={project.id === 3}
           />
         ))}
       </div>
