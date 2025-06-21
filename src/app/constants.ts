@@ -132,7 +132,7 @@ export const projects = [
   {
     id: 3,
     title: "Portfolio",
-    image: "/images/3.png",
+    image: "/images/16.png",
     githubLink: "https://github.com/jose-guerrerog/portfolio",
     demoLink: "https://portfolio-pink-seven-87.vercel.app/",
   },
