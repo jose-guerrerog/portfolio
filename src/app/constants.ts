@@ -123,6 +123,13 @@ export const projects = [
     demoLink: "https://pokedex-app-flame-nu.vercel.app/",
   },
   {
+    id: 4,
+    title: "Connect Four",
+    image: "/images/17.png",
+    githubLink: "https://github.com/jose-guerrerog/connect-four",
+    demoLink: "https://jose-guerrerog.github.io/connect-four/",
+  },
+  {
     id: 5,
     title: "3D Sofa",
     image: "/images/5.png",
@@ -136,13 +143,6 @@ export const projects = [
     githubLink: "https://github.com/jose-guerrerog/portfolio",
     demoLink: "https://portfolio-pink-seven-87.vercel.app/",
   },
-  // {
-  //   id: 4,
-  //   title: "Connect Four",
-  //   image: "/images/4.png",
-  //   githubLink: "https://github.com/jose-guerrerog/connect-four",
-  //   demoLink: "https://jose-guerrerog.github.io/connect-four/",
-  // },
 ];
 
 export const technologies = [
