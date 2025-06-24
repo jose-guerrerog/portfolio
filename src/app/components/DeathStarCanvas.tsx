@@ -259,7 +259,7 @@ export default function DeathStarCanvas() {
             <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto"></div>
           </div>
           <div className="font-mono text-sm">
-            Loading 3D Model with Workers...
+            Loading 3D Model ...
           </div>
           <div className="w-48 bg-gray-700 rounded-full h-2 mt-3 mx-auto">
             <div 
