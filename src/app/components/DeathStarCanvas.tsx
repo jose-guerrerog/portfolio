@@ -26,7 +26,8 @@ const Scene = () => {
     meshesProcessed: 0,
     optimizationLevel: 0
   });
-  
+  const isMobile = window.innerWidth < 768
+
   // Set initial camera position with smooth transition
   useEffect(() => {
     camera.position.set(0, 0, 8);
@@ -222,7 +223,7 @@ const Scene = () => {
       <Suspense fallback={<ModelLoader />}>
         <DeathStar 
           position={[0, 0, 0]} 
-          scale={[0.06, 0.06, 0.06]}
+          scale={isMobile ? [0.04, 0.04, 0.04] : [0.06, 0.06, 0.06]}
           isRotating={autoRotate}
           onLoad={handleDeathStarLoad}
         />
@@ -253,7 +254,7 @@ export default function DeathStarCanvas() {
 
   if (!canvasReady) {
     return (
-      <div className="h-[600px] flex items-center justify-center text-white">
+      <div className="h-[400px] flex items-center justify-center text-white">
         <div className="text-center">
           <div className="mb-4">
             <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto"></div>
@@ -282,7 +283,7 @@ export default function DeathStarCanvas() {
       shadows={true}
       style={{ 
         width: '100%', 
-        height: '600px'
+        height: '400px'
       }}
       camera={{ 
         position: [0, 0, 8],

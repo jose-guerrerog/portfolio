@@ -8,7 +8,7 @@ export default function Home() {
           Welcome to my Site
         </h1>
 
-        <p className="text-sky-200 text-lg md:text-xl font-medium mb-8 tracking-wide drop-shadow-sm">
+        <p className="text-sky-200 text-lg md:text-xl font-medium mb-12 tracking-wide drop-shadow-sm">
           Click and drag to rotate the Death Star
         </p>
       </div>

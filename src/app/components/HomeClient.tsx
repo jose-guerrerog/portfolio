@@ -9,7 +9,7 @@ useGLTF.preload("/models/death_star-draco-2.glb");
 const DeathStarCanvas = dynamic(() => import("./DeathStarCanvas"), {
   ssr: false,
   loading: () => (
-    <div className="h-[600px] text-center text-white flex items-center justify-center">
+    <div className="h-[400px] text-center text-white flex items-center justify-center">
       Loading 3D...
     </div>
   ),
@@ -33,7 +33,7 @@ export default function HomeClient() {
 
   return (
     <>
-      <div ref={containerRef} className="h-[600px]">
+      <div ref={containerRef} className="h-[400px]">
         {isVisible && <DeathStarCanvas />}
       </div>
       <div className="mt-6">
