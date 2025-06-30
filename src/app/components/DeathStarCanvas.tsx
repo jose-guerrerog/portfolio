@@ -5,7 +5,6 @@ import * as THREE from "three";
 import DeathStar from "../models/DeathStar";
 import { Canvas, useThree } from "@react-three/fiber";
 
-// Simple loading component
 const ModelLoader = () => {
   return (
     <mesh>
@@ -147,11 +146,9 @@ const Scene = () => {
     };
   }, [gl, isDragging, previousMousePosition, deathStarGroup]);
 
-  // Handle Death Star group reference
   const handleDeathStarLoad = (group: THREE.Group) => {
     setDeathStarGroup(group);
     
-    // Update worker stats when model loads
     setWorkerStats(prev => ({
       ...prev,
       active: true,
@@ -159,7 +156,6 @@ const Scene = () => {
     }));
   };
 
-  // Monitor performance and adjust quality
   useEffect(() => {
     let frameCount = 0;
     let lastTime = performance.now();
@@ -196,7 +192,6 @@ const Scene = () => {
 
   return (
     <>
-      {/* Enhanced lighting setup with worker-optimized shadows */}
       <ambientLight intensity={0.4} />
       <directionalLight 
         position={[5, 5, 5]} 
@@ -219,7 +214,6 @@ const Scene = () => {
         castShadow={workerStats.optimizationLevel > 1}
       />
       
-      {/* Death Star model with worker optimization */}
       <Suspense fallback={<ModelLoader />}>
         <DeathStar 
           position={[0, 0, 0]} 
@@ -236,7 +230,6 @@ export default function DeathStarCanvas() {
   const [canvasReady, setCanvasReady] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   
-  // Simulate loading progress
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingProgress(prev => {

@@ -63,9 +63,6 @@ function initializeModel(data) {
   });
 }
 
-/**
- * Start animation loop in worker
- */
 function startAnimation(data = {}) {
   if (isAnimating) return;
   
@@ -76,17 +73,11 @@ function startAnimation(data = {}) {
   animationLoop();
 }
 
-/**
- * Stop animation
- */
 function stopAnimation() {
   isAnimating = false;
   console.log('⏹️ Animation stopped');
 }
 
-/**
- * Update animation speed
- */
 function updateAnimationSpeed(speed) {
   animationSpeed = speed;
   self.postMessage({
@@ -95,9 +86,6 @@ function updateAnimationSpeed(speed) {
   });
 }
 
-/**
- * Main animation loop
- */
 function animationLoop() {
   if (!isAnimating || !animationData) return;
   
@@ -105,16 +93,13 @@ function animationLoop() {
   const deltaTime = (currentTime - animationData.lastUpdate) / 1000;
   animationData.lastUpdate = currentTime;
   
-  // Calculate smooth rotation
   if (animationData.autoRotate && !animationData.isDragging) {
     animationData.rotation.y += animationSpeed;
     
-    // Optional: Add subtle wobble for more dynamic movement
     animationData.rotation.x = Math.sin(currentTime * 0.001) * 0.02;
     animationData.rotation.z = Math.cos(currentTime * 0.0008) * 0.01;
   }
   
-  // Send updated rotation data to main thread
   self.postMessage({
     type: 'ANIMATION_FRAME',
     data: {
@@ -124,29 +109,22 @@ function animationLoop() {
     }
   });
   
-  // Continue animation loop
   setTimeout(() => animationLoop(), 16); // ~60 FPS
 }
 
-/**
- * Calculate complex rotation based on user interaction
- */
 function calculateRotation(data) {
   const { mouseMovement, sensitivity, currentRotation } = data;
   
-  // Heavy rotation calculations
   const rotationMatrix = {
     x: currentRotation.x + (mouseMovement.y * sensitivity * 0.01),
     y: currentRotation.y + (mouseMovement.x * sensitivity * 0.01),
     z: currentRotation.z
   };
   
-  // Apply damping/smoothing
   const damping = 0.95;
   rotationMatrix.x *= damping;
   rotationMatrix.y *= damping;
   
-  // Update animation data
   if (animationData) {
     animationData.rotation = rotationMatrix;
     animationData.isDragging = data.isDragging;
@@ -162,31 +140,24 @@ function calculateRotation(data) {
   });
 }
 
-/**
- * Process mesh data for optimization
- */
+
 function processMeshData(data) {
-  console.log('🔧 Processing mesh data...');
   const startTime = performance.now();
   
   const { meshes, optimizationLevel } = data;
   const processedMeshes = [];
   
-  // Simulate heavy mesh processing
   meshes.forEach((mesh, index) => {
-    // Calculate level of detail (LOD)
     const distance = Math.sqrt(
       Math.pow(mesh.position.x, 2) + 
       Math.pow(mesh.position.y, 2) + 
       Math.pow(mesh.position.z, 2)
     );
     
-    // Determine appropriate detail level
     let detailLevel = 'high';
     if (distance > 10) detailLevel = 'medium';
     if (distance > 20) detailLevel = 'low';
     
-    // Process based on optimization level
     const processed = {
       id: mesh.id,
       detailLevel,
@@ -210,18 +181,14 @@ function processMeshData(data) {
   });
 }
 
-/**
- * Optimize geometry for better performance
- */
+
 function optimizeGeometry(data) {
   console.log('⚡ Optimizing geometry...');
   const startTime = performance.now();
   
   const { vertices, faces, targetReduction } = data;
   
-  // Simulate geometry optimization (normally would use algorithms like mesh decimation)
   const optimizedVertices = vertices.filter((_, index) => {
-    // Keep every nth vertex based on target reduction
     const keepRatio = 1 - targetReduction;
     return Math.random() < keepRatio;
   });
@@ -251,37 +218,28 @@ function optimizeGeometry(data) {
   });
 }
 
-/**
- * Calculate lighting effects
- */
 function calculateLighting(data) {
-  console.log('💡 Calculating lighting...');
   const startTime = performance.now();
   
   const { lights, surfaces, cameraPosition } = data;
   const lightingData = [];
   
-  // Heavy lighting calculations
   surfaces.forEach(surface => {
     lights.forEach(light => {
-      // Calculate distance from light to surface
       const distance = Math.sqrt(
         Math.pow(light.position.x - surface.position.x, 2) +
         Math.pow(light.position.y - surface.position.y, 2) +
         Math.pow(light.position.z - surface.position.z, 2)
       );
       
-      // Calculate light intensity based on distance
       const intensity = light.intensity / (1 + distance * distance * 0.01);
       
-      // Calculate angle between surface normal and light direction
       const lightDirection = {
         x: light.position.x - surface.position.x,
         y: light.position.y - surface.position.y,
         z: light.position.z - surface.position.z
       };
       
-      // Normalize light direction
       const magnitude = Math.sqrt(
         lightDirection.x * lightDirection.x +
         lightDirection.y * lightDirection.y +
@@ -294,7 +252,6 @@ function calculateLighting(data) {
         lightDirection.z /= magnitude;
       }
       
-      // Calculate dot product with surface normal
       const dotProduct = 
         surface.normal.x * lightDirection.x +
         surface.normal.y * lightDirection.y +
@@ -323,22 +280,16 @@ function calculateLighting(data) {
   });
 }
 
-/**
- * Compute shadow maps
- */
 function computeShadows(data) {
-  console.log('🌑 Computing shadows...');
   const startTime = performance.now();
   
   const { objects, lights, shadowMapSize } = data;
   const shadowData = [];
   
-  // Heavy shadow calculations
   objects.forEach(obj => {
     lights.forEach(light => {
       if (!light.castShadows) return;
       
-      // Ray casting for shadow detection
       const shadowRays = [];
       const rayCount = shadowMapSize || 64;
       
@@ -353,7 +304,6 @@ function computeShadows(data) {
           }
         };
         
-        // Check if ray hits any other object (simplified)
         let isInShadow = false;
         objects.forEach(otherObj => {
           if (otherObj.id !== obj.id) {
@@ -395,7 +345,6 @@ function computeShadows(data) {
   });
 }
 
-// Ready signal
 self.postMessage({
   type: 'MODEL_WORKER_READY',
   data: { message: 'Model optimization worker ready' }
