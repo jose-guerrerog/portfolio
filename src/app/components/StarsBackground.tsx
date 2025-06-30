@@ -18,12 +18,10 @@ export default function OptimizedStarsBackground() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingStage, setLoadingStage] = useState('Initializing...');
 
-  // Immediate canvas setup (no worker dependency)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Quick canvas setup
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -35,9 +33,8 @@ export default function OptimizedStarsBackground() {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Show immediate basic stars while worker loads
     const quickStars: Star[] = [];
-    const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000)); // Fewer stars for speed
+    const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 15000));
     
     for (let i = 0; i < count; i++) {
       quickStars.push({
@@ -56,9 +53,7 @@ export default function OptimizedStarsBackground() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Initialize worker with delay to not block initial render
   useEffect(() => {
-    // Delay worker loading to prioritize initial page render
     const workerTimer = setTimeout(() => {
       setLoadingStage('Loading worker...');
       
@@ -96,7 +91,6 @@ export default function OptimizedStarsBackground() {
         
         workerRef.current = worker;
         
-        // Initialize worker with current canvas size
         const canvas = canvasRef.current;
         if (canvas) {
           worker.postMessage({
@@ -127,7 +121,6 @@ export default function OptimizedStarsBackground() {
     };
   }, []);
 
-  // Optimized render loop with proper animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -135,12 +128,11 @@ export default function OptimizedStarsBackground() {
     if (!ctx) return;
 
     let frameCount = 0;
-    const targetFPS = 60; // Smooth animation
+    const targetFPS = 60;
     const frameInterval = 1000 / targetFPS;
     let lastFrameTime = 0;
 
     const render = (currentTime: number) => {
-      // Throttle to target FPS
       if (currentTime - lastFrameTime < frameInterval) {
         animationRef.current = requestAnimationFrame(render);
         return;
@@ -149,7 +141,6 @@ export default function OptimizedStarsBackground() {
       lastFrameTime = currentTime;
       frameCount++;
 
-      // Create animated background gradient
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, canvas.height / 2.2, 0,
         canvas.width / 2, canvas.height / 2, canvas.width * 1.2
@@ -160,8 +151,7 @@ export default function OptimizedStarsBackground() {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Animate stars individually with twinkling
-      const time = currentTime * 0.001; // Convert to seconds
+      const time = currentTime * 0.001;
       
       stars.forEach((star) => {
         // Create twinkling effect
@@ -182,7 +172,6 @@ export default function OptimizedStarsBackground() {
         
         ctx.fill();
         
-        // Add subtle glow for brighter stars
         if (star.radius > 1) {
           ctx.beginPath();
           ctx.arc(star.x, star.y, radius * 2, 0, 2 * Math.PI);
@@ -191,7 +180,6 @@ export default function OptimizedStarsBackground() {
         }
       });
 
-      // Show loading indicator
       if (isLoading) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.font = '14px monospace';
@@ -201,7 +189,6 @@ export default function OptimizedStarsBackground() {
       animationRef.current = requestAnimationFrame(render);
     };
 
-    // Start animation immediately
     animationRef.current = requestAnimationFrame(render);
 
     return () => {
@@ -213,12 +200,10 @@ export default function OptimizedStarsBackground() {
 
   return (
     <>
-      {/* Optimized Stars Canvas */}
       <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -1 }}>
         <canvas ref={canvasRef} className="w-full h-full" />
       </div>
 
-      {/* Minimal Loading Indicator */}
       {isLoading && (
         <div className="fixed top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded text-sm font-mono">
           {loadingStage}
