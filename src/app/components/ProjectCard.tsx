@@ -25,7 +25,7 @@ const ProjectCard = ({
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
     >
-=      {isCardHovered && (
+      {isCardHovered && (
         <div className="absolute inset-0 bg-black opacity-50 z-10 transition duration-300" />
       )}
 
