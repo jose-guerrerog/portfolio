@@ -25,12 +25,10 @@ const ProjectCard = ({
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
     >
-      {/* Overlay */}
-      {isCardHovered && (
+=      {isCardHovered && (
         <div className="absolute inset-0 bg-black opacity-50 z-10 transition duration-300" />
       )}
 
-      {/* Image */}
       <div
         className={`${
           isPortfolio ? "border-t border-l border-r border-black rounded-t" : ""
@@ -39,12 +37,10 @@ const ProjectCard = ({
         <OptimizedCardMedia image={image} title={title} />
       </div>
 
-      {/* Title Section (Bottom) */}
       <div className="p-4 bg-black z-20 relative">
         <h3 className="text-lg font-semibold text-white">{title}</h3>
       </div>
 
-      {/* Action buttons (hover) */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex gap-4">
         <Link
           href={githubLink}
