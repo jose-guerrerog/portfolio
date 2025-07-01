@@ -2,6 +2,9 @@ let animationData = null;
 let isAnimating = false;
 let animationSpeed = 0.005;
 let animationFrameId = null;
+let inertiaVelocity = { x: 0, y: 0, z: 0 };
+let damping = 0.92;
+let idleSpinVelocity = { x: 0, y: 0.008, z: 0 };
 
 self.onmessage = function (e) {
   const { type, data } = e.data;
@@ -24,6 +27,9 @@ self.onmessage = function (e) {
       break;
     case 'UPDATE_ROTATION':
       updateRotation(data);
+      break;
+    case 'APPLY_INERTIA':
+      applyInertia(data.velocity);
       break;
   }
 };
@@ -70,13 +76,21 @@ function updateAnimationSpeed(speed) {
 function setDragging(isDragging) {
   if (animationData) {
     animationData.isDragging = isDragging;
+    if (isDragging) {
+      inertiaVelocity = { x: 0, y: 0, z: 0 };
+    }
   }
 }
 
 function updateRotation(data) {
   if (animationData) {
     animationData.rotation = { ...data };
+    animationData.lastUpdate = performance.now();
   }
+}
+
+function applyInertia(velocity) {
+  inertiaVelocity = { ...velocity };
 }
 
 function animationLoop() {
@@ -87,10 +101,19 @@ function animationLoop() {
   animationData.lastUpdate = currentTime;
 
   if (!animationData.isDragging) {
-    animationData.rotation.y += animationSpeed;
-    animationData.rotation.x = Math.sin(currentTime * 0.001) * 0.02;
-    animationData.rotation.z = Math.cos(currentTime * 0.0008) * 0.01;
-    animationData.rotation.y %= (Math.PI * 2);
+    // inertia
+    animationData.rotation.x += inertiaVelocity.x;
+    animationData.rotation.y += inertiaVelocity.y;
+    animationData.rotation.z += inertiaVelocity.z;
+
+    // damping
+    inertiaVelocity.x *= damping;
+    inertiaVelocity.y *= damping;
+    inertiaVelocity.z *= damping;
+
+    // idle rotation by default
+    animationData.rotation.y += idleSpinVelocity.y;
+    animationData.rotation.y %= Math.PI * 2;
   }
 
   self.postMessage({

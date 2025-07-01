@@ -6,13 +6,18 @@ import * as THREE from "three";
 interface DeathStarProps {
   position: [number, number, number];
   scale: [number, number, number];
-  onLoad?: (group: THREE.Group, worker: Worker, setDragging: (dragging: boolean) => void, getRotation: () => void) => void;
-  syncedRotation?: { x: number; y: number; z: number };
+  onLoad?: (
+    group: THREE.Group,
+    worker: Worker,
+    setDragging: (dragging: boolean) => void,
+    syncRotation: () => void
+  ) => void;
 }
 
-const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad, syncedRotation }) => {
+const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad }) => {
   const groupRef = useRef<THREE.Group>(null);
   const workerRef = useRef<Worker | null>(null);
+  const skipNextFrameRef = useRef(false);
   const { scene } = useGLTF("./models/death_star-draco-2.glb");
 
   const [isReady, setIsReady] = useState(false);
@@ -33,6 +38,10 @@ const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad, syncedRo
           worker.postMessage({ type: "START_ANIMATION" });
           break;
         case "ANIMATION_FRAME":
+          if (skipNextFrameRef.current) {
+            skipNextFrameRef.current = false;
+            return; // ✅ skip the stale frame
+          }
           setWorkerRotation(data.rotation);
           break;
       }
@@ -71,7 +80,8 @@ const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad, syncedRo
         () => {
           if (groupRef.current) {
             const r = groupRef.current.rotation;
-            setWorkerRotation({ x: r.x, y: r.y, z: r.z }); // <- important to keep continuity
+            setWorkerRotation({ x: r.x, y: r.y, z: r.z });
+            skipNextFrameRef.current = true; // ✅ prevent jump
           }
         }
       );

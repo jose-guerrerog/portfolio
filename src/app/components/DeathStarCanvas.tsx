@@ -16,7 +16,6 @@ const Scene = () => {
   const { gl } = useThree();
   const [deathStarGroup, setDeathStarGroup] = useState<THREE.Group | null>(null);
   const workerRef = useRef<Worker | null>(null);
-  const isDraggingRef = useRef(false);
   const setDraggingRef = useRef<(dragging: boolean) => void>();
   const syncRotationRef = useRef<() => void>();
 
@@ -25,81 +24,88 @@ const Scene = () => {
 
     const canvas = gl.domElement;
     const previousMouse = { x: 0, y: 0 };
+    let isDragging = false;
+    let lastDelta = { x: 0, y: 0 };
+
+    const endDrag = () => {
+      isDragging = false;
+      setDraggingRef.current?.(false);
+      workerRef.current?.postMessage({ type: 'SET_DRAGGING', data: { isDragging: false } });
+
+      if (deathStarGroup) {
+        const r = deathStarGroup.rotation;
+
+        syncRotationRef.current?.();
+
+        workerRef.current?.postMessage({
+          type: 'UPDATE_ROTATION',
+          data: { x: r.x, y: r.y, z: r.z }
+        });
+
+        const velocity = {
+          x: lastDelta.y * 0.003,
+          y: lastDelta.x * 0.003,
+          z: 0
+        };
+
+        workerRef.current?.postMessage({
+          type: 'APPLY_INERTIA',
+          data: { velocity }
+        });
+      }
+    };
 
     const handleMouseDown = (e: MouseEvent) => {
-      isDraggingRef.current = true;
-      setDraggingRef.current!(true);
+      isDragging = true;
+      setDraggingRef.current?.(true);
+      workerRef.current?.postMessage({ type: 'SET_DRAGGING', data: { isDragging: true } });
       previousMouse.x = e.clientX;
       previousMouse.y = e.clientY;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isDraggingRef.current || !deathStarGroup) return;
-
+      if (!isDragging || !deathStarGroup) return;
       const dx = e.clientX - previousMouse.x;
       const dy = e.clientY - previousMouse.y;
-
       deathStarGroup.rotation.y += dx * 0.003;
       deathStarGroup.rotation.x += dy * 0.003;
-
+      lastDelta = { x: dx, y: dy };
       previousMouse.x = e.clientX;
       previousMouse.y = e.clientY;
     };
 
-    const handleMouseUp = () => {
-      isDraggingRef.current = false;
-      setDraggingRef.current!(false);
-      if (syncRotationRef.current) syncRotationRef.current();
-
-      if (deathStarGroup) {
-        const r = deathStarGroup.rotation;
-        workerRef.current?.postMessage({
-          type: 'UPDATE_ROTATION',
-          data: { x: r.x, y: r.y, z: r.z }
-        });
-      }
+    const handleMouseUp = () => endDrag();
+    const handleMouseLeave = () => {
+      if (isDragging) endDrag();
     };
 
     const handleTouchStart = (e: TouchEvent) => {
       const touch = e.touches[0];
-      isDraggingRef.current = true;
-      setDraggingRef.current!(true);
+      isDragging = true;
+      setDraggingRef.current?.(true);
+      workerRef.current?.postMessage({ type: 'SET_DRAGGING', data: { isDragging: true } });
       previousMouse.x = touch.clientX;
       previousMouse.y = touch.clientY;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isDraggingRef.current || !deathStarGroup) return;
-
+      if (!isDragging || !deathStarGroup) return;
       const touch = e.touches[0];
       const dx = touch.clientX - previousMouse.x;
       const dy = touch.clientY - previousMouse.y;
-
       deathStarGroup.rotation.y += dx * 0.003;
       deathStarGroup.rotation.x += dy * 0.003;
-
+      lastDelta = { x: dx, y: dy };
       previousMouse.x = touch.clientX;
       previousMouse.y = touch.clientY;
     };
 
-    const handleTouchEnd = () => {
-      isDraggingRef.current = false;
-      setDraggingRef.current!(false);
-      if (syncRotationRef.current) syncRotationRef.current();
-
-      if (deathStarGroup) {
-        const r = deathStarGroup.rotation;
-        workerRef.current?.postMessage({
-          type: 'UPDATE_ROTATION',
-          data: { x: r.x, y: r.y, z: r.z }
-        });
-      }
-    };
+    const handleTouchEnd = () => endDrag();
 
     canvas.addEventListener('mousedown', handleMouseDown);
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseup', handleMouseUp);
-    canvas.addEventListener('mouseleave', handleMouseUp);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
     canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
     canvas.addEventListener('touchend', handleTouchEnd);
@@ -108,7 +114,7 @@ const Scene = () => {
       canvas.removeEventListener('mousedown', handleMouseDown);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseup', handleMouseUp);
-      canvas.removeEventListener('mouseleave', handleMouseUp);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
       canvas.removeEventListener('touchstart', handleTouchStart);
       canvas.removeEventListener('touchmove', handleTouchMove);
       canvas.removeEventListener('touchend', handleTouchEnd);
@@ -163,7 +169,10 @@ export default function DeathStarCanvas() {
           </div>
           <div className="font-mono text-sm">Loading 3D Model...</div>
           <div className="w-48 bg-gray-700 rounded-full h-2 mt-3 mx-auto">
-            <div className="bg-blue-400 h-2 rounded-full transition-all duration-300" style={{ width: `${loadingProgress}%` }}></div>
+            <div
+              className="bg-blue-400 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${loadingProgress}%` }}
+            ></div>
           </div>
           <div className="text-xs text-gray-400 mt-2">{Math.round(loadingProgress)}%</div>
         </div>
