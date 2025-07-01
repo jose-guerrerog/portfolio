@@ -18,14 +18,14 @@ const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad }) => {
   const groupRef = useRef<THREE.Group>(null);
   const workerRef = useRef<Worker | null>(null);
   const skipNextFrameRef = useRef(false);
-  const { scene } = useGLTF("./models/death_star-draco-2.glb");
+  const { scene } = useGLTF("./models/death-star-draco.glb");
 
   const [isReady, setIsReady] = useState(false);
   const [workerRotation, setWorkerRotation] = useState({ x: 0, y: 0, z: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    const worker = new Worker("/workers/model-worker.js");
+    const worker = new Worker("/workers/death-star-worker.js");
 
     worker.onmessage = (e) => {
       const { type, data } = e.data;
@@ -40,7 +40,7 @@ const DeathStar: React.FC<DeathStarProps> = ({ position, scale, onLoad }) => {
         case "ANIMATION_FRAME":
           if (skipNextFrameRef.current) {
             skipNextFrameRef.current = false;
-            return; // ✅ skip the stale frame
+            return;
           }
           setWorkerRotation(data.rotation);
           break;

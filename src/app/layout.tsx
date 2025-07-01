@@ -30,7 +30,7 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/models/death_star-draco-2.glb"
+          href="/models/death-star-draco.glb"
           as="fetch"
           crossOrigin="anonymous"
         />

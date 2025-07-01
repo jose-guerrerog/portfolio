@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import AudioControl from "./AudioControl";
 import { useGLTF } from "@react-three/drei";
 
-useGLTF.preload("/models/death_star-draco-2.glb");
+useGLTF.preload("/models/death-star-draco.glb");
 
 const DeathStarCanvas = dynamic(() => import("./DeathStarCanvas"), {
   ssr: false,
