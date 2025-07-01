@@ -16,7 +16,6 @@ export default function OptimizedStarsBackground() {
   const animationRef = useRef<number>();
   const [stars, setStars] = useState<Star[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingStage, setLoadingStage] = useState('Initializing...');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,14 +47,12 @@ export default function OptimizedStarsBackground() {
     }
     
     setStars(quickStars);
-    setLoadingStage('Basic stars ready');
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
     const workerTimer = setTimeout(() => {
-      setLoadingStage('Loading worker...');
       
       try {
         const worker = new Worker('/workers/stars-worker.js');
@@ -65,13 +62,11 @@ export default function OptimizedStarsBackground() {
           
           switch(type) {
             case 'WORKER_READY':
-              setLoadingStage('Worker ready');
               setIsLoading(false);
               break;
               
             case 'STARS_INITIALIZED':
               setStars(data.stars);
-              setLoadingStage('Stars enhanced');
               break;
               
             case 'STARS_UPDATED':
@@ -85,7 +80,6 @@ export default function OptimizedStarsBackground() {
         };
         
         worker.onerror = () => {
-          setLoadingStage('Worker failed - using fallback');
           setIsLoading(false);
         };
         
@@ -107,10 +101,9 @@ export default function OptimizedStarsBackground() {
         
       } catch (error) {
         console.warn('Worker failed to load, using fallback stars');
-        setLoadingStage('Fallback mode');
         setIsLoading(false);
       }
-    }, 100); // Small delay to let page render first
+    }, 100);
 
     return () => {
       clearTimeout(workerTimer);
@@ -182,7 +175,6 @@ export default function OptimizedStarsBackground() {
       if (isLoading) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.font = '14px monospace';
-        ctx.fillText(loadingStage, 20, canvas.height - 30);
       }
 
       animationRef.current = requestAnimationFrame(render);
@@ -195,19 +187,11 @@ export default function OptimizedStarsBackground() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [stars, isLoading, loadingStage]);
+  }, [stars, isLoading]);
 
   return (
-    <>
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -1 }}>
-        <canvas ref={canvasRef} className="w-full h-full" />
-      </div>
-
-      {isLoading && (
-        <div className="fixed top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded text-sm font-mono">
-          {loadingStage}
-        </div>
-      )}
-    </>
+    <div className="fixed inset-0 pointer-events-none" style={{ zIndex: -1 }}>
+      <canvas ref={canvasRef} className="w-full h-full" />
+    </div>
   );
 }
