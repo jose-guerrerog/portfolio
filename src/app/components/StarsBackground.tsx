@@ -165,7 +165,6 @@ export default function OptimizedStarsBackground() {
         if (star.color === 'white') {
           ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
         } else {
-          // Handle colored stars
           const color = star.color.replace('1)', `${opacity})`);
           ctx.fillStyle = color;
         }
