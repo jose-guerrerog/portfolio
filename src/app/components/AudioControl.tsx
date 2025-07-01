@@ -1,27 +1,37 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
 export default function AudioControl() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  useEffect(() => {
+    const audio = new Audio("/audio.mp3");
+    audio.loop = true;
+    audio.volume = 0.4;
+    audio.preload = "auto";
+    audioRef.current = audio;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
   const handleToggle = async () => {
-    // Create the audio element only on first interaction
-    if (!audioRef.current) {
-      const audio = new Audio("/audio.mp3");
-      audio.loop = true;
-      audio.volume = 0.4;
-      audioRef.current = audio;
-    }
+    if (!audioRef.current) return;
 
     try {
       if (isPlaying) {
-        await audioRef.current?.pause();
+        audioRef.current.pause();
+        setIsPlaying(false);
       } else {
-        await audioRef.current?.play();
+        await audioRef.current.play();
+        setIsPlaying(true);
       }
-      setIsPlaying(!isPlaying);
     } catch (err) {
       console.warn("Audio playback failed:", err);
     }
