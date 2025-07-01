@@ -3,10 +3,10 @@ let isAnimating = false;
 let animationSpeed = 0.005;
 let animationFrameId = null;
 
-self.onmessage = function(e) {
+self.onmessage = function (e) {
   const { type, data } = e.data;
-  
-  switch(type) {
+
+  switch (type) {
     case 'INIT_MODEL':
       initializeModel(data);
       break;
@@ -22,18 +22,21 @@ self.onmessage = function(e) {
     case 'SET_DRAGGING':
       setDragging(data.isDragging);
       break;
+    case 'UPDATE_ROTATION':
+      updateRotation(data);
+      break;
   }
 };
 
 function initializeModel(data = {}) {
   console.log('🚀 Model worker initializing...');
-  
+
   animationData = {
     rotation: { x: 0, y: 0, z: 0 },
     isDragging: false,
     lastUpdate: performance.now()
   };
-  
+
   self.postMessage({
     type: 'MODEL_INITIALIZED',
     data: { status: 'Ready' }
@@ -42,17 +45,16 @@ function initializeModel(data = {}) {
 
 function startAnimation(data = {}) {
   if (isAnimating) return;
-  
+
   isAnimating = true;
   animationSpeed = data.speed || 0.005;
-  
   console.log('🎬 Starting animation loop in worker');
   animationLoop();
 }
 
 function stopAnimation() {
   isAnimating = false;
-  
+
   if (animationFrameId) {
     clearTimeout(animationFrameId);
     animationFrameId = null;
@@ -71,22 +73,26 @@ function setDragging(isDragging) {
   }
 }
 
+function updateRotation(data) {
+  if (animationData) {
+    animationData.rotation = { ...data };
+  }
+}
+
 function animationLoop() {
   if (!isAnimating || !animationData) return;
-  
+
   const currentTime = performance.now();
   const deltaTime = (currentTime - animationData.lastUpdate) / 1000;
   animationData.lastUpdate = currentTime;
-  
+
   if (!animationData.isDragging) {
     animationData.rotation.y += animationSpeed;
-    
     animationData.rotation.x = Math.sin(currentTime * 0.001) * 0.02;
     animationData.rotation.z = Math.cos(currentTime * 0.0008) * 0.01;
-    
-    animationData.rotation.y = animationData.rotation.y % (Math.PI * 2);
+    animationData.rotation.y %= (Math.PI * 2);
   }
-  
+
   self.postMessage({
     type: 'ANIMATION_FRAME',
     data: {
@@ -95,9 +101,9 @@ function animationLoop() {
       timestamp: currentTime
     }
   });
-  
+
   if (isAnimating) {
-    animationFrameId = setTimeout(() => animationLoop(), 16); // ~60 FPS
+    animationFrameId = setTimeout(animationLoop, 16);
   }
 }
 

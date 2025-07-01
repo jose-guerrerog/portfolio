@@ -1,81 +1,99 @@
 'use client';
 
 import { useState, useEffect, Suspense, useRef } from 'react';
-import * as THREE from "three";
-import DeathStar from "../models/DeathStar";
-import { Canvas, useThree } from "@react-three/fiber";
+import * as THREE from 'three';
+import DeathStar from '../models/DeathStar';
+import { Canvas, useThree } from '@react-three/fiber';
 
-const ModelLoader = () => {
-  return (
-    <mesh>
-      <sphereGeometry args={[0.5, 16, 16]} />
-      <meshStandardMaterial color="#4c82ed" wireframe />
-    </mesh>
-  );
-};
+const ModelLoader = () => (
+  <mesh>
+    <sphereGeometry args={[0.5, 16, 16]} />
+    <meshStandardMaterial color="#4c82ed" wireframe />
+  </mesh>
+);
 
 const Scene = () => {
   const { gl } = useThree();
-  const [isDragging, setIsDragging] = useState(false);
-  const [previousMousePosition, setPreviousMousePosition] = useState({ x: 0, y: 0 });
   const [deathStarGroup, setDeathStarGroup] = useState<THREE.Group | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+  const isDraggingRef = useRef(false);
+  const setDraggingRef = useRef<(dragging: boolean) => void>();
+  const syncRotationRef = useRef<() => void>();
 
-  // Simple mouse interaction
   useEffect(() => {
-    if (!gl || !deathStarGroup) return;
-    
+    if (!gl || !deathStarGroup || !setDraggingRef.current) return;
+
     const canvas = gl.domElement;
-    
+    const previousMouse = { x: 0, y: 0 };
+
     const handleMouseDown = (e: MouseEvent) => {
-      setIsDragging(true);
-      setPreviousMousePosition({ x: e.clientX, y: e.clientY });
+      isDraggingRef.current = true;
+      setDraggingRef.current!(true);
+      previousMouse.x = e.clientX;
+      previousMouse.y = e.clientY;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || !deathStarGroup) return;
-      
-      const deltaMove = {
-        x: e.clientX - previousMousePosition.x,
-        y: e.clientY - previousMousePosition.y
-      };
+      if (!isDraggingRef.current || !deathStarGroup) return;
 
-      // Apply rotation directly
-      deathStarGroup.rotation.y += deltaMove.x * 0.01;
-      deathStarGroup.rotation.x += deltaMove.y * 0.01;
+      const dx = e.clientX - previousMouse.x;
+      const dy = e.clientY - previousMouse.y;
 
-      setPreviousMousePosition({ x: e.clientX, y: e.clientY });
+      deathStarGroup.rotation.y += dx * 0.003;
+      deathStarGroup.rotation.x += dy * 0.003;
+
+      previousMouse.x = e.clientX;
+      previousMouse.y = e.clientY;
     };
 
     const handleMouseUp = () => {
-      setIsDragging(false);
+      isDraggingRef.current = false;
+      setDraggingRef.current!(false);
+      if (syncRotationRef.current) syncRotationRef.current();
+
+      if (deathStarGroup) {
+        const r = deathStarGroup.rotation;
+        workerRef.current?.postMessage({
+          type: 'UPDATE_ROTATION',
+          data: { x: r.x, y: r.y, z: r.z }
+        });
+      }
     };
 
-    // Touch events for mobile
     const handleTouchStart = (e: TouchEvent) => {
-      e.preventDefault();
       const touch = e.touches[0];
-      setIsDragging(true);
-      setPreviousMousePosition({ x: touch.clientX, y: touch.clientY });
+      isDraggingRef.current = true;
+      setDraggingRef.current!(true);
+      previousMouse.x = touch.clientX;
+      previousMouse.y = touch.clientY;
     };
-    
+
     const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      if (!isDragging || !deathStarGroup) return;
-      
+      if (!isDraggingRef.current || !deathStarGroup) return;
+
       const touch = e.touches[0];
-      const deltaMove = {
-        x: touch.clientX - previousMousePosition.x,
-        y: touch.clientY - previousMousePosition.y
-      };
-      
-      deathStarGroup.rotation.y += deltaMove.x * 0.01;
-      deathStarGroup.rotation.x += deltaMove.y * 0.01;
-      
-      setPreviousMousePosition({ x: touch.clientX, y: touch.clientY });
+      const dx = touch.clientX - previousMouse.x;
+      const dy = touch.clientY - previousMouse.y;
+
+      deathStarGroup.rotation.y += dx * 0.003;
+      deathStarGroup.rotation.x += dy * 0.003;
+
+      previousMouse.x = touch.clientX;
+      previousMouse.y = touch.clientY;
     };
-    
+
     const handleTouchEnd = () => {
-      setIsDragging(false);
+      isDraggingRef.current = false;
+      setDraggingRef.current!(false);
+      if (syncRotationRef.current) syncRotationRef.current();
+
+      if (deathStarGroup) {
+        const r = deathStarGroup.rotation;
+        workerRef.current?.postMessage({
+          type: 'UPDATE_ROTATION',
+          data: { x: r.x, y: r.y, z: r.z }
+        });
+      }
     };
 
     canvas.addEventListener('mousedown', handleMouseDown);
@@ -95,33 +113,23 @@ const Scene = () => {
       canvas.removeEventListener('touchmove', handleTouchMove);
       canvas.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [gl, isDragging, previousMousePosition, deathStarGroup]);
-
-  const handleDeathStarLoad = (group: THREE.Group) => {
-    setDeathStarGroup(group);
-  };
-
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  }, [gl, deathStarGroup]);
 
   return (
     <>
       <ambientLight intensity={0.4} />
-      <directionalLight 
-        position={[5, 5, 5]} 
-        intensity={1.2}
-        castShadow
-      />
-      <directionalLight 
-        position={[-5, 5, 5]} 
-        intensity={0.6}
-        color="#8080ff"
-      />
-      
+      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+      <directionalLight position={[-5, 5, 5]} intensity={0.6} color="#8080ff" />
       <Suspense fallback={<ModelLoader />}>
-        <DeathStar 
-          position={[0, 0, 0]} 
-          scale={isMobile ? [0.04, 0.04, 0.04] : [0.06, 0.06, 0.06]}
-          onLoad={handleDeathStarLoad}
+        <DeathStar
+          position={[0, 0, 0]}
+          scale={[0.06, 0.06, 0.06]}
+          onLoad={(group, worker, setDragging, syncRotation) => {
+            setDeathStarGroup(group);
+            workerRef.current = worker;
+            setDraggingRef.current = setDragging;
+            syncRotationRef.current = syncRotation;
+          }}
         />
       </Suspense>
     </>
@@ -131,11 +139,10 @@ const Scene = () => {
 export default function DeathStarCanvas() {
   const [canvasReady, setCanvasReady] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  
-  // Simple loading simulation
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setLoadingProgress(prev => {
+      setLoadingProgress((prev) => {
         if (prev >= 100) {
           setCanvasReady(true);
           clearInterval(interval);
@@ -144,7 +151,6 @@ export default function DeathStarCanvas() {
         return prev + Math.random() * 15;
       });
     }, 200);
-    
     return () => clearInterval(interval);
   }, []);
 
@@ -157,25 +163,16 @@ export default function DeathStarCanvas() {
           </div>
           <div className="font-mono text-sm">Loading 3D Model...</div>
           <div className="w-48 bg-gray-700 rounded-full h-2 mt-3 mx-auto">
-            <div 
-              className="bg-blue-400 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${loadingProgress}%` }}
-            ></div>
+            <div className="bg-blue-400 h-2 rounded-full transition-all duration-300" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <div className="text-xs text-gray-400 mt-2">
-            {Math.round(loadingProgress)}%
-          </div>
+          <div className="text-xs text-gray-400 mt-2">{Math.round(loadingProgress)}%</div>
         </div>
       </div>
     );
   }
 
   return (
-    <Canvas 
-      shadows
-      style={{ width: '100%', height: '400px' }}
-      camera={{ position: [0, 0, 8], fov: 50 }}
-    >
+    <Canvas shadows style={{ width: '100%', height: '400px' }} camera={{ position: [0, 0, 8], fov: 50 }}>
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
