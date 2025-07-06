@@ -14,7 +14,7 @@ import { useInView } from 'react-intersection-observer';
 import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
 
 export default function Experience() {
-  const { ref: experienceRef, inView } = useInView({ threshold: 0.5 });
+  const { ref: experienceRef, inView } = useInView({ rootMargin: "-50% 0px -50% 0px", });
   const { setActiveSection } = useActiveSection();
 
   useEffect(() => {
