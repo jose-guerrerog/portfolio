@@ -1,29 +1,33 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { projects } from "../constants";
 import ProjectCard from "../components/ProjectCard";
 
-const Projects = () => {
+export default function Projects() {
   return (
-    <section id="projects" className="w-full my-16">
-      <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-[#2482ff] mb-10">
+    <section id="projects" className="w-full py-16 px-4 scroll-mt-16">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-10 text-center"
+      >
         Projects
-      </h2>
+      </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-14 justify-center">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-14 justify-center"
+      >
         {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            image={project.image}
-            githubLink={project.githubLink}
-            demoLink={project.demoLink}
-            isPortfolio={project.id === 3}
-          />
+          <ProjectCard key={project.id} {...project} />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
-};
-
-export default Projects;
+}

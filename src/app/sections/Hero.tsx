@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useGLTF } from "@react-three/drei";
@@ -18,7 +19,7 @@ const DeathStarCanvas = dynamic(() => import("../components/DeathStarCanvas"), {
   ),
 });
 
-export default function Hero() {
+export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
 
@@ -35,39 +36,26 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="w-full relative">
-      <div className="w-full max-w-4xl mx-auto text-center pt-16">
-        <motion.h1
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl md:text-6xl font-semibold italic mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 text-transparent bg-clip-text animate-shine drop-shadow-md tracking-tight"
-        >
-          Welcome to my Site
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-sky-200 text-lg md:text-xl font-medium mb-12 tracking-wide drop-shadow-sm"
-        >
-          Click and drag to rotate the Death Star
-        </motion.p>
-      </div>
-      <div className="flex flex-col lg:flex-row items-center justify-between">
+    <section id="home" className="w-full relative py-16 px-4 lg:px-0 scroll-mt-16">
+      <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto">
         {/* Left Text Section */}
-        <div className="lg:w-1/2 space-y-6">
-          <h2 className="text-xl text-white">Hello,</h2>
-          <h1 className="text-5xl font-bold text-white">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="lg:w-1/2 space-y-6 text-center lg:text-left"
+        >
+          <motion.h2 className="text-xl text-white">Hello,</motion.h2>
+          <motion.h1 className="text-5xl font-bold text-white">
             I&apos;m <span className="text-yellow-400">Jose</span>
-          </h1>
-          <p className="text-lg text-gray-300 leading-relaxed">
+          </motion.h1>
+          <motion.p className="text-lg text-gray-300 leading-relaxed">
             I am a skilled and passionate software developer with experience in
             creating interactive web applications.
-          </p>
+          </motion.p>
 
-          <div className="flex gap-4 pt-4">
+          <div className="flex gap-4 pt-4 justify-center lg:justify-start">
             <a
               href="/assets/Resume - Jose Guerrero.pdf"
               download
@@ -82,34 +70,30 @@ export default function Hero() {
               Contact Me
             </Link>
           </div>
+        </motion.div>
 
-          <div className="flex gap-4 pt-6">
-            <Link href={githubLink}>
-              <Image
-                src="/images/github-mark-white.svg"
-                alt="Github Icon"
-                width={35}
-                height={35}
-              />
-            </Link>
-            <Link href={linkedinLink}>
-              <Image
-                src="/images/linkedin-icon.svg"
-                alt="Linkedin Icon"
-                width={45}
-                height={45}
-              />
-            </Link>
-          </div>
-        </div>
-
-        {/* Avatar Section */}
-        <div className="lg:w-1/2 space-y-6">
+        {/* Death Star Section */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="lg:w-1/2 space-y-6 mt-10 lg:mt-0"
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-sky-200 text-lg md:text-xl font-medium tracking-wide drop-shadow-sm text-center"
+          >
+            Click and drag to rotate the Death Star
+          </motion.p>
           <div ref={containerRef} className="h-[400px]">
             {isVisible && <DeathStarCanvas />}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
