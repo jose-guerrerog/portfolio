@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
+import { ActiveSectionProvider } from "@/app/contexts/ActiveSectionContext";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,9 +12,12 @@ import "../lib/draco-setup";
 import Navbar from "@/app/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
-const StarsBackground = dynamic(() => import("@/app/components/StarsBackground"), {
-  ssr: false,
-});
+const StarsBackground = dynamic(
+  () => import("@/app/components/StarsBackground"),
+  {
+    ssr: false,
+  }
+);
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,16 +40,18 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-black text-white`}>
-        <StarsBackground />
-        <Navbar />
-        <ToastContainer />
-        <main className="flex justify-center px-4 sm:px-16 my-14">
-          <div className="w-full max-w-[1400px]">
-            <Suspense fallback={<div className="text-white">Loading...</div>}>
-              {children}
-            </Suspense>
-          </div>
-        </main>
+        <ActiveSectionProvider>
+          <StarsBackground />
+          <Navbar />
+          <ToastContainer />
+          <main className="flex justify-center px-4 sm:px-16 my-14">
+            <div className="w-full max-w-[1400px]">
+              <Suspense fallback={<div className="text-white">Loading...</div>}>
+                {children}
+              </Suspense>
+            </div>
+          </main>
+        </ActiveSectionProvider>
       </body>
     </html>
   );
