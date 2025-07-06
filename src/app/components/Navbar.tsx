@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { navItems } from '../constants';
-import { useActiveSection } from '@/app/contexts/ActiveSectionContext'
+import { navItems } from "../constants";
+import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
 
 export default function Navbar() {
   const { activeSection } = useActiveSection();
-
-  console.log(activeSection)
-
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,14 +25,14 @@ export default function Navbar() {
         scrolled ? "bg-black/90 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
-      {/* Full-width padding-free container */}
       <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 py-4">
-        {/* Logo */}
-        <Link href="/" className="text-white text-3xl sm:text-4xl font-semibold">
+        <Link
+          href="/"
+          className="text-white text-3xl sm:text-4xl font-semibold"
+        >
           Jose<span className="text-[#00ff99]">.</span>
         </Link>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex space-x-10 items-center text-white text-base font-medium">
           {navItems.map((item) => (
             <Link
@@ -72,8 +67,10 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className={`block py-2 text-white text-lg font-medium border-b border-gray-700 ${
-                `#${activeSection}` === item.href ? "text-[#00ff99]" : ""
+              className={`block py-2 text-lg font-medium border-b border-gray-700 ${
+                `#${activeSection}` === item.href
+                  ? "text-[#00ff99]"
+                  : "text-white"
               }`}
             >
               {item.label}
