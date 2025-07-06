@@ -9,7 +9,7 @@ import { githubLink, linkedinLink } from "../constants";
 
 useGLTF.preload("/models/death-star-draco.glb");
 
-const DeathStarCanvas = dynamic(() => import("./DeathStarCanvas"), {
+const DeathStarCanvas = dynamic(() => import("../components/DeathStarCanvas"), {
   ssr: false,
   loading: () => (
     <div className="h-[400px] text-center text-white flex items-center justify-center">
@@ -18,7 +18,7 @@ const DeathStarCanvas = dynamic(() => import("./DeathStarCanvas"), {
   ),
 });
 
-export default function HomeClient() {
+export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
 
@@ -76,7 +76,7 @@ export default function HomeClient() {
               Download Resume
             </a>
             <Link
-              href="/contact"
+              href="#contact"
               className="px-6 py-2 rounded-full border border-white text-white font-medium hover:bg-white hover:text-black transition"
             >
               Contact Me

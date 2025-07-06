@@ -12,7 +12,7 @@ import { experiences } from "../constants";
 export default function About() {
 
   return (
-    <section id="about" className="max-w-7xl mx-auto px-6 py-16">
+    <section id="experience" className="max-w-7xl mx-auto px-6 py-16">
       {/* Timeline Section */}
       <div className="mt-24">
         <VerticalTimeline animate>
