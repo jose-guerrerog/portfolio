@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import {
   VerticalTimeline,
@@ -10,10 +10,20 @@ import "react-vertical-timeline-component/style.min.css";
 import { experiences } from "../constants";
 import { motion } from "framer-motion";
 import { experienceAnimations, createAlternatingVariants } from "@/lib/animations";
+import { useInView } from 'react-intersection-observer';
+import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
 
 export default function Experience() {
+  const { ref: experienceRef, inView } = useInView({ threshold: 0.5 });
+  const { setActiveSection } = useActiveSection();
+
+  useEffect(() => {
+    if (inView) setActiveSection("experience");
+  }, [inView]);
+
   return (
     <motion.section
+      ref={experienceRef}
       id="experience"
       className="max-w-7xl mx-auto py-16"
       initial="hidden"
@@ -21,7 +31,6 @@ export default function Experience() {
       viewport={{ once: true, amount: 0.1 }}
       variants={experienceAnimations.container}
     >
-      {/* Timeline Section */}
       <motion.div className="mt-24" variants={experienceAnimations.timeline}>
         <VerticalTimeline animate>
           {experiences.map((exp, index) => (

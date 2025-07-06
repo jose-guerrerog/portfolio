@@ -1,13 +1,24 @@
 "use client";
 
+import { useEffect } from 'react';
 import { motion } from "framer-motion";
 import { projects } from "../constants";
 import ProjectCard from "../components/ProjectCard";
 import { projectAnimations } from "@/lib/animations";
+import { useInView } from 'react-intersection-observer';
+import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
 
 export default function Projects() {
+  const { ref: projectsRef, inView } = useInView({ threshold: 0.5 });
+  const { setActiveSection } = useActiveSection();
+
+  useEffect(() => {
+    if (inView) setActiveSection("projects");
+  }, [inView]);
+
   return (
     <motion.section
+      ref={projectsRef}
       id="projects"
       className="w-full py-20 px-4 scroll-mt-16"
       initial="hidden"

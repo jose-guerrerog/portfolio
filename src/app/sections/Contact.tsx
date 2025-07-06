@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { useInView } from 'react-intersection-observer';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
@@ -10,8 +11,12 @@ import Image from "next/image";
 import { githubLink, linkedinLink } from "../constants";
 import { motion } from "framer-motion";
 import { contactAnimations } from "@/lib/animations";
+import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
 
 const Contact = () => {
+  const { ref: contactRef, inView } = useInView({ threshold: 0.5 });
+  const { setActiveSection } = useActiveSection();
+
   const {
     register,
     handleSubmit,
@@ -41,10 +46,15 @@ const Contact = () => {
     reset();
   };
 
+  useEffect(() => {
+    if (inView) setActiveSection("contact");
+  }, [inView]);
+
   return (
     <motion.section
+      ref={contactRef}
       id="contact"
-      className="flex flex-col items-center py-16 mt-16"
+      className="flex flex-col items-center py-16"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -54,7 +64,7 @@ const Contact = () => {
       
       {/* Heading */}
       <motion.h2
-        className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-green-400 mb-12 text-center drop-shadow-md"
+        className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-green-400 mb-12 mt-16 text-center drop-shadow-md"
         variants={contactAnimations.title}
       >
         Get in Touch

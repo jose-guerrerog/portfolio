@@ -5,8 +5,13 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { navItems } from '../constants';
+import { useActiveSection } from '@/app/contexts/ActiveSectionContext'
 
 export default function Navbar() {
+  const { activeSection } = useActiveSection();
+
+  console.log(activeSection)
+
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,11 +44,11 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className={`relative pb-1 hover:text-[#00ff99] transition ${
-                pathname === item.href ? "text-[#00ff99]" : ""
+                `#${activeSection}` === item.href ? "text-[#00ff99]" : ""
               }`}
             >
               {item.label}
-              {pathname === item.href && (
+              {`#${activeSection}` === item.href && (
                 <span className="absolute bottom-[-6px] left-0 w-full h-[2px] bg-[#00ff99]" />
               )}
             </Link>
@@ -68,7 +73,7 @@ export default function Navbar() {
               href={item.href}
               onClick={() => setMenuOpen(false)}
               className={`block py-2 text-white text-lg font-medium border-b border-gray-700 ${
-                pathname === item.href ? "text-[#00ff99]" : ""
+                `#${activeSection}` === item.href ? "text-[#00ff99]" : ""
               }`}
             >
               {item.label}

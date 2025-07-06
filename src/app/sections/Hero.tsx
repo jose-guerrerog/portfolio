@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { useInView } from 'react-intersection-observer';
 import dynamic from "next/dynamic";
 import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion";
+import { useActiveSection } from "@/app/contexts/ActiveSectionContext";
+
 
 useGLTF.preload("/models/death-star-draco.glb");
 
@@ -16,9 +19,16 @@ const DeathStarCanvas = dynamic(() => import("../components/DeathStarCanvas"), {
   ),
 });
 
-export default function Home() {
+export default function Hero() {
+  const { ref: heroRef, inView } = useInView({ threshold: 0.5 });
+  const { setActiveSection } = useActiveSection();
+
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (inView) setActiveSection("home");
+  }, [inView]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -33,7 +43,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section id="home" className="w-full relative py-16 px-4 lg:px-0 scroll-mt-16">
+    <section ref={heroRef} id="hero" className="w-full relative py-16 px-4 lg:px-0 scroll-mt-16">
       <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto mt-10">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
