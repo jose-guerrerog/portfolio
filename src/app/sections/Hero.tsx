@@ -4,9 +4,6 @@ import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
-import { githubLink, linkedinLink } from "../constants";
 
 useGLTF.preload("/models/death-star-draco.glb");
 
@@ -37,8 +34,7 @@ export default function Home() {
 
   return (
     <section id="home" className="w-full relative py-16 px-4 lg:px-0 scroll-mt-16">
-      <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto">
-        {/* Left Text Section */}
+      <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto mt-10">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -63,16 +59,8 @@ export default function Home() {
             >
               Download Resume
             </a>
-            <Link
-              href="#contact"
-              className="px-6 py-2 rounded-full border border-white text-white font-medium hover:bg-white hover:text-black transition"
-            >
-              Contact Me
-            </Link>
           </div>
         </motion.div>
-
-        {/* Death Star Section */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
