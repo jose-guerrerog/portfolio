@@ -1,5 +1,5 @@
 export const navItems = [
-  { label: "Home", href: "#home" },
+  { label: "Home", href: "#hero" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
@@ -206,7 +206,7 @@ export const experiences = [
     company_name: "Children's Hospital Westmead - WSU",
     iconBg: "black",
     title: "Master of Philosophy - Researcher",
-    date: "Jun 2024 - Present",
+    date: "Apr 2025 - Present",
     icon: "/images/schnkids_logo.jpeg",
     points: [
       "Building an interactive VR/AR visual analytics platform in Unity (C#) for exploring genomic and biomedical data",

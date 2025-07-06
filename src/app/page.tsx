@@ -5,7 +5,7 @@ import Contact from './sections/Contact';
 
 export default function Home() {
   return (
-    <div className="text-white">
+    <div id="#home" className="text-white">
       <Hero />
       <Experience />
       <Projects />

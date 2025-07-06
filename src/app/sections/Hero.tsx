@@ -44,7 +44,7 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} id="hero" className="w-full relative py-16 px-4 lg:px-0 scroll-mt-16">
-      <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto mt-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto mt-20">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
