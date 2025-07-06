@@ -35,7 +35,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="w-full relative px-4">
+    <div className="w-full relative">
       <div className="w-full max-w-4xl mx-auto text-center pt-16">
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
@@ -55,9 +55,9 @@ export default function Hero() {
           Click and drag to rotate the Death Star
         </motion.p>
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between">
         {/* Left Text Section */}
-        <div className="md:w-1/2 space-y-6">
+        <div className="lg:w-1/2 space-y-6">
           <h2 className="text-xl text-white">Hello,</h2>
           <h1 className="text-5xl font-bold text-white">
             I&apos;m <span className="text-yellow-400">Jose</span>
@@ -104,9 +104,11 @@ export default function Hero() {
         </div>
 
         {/* Avatar Section */}
-        <div ref={containerRef} className="h-[400px]">
-        {isVisible && <DeathStarCanvas />}
-      </div>
+        <div className="lg:w-1/2 space-y-6">
+          <div ref={containerRef} className="h-[400px]">
+            {isVisible && <DeathStarCanvas />}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="flex flex-col items-center px-4 py-16">
+    <section id="contact" className="flex flex-col items-center py-16">
       <ToastContainer />
       
       {/* Heading */}

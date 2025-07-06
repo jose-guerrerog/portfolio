@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <div className="text-white">
       <Hero />
-      <Projects />
       <Experience />
+      <Projects />
       <Contact />
     </div>
   );
