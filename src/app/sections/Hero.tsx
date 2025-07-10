@@ -27,7 +27,7 @@ export default function Hero() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (inView) setActiveSection("home");
+    if (inView) setActiveSection("hero");
   }, [inView]);
 
   useEffect(() => {
