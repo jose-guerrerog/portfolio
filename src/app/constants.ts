@@ -205,15 +205,15 @@ export const experiences = [
   {
     company_name: "Children's Hospital Westmead - WSU",
     iconBg: "black",
-    title: "Master of Philosophy - Researcher",
+    title: "Master of Philosophy Candidate",
     date: "Apr 2025 - Present",
     icon: "/images/schnkids_logo.jpeg",
     points: [
-      "Building an interactive VR/AR visual analytics platform in Unity (C#) for exploring genomic and biomedical data",
-      "Developing 3D interfaces that translate complex data patterns into intuitive, spatially organized visuals for clinicians",
-      "Applying supervised and unsupervised ML (e.g. Random Forest, UMAP) to extract insights from biomedical data for clinical use",
-      "Processing and analysing gene expression and flow cytometry datasets in Python to enable pattern discovery and interpretation",
-      "Collaborating with medical researchers to ensure outputs align with real-world diagnostic and research workflows",
+      "Exploring ML techniques in PyTorch for biomedical data, focusing on interpretability and clinical relevance",
+      "Evaluating supervised and unsupervised models (e.g. Random Forest, UMAP) for feature extraction and dimensionality reduction",
+      "Reviewing explainable AI (XAI) methods to support transparent, trustworthy ML models in clinical settings",
+      "Designing a VR/AR analytics platform using React.js, Three.js, and WebXR to visualize ML-driven insights",
+      "Preparing for dataset acquisition and model development with the Children’s Hospital at Westmead",
     ],
   },
   {
