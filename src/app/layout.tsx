@@ -42,9 +42,9 @@ export default function RootLayout({
       <body className={`${inter.className} bg-black text-white`}>
         <ActiveSectionProvider>
           <StarsBackground />
-          <Navbar />
-          <ToastContainer />
-          <main className="flex justify-center px-4 sm:px-16 my-14">
+          {/* <Navbar /> */}
+          {/* <ToastContainer /> */}
+          <main className="flex justify-center px-4 sm:px-16">
             <div className="w-full max-w-[1400px]">
               <Suspense fallback={<div className="text-white">Loading...</div>}>
                 {children}
